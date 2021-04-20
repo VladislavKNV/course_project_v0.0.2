@@ -59,11 +59,12 @@ namespace course_project_v0._0._2
 			{
 				TextBoxLogin.BorderBrush = Brushes.LimeGreen;
 				loginbool = true;
-				LoginLabel.Visibility = Visibility.Hidden;
+				LoginLabel.Content = null;
 			}
 			else
 			{
 				TextBoxLogin.BorderBrush = Brushes.DarkRed;
+				loginbool = false;
 			}
 		}
 
@@ -73,11 +74,14 @@ namespace course_project_v0._0._2
 			if (Regex.IsMatch(PasswordBox.Password, pattern, RegexOptions.IgnoreCase))
 			{
 				PasswordBox.BorderBrush = Brushes.LimeGreen;
-				PassLabel.Visibility = Visibility.Hidden;
+				PassLabel.Content = null;
 				passbool = true;
 			}
 			else
-				PasswordBox.BorderBrush = Brushes.Red;
+			{
+				PasswordBox.BorderBrush = Brushes.DarkRed;
+				passbool = false;
+			}
 
 		}
 	}

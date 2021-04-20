@@ -49,6 +49,14 @@ namespace course_project_v0._0._2
 				Pass2Label.Content = "Пароль должен содержать от 4 до 20 символов и совпадать с другим паролем.";
 			}
 
+			if (emailbool == true && loginbool == true && pass1bool == true && pass2bool == true)
+			{
+				MessageBox.Show("Регистрация прошла успешно.");
+				Close();
+				Sing_In sing_In = new Sing_In();
+				sing_In.Show();
+			}
+
 		}
 
 		public bool emailbool = false;
@@ -65,8 +73,8 @@ namespace course_project_v0._0._2
 				{
 					Pass1.BorderBrush = Brushes.LimeGreen;
 					Pass2.BorderBrush = Brushes.LimeGreen;
-					Pass1Label.Visibility = Visibility.Hidden;
-					Pass2Label.Visibility = Visibility.Hidden;
+					Pass1Label.Content = null;
+					Pass2Label.Content = null;
 					pass1bool = true;
 				}
 				else
@@ -78,6 +86,7 @@ namespace course_project_v0._0._2
 			else
 			{
 				Pass1.BorderBrush = Brushes.DarkRed;
+				pass1bool = false;
 			}
 		}
 
@@ -90,8 +99,8 @@ namespace course_project_v0._0._2
 				{
 					Pass1.BorderBrush = Brushes.LimeGreen;
 					Pass2.BorderBrush = Brushes.LimeGreen;
-					Pass2Label.Visibility = Visibility.Hidden;
-					Pass1Label.Visibility = Visibility.Hidden;
+					Pass2Label.Content = null;
+					Pass1Label.Content = null;
 					pass2bool = true;
 				}
 				else
@@ -103,6 +112,7 @@ namespace course_project_v0._0._2
 			else
 			{
 				Pass2.BorderBrush = Brushes.DarkRed;
+				pass2bool = false;
 			}
 
 		}
@@ -115,12 +125,13 @@ namespace course_project_v0._0._2
 			{
 
 				EmailTextBox.BorderBrush = Brushes.LimeGreen;
-				EmailLabel.Visibility = Visibility.Hidden;
+				EmailLabel.Content = null;
 				emailbool = true;
 			}
 			else
 			{
 				EmailTextBox.BorderBrush = Brushes.DarkRed;
+				emailbool = false;
 			}
 			
 		}
@@ -132,12 +143,13 @@ namespace course_project_v0._0._2
 			if (Regex.IsMatch(LoginTextBox.Text, pattern, RegexOptions.IgnoreCase))
 			{
 				LoginTextBox.BorderBrush = Brushes.LimeGreen;
-				LoginLabel.Visibility = Visibility.Hidden;
+				LoginLabel.Content = null;
 				loginbool = true;
 			}
 			else
 			{
 				LoginTextBox.BorderBrush = Brushes.DarkRed;
+				loginbool = false;
 			}
 		}
 	}
