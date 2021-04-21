@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using course_project_v0._0._2.DataBase;
+using System.Security.Cryptography;
 
 namespace course_project_v0._0._2
 {
@@ -49,19 +50,21 @@ namespace course_project_v0._0._2
 					{
 						if (check.login.Trim() == TextBoxLogin.Text.Trim())
 						{
-							if (check.password.Trim() == PasswordBox.Password.Trim())
+							if (check.password.Trim() == GetHashPassword(PasswordBox.Password.Trim()))
 							{
 								loginbool_for_sing_In = true;
 								MainWindow mainWindow = new MainWindow();
 								mainWindow.Show();
 							}
 							else
-								PassLabel.Content = "Неверный пароль.";
+								PassLabel.Content = "Неверный логин или пароль.";
+								LoginLabel.Content = "Неверный логин или пароль.";
 						}
 					}
 					if (loginbool_for_sing_In == false)
 					{
-						LoginLabel.Content = "Неверный логин.";
+						LoginLabel.Content = "Неверный логин или пароль.";
+						PassLabel.Content = "Неверный логин или пароль.";
 					}
 
 				}
@@ -90,7 +93,6 @@ namespace course_project_v0._0._2
 				loginbool = false;
 			}
 		}
-
 		private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
 		{
 			string pattern = @"\b\w{4,20}\b";
@@ -99,6 +101,7 @@ namespace course_project_v0._0._2
 				PasswordBox.BorderBrush = Brushes.LimeGreen;
 				PassLabel.Content = null;
 				passbool = true;
+
 			}
 			else
 			{
@@ -106,6 +109,24 @@ namespace course_project_v0._0._2
 				passbool = false;
 			}
 
+		}
+
+		private string GetHashPassword(string s)
+		{
+			//переводим строку в байт-массим  
+			byte[] bytes = Encoding.Unicode.GetBytes(s);
+			//создаем объект для получения средст шифрования  
+			MD5CryptoServiceProvider CSP =
+				new MD5CryptoServiceProvider();
+			//вычисляем хеш-представление в байтах  
+			byte[] byteHash = CSP.ComputeHash(bytes);
+			string hash = string.Empty;
+			//формируем одну цельную строку из массива  
+			foreach (byte b in byteHash)
+			{
+				hash += string.Format("{0:x2}", b);
+			}
+			return hash;
 		}
 	}
 }

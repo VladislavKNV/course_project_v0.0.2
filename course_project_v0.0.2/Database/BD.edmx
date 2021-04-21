@@ -10,15 +10,15 @@
             <PropertyRef Name="filmID" />
           </Key>
           <Property Name="filmID" Type="nchar" MaxLength="30" Nullable="false" />
-          <Property Name="filmName" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="filmName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="year" Type="int" />
           <Property Name="poster" Type="image" />
-          <Property Name="plotDescription" Type="nchar" MaxLength="300" />
-          <Property Name="genres" Type="nchar" MaxLength="30" />
+          <Property Name="plotDescription" Type="nvarchar" MaxLength="3000" />
+          <Property Name="genres" Type="nvarchar" MaxLength="50" />
           <Property Name="rating" Type="real" />
-          <Property Name="countries" Type="nchar" MaxLength="40" />
-          <Property Name="director" Type="nchar" MaxLength="30" />
-          <Property Name="actors" Type="nchar" MaxLength="50" />
+          <Property Name="countries" Type="nvarchar" MaxLength="60" />
+          <Property Name="director" Type="nvarchar" MaxLength="60" />
+          <Property Name="actors" Type="nvarchar" MaxLength="500" />
           <Property Name="duration" Type="int" />
           <Property Name="premiereDate" Type="date" />
         </EntityType>
@@ -66,11 +66,11 @@
             <PropertyRef Name="userID" />
           </Key>
           <Property Name="userID" Type="nchar" MaxLength="30" Nullable="false" />
-          <Property Name="login" Type="nchar" MaxLength="20" Nullable="false" />
-          <Property Name="password" Type="nchar" MaxLength="20" Nullable="false" />
-          <Property Name="EmailBD" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="login" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="password" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailBD" Type="nchar" MaxLength="40" Nullable="false" />
           <Property Name="admin" Type="bit" Nullable="false" />
-          <Property Name="basket" Type="nchar" MaxLength="100" />
+          <Property Name="basket" Type="nchar" MaxLength="300" />
         </EntityType>
         <Association Name="FK_Session_Film">
           <End Role="Film" Type="Self.Film" Multiplicity="1" />
@@ -154,15 +154,15 @@
             <PropertyRef Name="filmID" />
           </Key>
           <Property Name="filmID" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="filmName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="filmName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="year" Type="Int32" />
           <Property Name="poster" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="plotDescription" Type="String" MaxLength="300" FixedLength="true" Unicode="true" />
-          <Property Name="genres" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="plotDescription" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+          <Property Name="genres" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="rating" Type="Single" />
-          <Property Name="countries" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
-          <Property Name="director" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="actors" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="countries" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="director" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="actors" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="duration" Type="Int32" />
           <Property Name="premiereDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Session" Relationship="Self.FK_Session_Film" FromRole="Film" ToRole="Session" />
@@ -217,11 +217,11 @@
             <PropertyRef Name="userID" />
           </Key>
           <Property Name="userID" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="login" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="EmailBD" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EmailBD" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="admin" Type="Boolean" Nullable="false" />
-          <Property Name="basket" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="basket" Type="String" MaxLength="300" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Ticket" Relationship="Self.FK_Ticket_UsersBD" FromRole="UsersBD" ToRole="Ticket" />
         </EntityType>
         <Association Name="FK_Session_Film">

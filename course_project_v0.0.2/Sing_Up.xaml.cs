@@ -40,15 +40,41 @@ namespace course_project_v0._0._2
 			}
 			if (loginbool == false)
 			{
-				LoginLabel.Content = "Логин должен содержать от 4 до 20 символов.";
+				LoginLabel.Content = "Логин должен содержать от 4 до 30 символов.";
 			}
 			if (pass1bool == false)
 			{
-				Pass1Label.Content = "Пароль должен содержать от 4 до 20 символов и совпадать с другим паролем.";
+				Pass1Label.Content = "Пароль должен содержать от 4 до 30 символов и совпадать с другим паролем.";
 			}
 			if (pass2bool == false)
 			{
-				Pass2Label.Content = "Пароль должен содержать от 4 до 20 символов и совпадать с другим паролем.";
+				Pass2Label.Content = "Пароль должен содержать от 4 до 30 символов и совпадать с другим паролем.";
+			}
+
+			using (course_work cw = new course_work())
+			{
+
+				var forBD = cw.Database.SqlQuery<UsersBD>($"select * from UsersBD where UsersBD.login = '{LoginTextBox.Text.Trim()}'");
+				foreach (var check in forBD)
+				{
+					if (check.login != null)
+					{
+						LoginLabel.Content = "Такой логин уже зарегестрирован";
+						loginbool = false;
+
+					}
+				}
+
+				forBD = cw.Database.SqlQuery<UsersBD>($"select * from UsersBD where UsersBD.EmailBD = '{EmailTextBox.Text.Trim()}'");
+				foreach (var usercheck in forBD)
+				{
+					if (usercheck.EmailBD != null)
+					{
+						EmailLabel.Content = "Такая почта уже зарегестрирована";
+						emailbool = false;
+
+					}
+				}
 			}
 
 			if (emailbool == true && loginbool == true && pass1bool == true && pass2bool == true)
@@ -60,7 +86,7 @@ namespace course_project_v0._0._2
 					{
 						userID = UserID,
 						login = LoginTextBox.Text.Trim(),
-						password =  Pass1.Password.Trim(),
+						password = GetHashPassword(Pass1.Password.Trim()),
 						EmailBD = EmailTextBox.Text.Trim(),
 						admin = false,
 					};
@@ -84,7 +110,7 @@ namespace course_project_v0._0._2
 
 		private void pass1_PasswordChanged(object sender, RoutedEventArgs e)
 		{
-			string pattern = @"\b\w{4,20}\b";
+			string pattern = @"\b\w{4,30}\b";
 			if (Regex.IsMatch(Pass1.Password, pattern, RegexOptions.IgnoreCase))
 			{
 				if (Pass1.Password.Equals(Pass2.Password))
@@ -111,7 +137,7 @@ namespace course_project_v0._0._2
 
 		private void pass2_PasswordChanged(object sender, RoutedEventArgs e)
 		{
-			string pattern = @"\b\w{4,20}\b";
+			string pattern = @"\b\w{4,30}\b";
 			if (Regex.IsMatch(Pass2.Password, pattern, RegexOptions.IgnoreCase))
 			{
 				if (Pass2.Password.Equals(Pass1.Password))
@@ -141,9 +167,10 @@ namespace course_project_v0._0._2
 			string pattern = @"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
 				@"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$";
 			string pattern2 = @"\b\w{4,30}\b";
+
 			if (Regex.IsMatch(EmailTextBox.Text, pattern, RegexOptions.IgnoreCase))
 			{
-				if (Regex.IsMatch(Pass2.Password, pattern2, RegexOptions.IgnoreCase))
+				if (Regex.IsMatch(EmailTextBox.Text, pattern2, RegexOptions.IgnoreCase))
 				{
 					EmailTextBox.BorderBrush = Brushes.LimeGreen;
 					EmailLabel.Content = null;
@@ -160,7 +187,7 @@ namespace course_project_v0._0._2
 
 		private void LoginTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			string pattern = @"\b\w{4,20}\b";
+			string pattern = @"\b\w{4,30}\b";
 
 			if (Regex.IsMatch(LoginTextBox.Text, pattern, RegexOptions.IgnoreCase))
 			{
@@ -180,7 +207,7 @@ namespace course_project_v0._0._2
 				loginbool = false;
 			}
 		}
-		/*
+		
 		private string GetHashPassword(string s)
 		{
 			//переводим строку в байт-массим  
@@ -197,6 +224,6 @@ namespace course_project_v0._0._2
 				hash += string.Format("{0:x2}", b);
 			}
 			return hash;
-		}*/
+		}
 	}
 }

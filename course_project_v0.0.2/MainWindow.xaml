@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:course_project_v0._0._2"
         mc:Ignorable="d"
-       Title="Banksy" Height="600" Width="900" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
-    <Grid Background="#FFCCCEDB">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+       Title="Banksy" Height="650" Width="1000" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
+    <Grid Background="#cf3030">
+        <Border Margin="0 0 0 540" Background="#FF3E3E42">
+            <StackPanel>
+                <Button Content="Кар" Margin="880 10 40 20" Height="50" Background="Blue"></Button>
+            </StackPanel>
+        </Border>
         
     </Grid>
 </Window>
