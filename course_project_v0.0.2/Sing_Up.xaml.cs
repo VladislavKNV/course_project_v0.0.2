@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using course_project_v0._0._2.Database;
+using System.Security.Cryptography;
 
 namespace course_project_v0._0._2
 {
@@ -51,7 +53,22 @@ namespace course_project_v0._0._2
 
 			if (emailbool == true && loginbool == true && pass1bool == true && pass2bool == true)
 			{
+				
+				using (course_workBD cw = new course_workBD())
+				{
+					User user = new User()
+					{
+						userID = UserID,
+						login = LoginTextBox.Text,
+						password =  Pass1.Password,
+						E_mail = EmailTextBox.Text,
+						admin = false,
+					};
+					cw.User.Add(user);
+					cw.SaveChanges();
+				}
 				MessageBox.Show("Регистрация прошла успешно.");
+
 				Close();
 				Sing_In sing_In = new Sing_In();
 				sing_In.Show();
@@ -63,6 +80,7 @@ namespace course_project_v0._0._2
 		public bool loginbool = false;
 		public bool pass1bool = false;
 		public bool pass2bool = false;
+		public string UserID;
 
 		private void pass1_PasswordChanged(object sender, RoutedEventArgs e)
 		{
@@ -76,6 +94,7 @@ namespace course_project_v0._0._2
 					Pass1Label.Content = null;
 					Pass2Label.Content = null;
 					pass1bool = true;
+					pass2bool = true;
 				}
 				else
 				{
@@ -102,6 +121,7 @@ namespace course_project_v0._0._2
 					Pass2Label.Content = null;
 					Pass1Label.Content = null;
 					pass2bool = true;
+					pass1bool = true;
 				}
 				else
 				{
@@ -127,6 +147,7 @@ namespace course_project_v0._0._2
 				EmailTextBox.BorderBrush = Brushes.LimeGreen;
 				EmailLabel.Content = null;
 				emailbool = true;
+				
 			}
 			else
 			{
@@ -145,6 +166,12 @@ namespace course_project_v0._0._2
 				LoginTextBox.BorderBrush = Brushes.LimeGreen;
 				LoginLabel.Content = null;
 				loginbool = true;
+
+				//--
+				Random rnd = new Random();
+				int value = rnd.Next(1000000, 9999999);
+				UserID = $"{value}";
+				//--
 			}
 			else
 			{
@@ -152,5 +179,23 @@ namespace course_project_v0._0._2
 				loginbool = false;
 			}
 		}
+		/*
+		private string GetHashPassword(string s)
+		{
+			//переводим строку в байт-массим  
+			byte[] bytes = Encoding.Unicode.GetBytes(s);
+			//создаем объект для получения средст шифрования  
+			MD5CryptoServiceProvider CSP =
+				new MD5CryptoServiceProvider();
+			//вычисляем хеш-представление в байтах  
+			byte[] byteHash = CSP.ComputeHash(bytes);
+			string hash = string.Empty;
+			//формируем одну цельную строку из массива  
+			foreach (byte b in byteHash)
+			{
+				hash += string.Format("{0:x2}", b);
+			}
+			return hash;
+		}*/
 	}
 }

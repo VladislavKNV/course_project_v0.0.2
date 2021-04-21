@@ -8,9 +8,9 @@ using System.Data.Entity;
 
 namespace course_project_v0._0._2
 {
-	public class MuDbContext : DbContext
+	public class MyDbContext : DbContext
 	{
-		protected MuDbContext() : base("DbConnectionString")
+		protected MyDbContext() : base("name=course_workBD")
 		{
 		}
 	}

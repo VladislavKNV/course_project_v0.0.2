@@ -221,7 +221,7 @@
     <Compile Include="Database\User.cs">
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
-    <Compile Include="MuDbContext.cs" />
+    <Compile Include="MyDbContext.cs" />
     <Compile Include="Sing_In.xaml.cs">
       <DependentUpon>Sing_In.xaml</DependentUpon>
     </Compile>
