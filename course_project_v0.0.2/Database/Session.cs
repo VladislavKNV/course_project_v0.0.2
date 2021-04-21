@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace course_project_v0._0._2.Database
+namespace course_project_v0._0._2.DataBase
 {
     using System;
     using System.Collections.Generic;

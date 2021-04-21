@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace course_project_v0._0._2.Database
+namespace course_project_v0._0._2.DataBase
 {
     using System;
     using System.Collections.Generic;
@@ -20,6 +20,6 @@ namespace course_project_v0._0._2.Database
         public int price { get; set; }
     
         public virtual Session Session { get; set; }
-        public virtual User User { get; set; }
+        public virtual UsersBD UsersBD { get; set; }
     }
 }

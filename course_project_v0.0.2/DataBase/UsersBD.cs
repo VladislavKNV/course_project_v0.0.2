@@ -7,15 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace course_project_v0._0._2.Database
+namespace course_project_v0._0._2.DataBase
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class UsersBD
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public UsersBD()
         {
             this.Ticket = new HashSet<Ticket>();
         }
@@ -23,7 +23,7 @@ namespace course_project_v0._0._2.Database
         public string userID { get; set; }
         public string login { get; set; }
         public string password { get; set; }
-        public string E_mail { get; set; }
+        public string EmailBD { get; set; }
         public bool admin { get; set; }
         public string basket { get; set; }
     

@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace course_project_v0._0._2.Database
+namespace course_project_v0._0._2.DataBase
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class course_workBD : DbContext
+    public partial class course_work : DbContext
     {
-        public course_workBD()
-            : base("name=course_workBD")
+        public course_work()
+            : base("name=course_work")
         {
         }
     
@@ -30,6 +30,6 @@ namespace course_project_v0._0._2.Database
         public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UsersBD> UsersBD { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
-using course_project_v0._0._2.Database;
 using System.Security.Cryptography;
+using course_project_v0._0._2.DataBase;
 
 namespace course_project_v0._0._2
 {
@@ -54,17 +54,17 @@ namespace course_project_v0._0._2
 			if (emailbool == true && loginbool == true && pass1bool == true && pass2bool == true)
 			{
 				
-				using (course_workBD cw = new course_workBD())
+				using (course_work cw = new course_work())
 				{
-					User user = new User()
+					UsersBD user = new UsersBD()
 					{
 						userID = UserID,
-						login = LoginTextBox.Text,
-						password =  Pass1.Password,
-						E_mail = EmailTextBox.Text,
+						login = LoginTextBox.Text.Trim(),
+						password =  Pass1.Password.Trim(),
+						EmailBD = EmailTextBox.Text.Trim(),
 						admin = false,
 					};
-					cw.User.Add(user);
+					cw.UsersBD.Add(user);
 					cw.SaveChanges();
 				}
 				MessageBox.Show("Регистрация прошла успешно.");
@@ -140,14 +140,15 @@ namespace course_project_v0._0._2
 		{
 			string pattern = @"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
 				@"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$";
-
+			string pattern2 = @"\b\w{4,30}\b";
 			if (Regex.IsMatch(EmailTextBox.Text, pattern, RegexOptions.IgnoreCase))
 			{
-
-				EmailTextBox.BorderBrush = Brushes.LimeGreen;
-				EmailLabel.Content = null;
-				emailbool = true;
-				
+				if (Regex.IsMatch(Pass2.Password, pattern2, RegexOptions.IgnoreCase))
+				{
+					EmailTextBox.BorderBrush = Brushes.LimeGreen;
+					EmailLabel.Content = null;
+					emailbool = true;
+				}				
 			}
 			else
 			{

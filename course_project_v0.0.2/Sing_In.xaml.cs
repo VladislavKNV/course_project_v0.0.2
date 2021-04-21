@@ -12,8 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
-using course_project_v0._0._2.Database;
-using System.Data.SqlClient;
+using course_project_v0._0._2.DataBase;
 
 namespace course_project_v0._0._2
 {
@@ -29,8 +28,6 @@ namespace course_project_v0._0._2
 			Sing_Up sing_Up = new Sing_Up();
 			sing_Up.Show();
 		}
-		public string login_Sing_in;
-		public string password_Sing_in;
 		private void Button_Click_Sing_In(object sender, RoutedEventArgs e)
 		{
 			//Hide();
@@ -45,39 +42,37 @@ namespace course_project_v0._0._2
 			}
 			if (loginbool == true && passbool == true)
 			{
-			//	using (course_workBD cw = new course_workBD())
-				//{
-					SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-4I1BJOF;Initial Catalog=course_work;Integrated Security=True");
-					conn.Open();
-					SqlCommand command = new SqlCommand("SELECT * FROM User WHERE login = @TextBoxLogin.Text", conn);
-					command.Parameters.AddWithValue("@TextBoxLogin", TextBoxLogin.Text);
-					SqlDataReader reader = command.ExecuteReader();
-					if (reader.HasRows == true)
+				using (course_work cw = new course_work())
+				{
+					var forBD = cw.Database.SqlQuery<UsersBD>($"select * from UsersBD where UsersBD.login = '{TextBoxLogin.Text.Trim()}'");
+					foreach (var check in forBD)
 					{
-						MessageBox.Show("Corrected");
-					}
-					else
-					{
-						MessageBox.Show("Check user or password again!");
-					}
-					/*var forBD = cw.Database.SqlQuery<User>($"select * from User where User.login = '{TextBoxLogin.Text}'");
-					foreach (var check in forBD)//
-					{
-						if (check.login == TextBoxLogin.Text )
+						if (check.login.Trim() == TextBoxLogin.Text.Trim())
 						{
-							MainWindow mainWindow = new MainWindow();
-							mainWindow.Show();
+							if (check.password.Trim() == PasswordBox.Password.Trim())
+							{
+								loginbool_for_sing_In = true;
+								MainWindow mainWindow = new MainWindow();
+								mainWindow.Show();
+							}
+							else
+								PassLabel.Content = "Неверный пароль.";
 						}
-					}*/
-					MessageBox.Show("EEEEEEE");
+					}
+					if (loginbool_for_sing_In == false)
+					{
+						LoginLabel.Content = "Неверный логин.";
+					}
 
-				//}
+				}
+				
 
 			}
 
 		}
 
 		public bool loginbool = false;
+		public bool loginbool_for_sing_In = false;
 		public bool passbool = false;
 		private void LoginTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
@@ -88,7 +83,6 @@ namespace course_project_v0._0._2
 				TextBoxLogin.BorderBrush = Brushes.LimeGreen;
 				loginbool = true;
 				LoginLabel.Content = null;
-				login_Sing_in = TextBoxLogin.Text.Trim();
 			}
 			else
 			{
