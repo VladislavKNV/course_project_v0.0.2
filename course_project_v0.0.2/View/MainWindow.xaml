@@ -19,8 +19,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5" Orientation="Horizontal">
-                        <Image HorizontalAlignment="Right" Source="{Binding Path=Picture}" Width="160" Height="160"/>
-                        <StackPanel>
+                        <Image HorizontalAlignment="Right" Source="{Binding poster}" Width="160" Height="160"/>
+                        <StackPanel Margin="20 0 0 0 ">
                             <TextBlock Text="{Binding filmname}" Foreground="White" FontSize="20"></TextBlock>
                             <TextBlock Text="{Binding year}" FontSize="14" Foreground="White"></TextBlock>
                             <TextBlock Text="{Binding rating}" FontSize="14" Foreground="White"></TextBlock>

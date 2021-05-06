@@ -8,6 +8,10 @@ using System.Windows.Input;
 using course_project_v0._0._2.DataBase;
 using GalaSoft.MvvmLight;
 
+using System.IO;
+using System.Windows.Media.Imaging;
+using System.Drawing;
+
 namespace course_project_v0._0._2.View
 {
 	class AppView : ViewModelBase
@@ -23,12 +27,12 @@ namespace course_project_v0._0._2.View
         public string director { get; set; }
         public string actors { get; set; }
         public string duration { get; set; }
-        public DateTimeOffsetConverter premiereDate { get; set; }
+        public string premiereDate { get; set; }
   
 
 
 
-        public void Add(string _filmname, int _year,string _genres, float _rating, string _countries, string _director, int _duration)
+        public void Add(string _filmname, int _year,string _genres, float _rating, string _countries, string _director, int _duration, byte[] _poster)
         {
             filmname = _filmname;
             year = "Год: " + (int)_year;
@@ -37,10 +41,11 @@ namespace course_project_v0._0._2.View
             countries = "Страны: " + _countries;
             director = "Режисёр: " +  _director;
             duration = "Продолжительность: " +  (int)_duration;
+            poster = _poster;
 
         }
 
-        public void AddFilmsForAdmin(string _filmID, string _filmname, int _year,byte[] _poster,string _plotDescription, string _genres, float _rating, string _countries, string _director,string _actors, int _duration)
+        public void AddFilmsForAdmin(string _filmID, string _filmname, int _year,string _plotDescription, string _genres, float _rating, string _countries, string _director,string _actors, int _duration, byte[] _poster, string _premiereDate)
 		{
             filmID = _filmID;
             filmname = _filmname;
@@ -53,11 +58,33 @@ namespace course_project_v0._0._2.View
             director = _director;
             actors = _actors;
             duration = "" + (int)_duration;
+            premiereDate = _premiereDate;
 
 
 		}
+/*
+        private byte[] BitmapSourceToByteArray(BitmapSource image)
+        {
+            using (var stream = new MemoryStream())
+            {
+                var encoder = new PngBitmapEncoder(); // or some other encoder
+                encoder.Frames.Add(BitmapFrame.Create(image));
+                encoder.Save(stream);
+                return stream.ToArray();
+            }
+        }
 
+        public Image stringToImage(byte[] inputString)
+        {
+            //byte[] imageBytes = Encoding.Unicode.GetBytes(inputString);
 
+            MemoryStream ms = new MemoryStream(inputString);
+
+            Image image = Image.FromStream(ms, true, true);
+
+            return image;
+        }
+*/
     }
 
 }

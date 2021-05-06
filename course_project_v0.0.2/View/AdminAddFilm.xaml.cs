@@ -27,6 +27,7 @@ namespace course_project_v0._0._2.View
 		{
 			InitializeComponent();
 			InfoForUsers();
+			InfoForFilms();
 		}
 
 
@@ -53,7 +54,7 @@ namespace course_project_v0._0._2.View
 		}
 
 
-/*		private ObservableCollection<AppView> infoforfilms;
+		private ObservableCollection<AppView> infoforfilms;
 
 		public void InfoForFilms()
 		{
@@ -66,13 +67,13 @@ namespace course_project_v0._0._2.View
 				{
 					AppView allFilms = new AppView();
 
-					allFilms.AddFilmsForAdmin(i.filmID, i.filmName, (int)i.year, i.poster, i.plotDescription, i.genres,(float)i.rating, i.countries, i.director, i.actors,(int)i.duration);
+					allFilms.AddFilmsForAdmin(i.filmID, i.filmName, (int)i.year, i.plotDescription, i.genres,(float)i.rating, i.countries, i.director, i.actors,(int)i.duration, i.poster, i.premiereDate);
 					infoforfilms.Add(allFilms);
 				}
-				filmsGrid.ItemsSource = infoforfilms;
+				ListBoxFilms.ItemsSource = infoforfilms;
 			}
 		}
-*/
+
 		public bool namebool = false;
 		public bool yearbool = false;
 		public bool plotbool = false;
@@ -238,8 +239,8 @@ namespace course_project_v0._0._2.View
 					director = TextBoxFilmDirector.Text.Trim(),
 					actors = TextBoxFilmActors.Text.Trim(),
 					duration = Convert.ToInt32(TextBoxFilmDuration.Text.Trim()),
-					premiereDate = Convert.ToDateTime(TextBoxFilmPremiereDate.Text.Trim()),
-					poster = imageBytes
+					premiereDate = TextBoxFilmPremiereDate.Text.Trim(),
+					poster = PictureForByte
 				};
 				cw.Film.Add(user);
 				cw.SaveChanges();
@@ -247,6 +248,7 @@ namespace course_project_v0._0._2.View
 			MessageBox.Show("Запись прошла успешно.");
 		}
 		public string Picture;
+		public byte[] PictureForByte;
 		public void LoadImg()
 		{
 			OpenFileDialog dialog = new OpenFileDialog()
@@ -261,23 +263,14 @@ namespace course_project_v0._0._2.View
 			{
 				Picture = dialog.FileName;
 			}
-			
+
+			string path = Picture;
+			byte[] imageBytes = File.ReadAllBytes(path);
+			PictureForByte = imageBytes;
+				
+		
 		}
 
-
-		public void PictAdd()
-		{
-			using (course_work cw = new course_work())
-			{
-				byte[] imageBytes = File.ReadAllBytes(Picture);
-				Film test = new Film()
-				{
-					poster = imageBytes
-				};
-				cw.Film.Add(test);
-				cw.SaveChanges();
-			}
-		}
 		private void Button_Pict(object sender, RoutedEventArgs e)
 		{
 			LoadImg();
@@ -299,6 +292,15 @@ namespace course_project_v0._0._2.View
 		private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 
+		}
+
+		private void ListBoxFilms_SelectionChanged(object sender, SelectionChangedEventArgs e)//+++++++++++++++++++++-----------------------------
+		{
+			var aaa = ListBoxFilms.SelectedItem as AppView;
+			if (aaa != null)
+			{
+				
+			}
 		}
 	}
 

@@ -312,6 +312,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="ImageF\users.png" />
+    <Resource Include="ImageF\films.png" />
+    <Resource Include="ImageF\edit.png" />
+    <Resource Include="favicon_created_by_logaster.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DataBase\BD.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BD.edmx</DependentUpon>
@@ -322,12 +328,7 @@
       <DependentUpon>BD.edmx</DependentUpon>
       <LastGenOutput>BD.cs</LastGenOutput>
     </Content>
-    <Resource Include="ImageF\users.png" />
-    <Resource Include="ImageF\films.png" />
-    <Resource Include="ImageF\edit.png" />
-    <Resource Include="favicon_created_by_logaster.ico" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

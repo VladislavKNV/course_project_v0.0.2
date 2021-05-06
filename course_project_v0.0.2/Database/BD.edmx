@@ -18,9 +18,9 @@
           <Property Name="rating" Type="real" />
           <Property Name="countries" Type="nvarchar" MaxLength="60" />
           <Property Name="director" Type="nvarchar" MaxLength="60" />
-          <Property Name="actors" Type="nvarchar" MaxLength="500" />
+          <Property Name="actors" Type="nvarchar" MaxLength="600" />
           <Property Name="duration" Type="int" />
-          <Property Name="premiereDate" Type="date" />
+          <Property Name="premiereDate" Type="nvarchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="Hall">
           <Key>
@@ -162,9 +162,9 @@
           <Property Name="rating" Type="Single" />
           <Property Name="countries" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="director" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
-          <Property Name="actors" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="actors" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
           <Property Name="duration" Type="Int32" />
-          <Property Name="premiereDate" Type="DateTime" Precision="0" />
+          <Property Name="premiereDate" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Session" Relationship="Self.FK_Session_Film" FromRole="Film" ToRole="Session" />
         </EntityType>
         <EntityType Name="Hall">

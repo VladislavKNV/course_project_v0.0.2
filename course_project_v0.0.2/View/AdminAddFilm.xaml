@@ -53,8 +53,53 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid Margin="0 0 0 0">
-                        
+                        <Grid Margin="0,0,538,0">
+                            <ListBox HorizontalAlignment="Left" Width="250" x:Name="ListBoxFilms"  Background="#FF3E3E42"  Grid.Column="0" SelectionChanged="ListBoxFilms_SelectionChanged">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image HorizontalAlignment="Right" Source="{Binding poster}" Width="60" Height="60"/>
+                                            <StackPanel Margin="5">
+                                                <TextBlock Text="{Binding filmname}" Foreground="White" FontSize="12"/>
+                                                <TextBlock Text="{Binding filmID}" FontSize="10" Foreground="White"/>
+                                                <TextBlock Text="{Binding year}" FontSize="10" Foreground="White"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
 
+                        </Grid>
+                        <StackPanel Margin="260 0 0 0">
+                            <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmName2" materialDesign:HintAssist.Hint="Название" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmNameTextBox_TextChanged" FontSize="14"/>
+                            <Label x:Name="FilmNameLabel2" Foreground="DarkRed"></Label>
+                            <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmYear2" materialDesign:HintAssist.Hint="Год" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmYearTextBox_TextChanged" FontSize="14"/>
+                            <Label x:Name="FilmYearLabel2" Foreground="DarkRed"></Label>
+                            <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmPlot2" materialDesign:HintAssist.Hint="Описание" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmPlotTextBox_TextChanged" FontSize="14"/>
+                            <Label x:Name="FilmPlotLabel2" Foreground="DarkRed"></Label>
+                            <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmGenres2" materialDesign:HintAssist.Hint="Жанры" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmGenresTextBox_TextChanged" FontSize="14"/>
+                            <Label x:Name="FilmGenresLabel2" Foreground="DarkRed"></Label>
+                            <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmRating2" materialDesign:HintAssist.Hint="Рейтинг" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmRatingTextBox_TextChanged" FontSize="14"/>
+                            <Label x:Name="FilmRatingLabel2" Foreground="DarkRed"></Label>
+                            <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmCountries2" materialDesign:HintAssist.Hint="Страны" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmCountriesTextBox_TextChanged" FontSize="14"/>
+                            <Label x:Name="FilmCountriesLabel2" Foreground="DarkRed"></Label>
+                            <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmDirector2" materialDesign:HintAssist.Hint="Режисёр" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmDirectorTextBox_TextChanged" FontSize="14"/>
+                            <Label x:Name="FilmDirectorLabel2" Foreground="DarkRed"></Label>
+                            <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmActors2" materialDesign:HintAssist.Hint="Актёры" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmActorsTextBox_TextChanged" FontSize="14"/>
+                            <Label x:Name="FilmActorsLabel2" Foreground="DarkRed"></Label>
+                            <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmDuration2" materialDesign:HintAssist.Hint="Продолжительность" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmDurationTextBox_TextChanged" FontSize="14"/>
+                            <Label x:Name="FilmDurationLabel2" Foreground="DarkRed"></Label>
+                            <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmPremiereDate2" materialDesign:HintAssist.Hint="Дата выхода" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="PremiereDateTextBox_TextChanged" FontSize="14"/>
+                            <Label x:Name="FilmPremiereDateLabel2" Foreground="DarkRed"></Label>
+                            <Grid>
+                                <Button Margin=" 0 20 0 0" Content="Назад" HorizontalAlignment="Left" Height="40" Width="100" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Sing_Up" BorderThickness="0" Click="Button_Click_Back"></Button>
+                                <Button Margin=" 0 20 0 0" Content="Картинка" HorizontalAlignment="Center" Height="40" Width="100" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Pic" BorderThickness="0" Click="Button_Pict"></Button>
+                                <Button Margin=" 0 20 0 0" Content="Сохранить" HorizontalAlignment="Right" Height="40" Width="150" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Sing_In" BorderThickness="0" Click="Button_Save_Click" ></Button>
+                            </Grid>
+                        </StackPanel>
+                     
+                        
+                        
                     </Grid>
                 </TabItem.Content>
             </TabItem>
