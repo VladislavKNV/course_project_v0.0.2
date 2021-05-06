@@ -1,0 +1,38 @@
+﻿<Window x:Class="course_project_v0._0._2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:course_project_v0._0._2"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+       Title="Banksy" Height="650" Width="1000" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
+    <Grid Background="#cf3030">
+        <Border Margin="0 0 0 540" Background="#FF3E3E42">
+            <Grid>
+                <DatePicker Foreground="#cf3030" BorderBrush="#cf3030" Margin="20 20 800 20"></DatePicker>
+                <Button x:Name="ButtonForAdmin" Content="Админ" Margin="220 0 650 0" Height="50" Background="Blue" Click="Button_Click_Admin"></Button>
+               
+            </Grid>
+        </Border>
+        <ListBox Margin="0 200 0 0" x:Name="ListBoxFilms"  Background="#FF3E3E42"  Grid.Column="0" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <Image HorizontalAlignment="Right" Source="{Binding Path=Picture}" Width="160" Height="160"/>
+                        <StackPanel>
+                            <TextBlock Text="{Binding filmname}" Foreground="White" FontSize="20"></TextBlock>
+                            <TextBlock Text="{Binding year}" FontSize="14" Foreground="White"></TextBlock>
+                            <TextBlock Text="{Binding rating}" FontSize="14" Foreground="White"></TextBlock>
+                            <TextBlock Text="{Binding genres}" FontSize="14" Foreground="White"></TextBlock>
+                            <TextBlock Text="{Binding director}" FontSize="14" Foreground="White"></TextBlock>
+                            <TextBlock Text="{Binding countries}" FontSize="14" Foreground="White"></TextBlock>
+                            <TextBlock Text="{Binding duration}" FontSize="14" Foreground="White">(мин.)</TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+    </Grid>
+</Window>

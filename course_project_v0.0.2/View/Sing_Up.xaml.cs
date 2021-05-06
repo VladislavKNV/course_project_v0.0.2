@@ -1,4 +1,5 @@
 ﻿using System;
+using course_project_v0._0._2.View;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -210,7 +211,7 @@ namespace course_project_v0._0._2
 		
 		private string GetHashPassword(string s)
 		{
-			//переводим строку в байт-массим  
+			//переводим строку в байт-массив  
 			byte[] bytes = Encoding.Unicode.GetBytes(s);
 			//создаем объект для получения средст шифрования  
 			MD5CryptoServiceProvider CSP =

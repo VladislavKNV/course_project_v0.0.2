@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using course_project_v0._0._2.View;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using course_project_v0._0._2.DataBase;
 using System.Security.Cryptography;
+using System.Collections.ObjectModel;
 
 namespace course_project_v0._0._2
 {
@@ -29,6 +31,7 @@ namespace course_project_v0._0._2
 			Sing_Up sing_Up = new Sing_Up();
 			sing_Up.Show();
 		}
+		//private ObservableCollection<AppView> infoforuser;
 		private void Button_Click_Sing_In(object sender, RoutedEventArgs e)
 		{
 			//Hide();
@@ -52,7 +55,23 @@ namespace course_project_v0._0._2
 						{
 							if (check.password.Trim() == GetHashPassword(PasswordBox.Password.Trim()))
 							{
-								loginbool_for_sing_In = true;
+
+								//
+								//AppView appView = new AppView();
+								//appView.UsersForMain(TextBoxLogin.Text.Trim());
+									/*var info = cw.UsersBD.ToList();
+									infoforuser = new ObservableCollection<AppView>();
+									foreach (var i in info)
+									{
+										AppView allRev = new AppView();
+										allRev.UsersForMain(TextBoxLogin.Text.Trim());
+										infoforuser.Add(allRev);
+									}*/
+									
+
+									//
+
+									loginbool_for_sing_In = true;
 								MainWindow mainWindow = new MainWindow();
 								mainWindow.Show();
 							}
