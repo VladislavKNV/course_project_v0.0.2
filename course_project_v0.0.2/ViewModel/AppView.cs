@@ -28,12 +28,16 @@ namespace course_project_v0._0._2.View
         public string actors { get; set; }
         public string duration { get; set; }
         public string premiereDate { get; set; }
-  
 
-
-
-        public void Add(string _filmname, int _year,string _genres, float _rating, string _countries, string _director, int _duration, byte[] _poster)
+        public void AddPoster(byte[] _poster)
         {
+            poster = _poster;
+
+        }
+
+        public void Add(string _filmname, int _year,string _genres, float _rating, string _countries, string _director, int _duration, byte[] _poster,string _filmID)
+        {
+            filmID = _filmID;
             filmname = _filmname;
             year = "Год: " + (int)_year;
             genres = "Жанры: " + _genres;
@@ -52,7 +56,7 @@ namespace course_project_v0._0._2.View
             year = "" + (int)_year;
             poster = _poster;
             plotDescription = _plotDescription;
-            genres = genres;
+            genres = _genres;
             rating = "" + (float)_rating;
             countries = _countries;
             director = _director;

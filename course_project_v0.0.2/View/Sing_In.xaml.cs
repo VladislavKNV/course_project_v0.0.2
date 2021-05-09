@@ -56,28 +56,16 @@ namespace course_project_v0._0._2
 							if (check.password.Trim() == GetHashPassword(PasswordBox.Password.Trim()))
 							{
 
-								//
-								//AppView appView = new AppView();
-								//appView.UsersForMain(TextBoxLogin.Text.Trim());
-									/*var info = cw.UsersBD.ToList();
-									infoforuser = new ObservableCollection<AppView>();
-									foreach (var i in info)
-									{
-										AppView allRev = new AppView();
-										allRev.UsersForMain(TextBoxLogin.Text.Trim());
-										infoforuser.Add(allRev);
-									}*/
-									
-
-									//
-
-									loginbool_for_sing_In = true;
-								MainWindow mainWindow = new MainWindow();
+								loginbool_for_sing_In = true;
+								MainWindow mainWindow = new MainWindow(check.admin);
 								mainWindow.Show();
 							}
 							else
+							{
 								PassLabel.Content = "Неверный логин или пароль.";
 								LoginLabel.Content = "Неверный логин или пароль.";
+							}
+								
 						}
 					}
 					if (loginbool_for_sing_In == false)

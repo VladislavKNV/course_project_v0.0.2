@@ -19,7 +19,6 @@ namespace course_project_v0._0._2.View
         public bool admin { get; set; }
         public string basket { get; set; }
 
-
         public void AddUser(string _UserID, string _login, string _password, string _Email, bool _admin, string _basket)
         {
             UserID = _UserID;

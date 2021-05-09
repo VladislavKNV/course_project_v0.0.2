@@ -7,20 +7,39 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
        Title="Banksy" Height="650" Width="1000" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
-    <Grid Background="#cf3030">
-        <Border Margin="0 0 0 540" Background="#FF3E3E42">
-            <Grid>
-                <DatePicker Foreground="#cf3030" BorderBrush="#cf3030" Margin="20 20 800 20"></DatePicker>
-                <Button x:Name="ButtonForAdmin" Content="Админ" Margin="220 0 650 0" Height="50" Background="Blue" Click="Button_Click_Admin"></Button>
-               
-            </Grid>
-        </Border>
-        <ListBox Margin="0 200 0 0" x:Name="ListBoxFilms"  Background="#FF3E3E42"  Grid.Column="0" Grid.Row="1">
+    <Grid Margin="0 0 0 0 " Background="#cf3030">
+        <StackPanel>
+            <Border Height="110"  Background="#FF3E3E42">
+                <Grid>
+                    <DatePicker Foreground="#cf3030" Width="160" BorderBrush="#cf3030" Margin="20 20 800 20"></DatePicker>
+                    <Button x:Name="ButtonForAdmin" Width="120" Content="Админ" Margin="230 0 640 0" Height="50" Background="#cf3030" Click="Button_Click_Admin"></Button>
+                </Grid>
+            </Border>
+            <Border Height="15">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF3E3E42" Offset="0"/>
+                        <GradientStop Color="#FFB03939" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Border Height="15">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFB03939" Offset="0"/>
+                        <GradientStop Color="#FF3E3E42" Offset="1"/>
+                       
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+        </StackPanel>
+        <ListBox Margin="0 140 0 0" x:Name="ListBoxFilms"  Background="#FF3E3E42"  Grid.Column="0" Grid.Row="1" SelectionChanged="ListBoxFilms_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5" Orientation="Horizontal">
-                        <Image HorizontalAlignment="Right" Source="{Binding poster}" Width="160" Height="160"/>
-                        <StackPanel Margin="20 0 0 0 ">
+                        <Image HorizontalAlignment="Right" Source="{Binding poster}" Width="140" Height="160"/>
+                        <StackPanel Margin="30 0 0 0 ">
                             <TextBlock Text="{Binding filmname}" Foreground="White" FontSize="20"></TextBlock>
                             <TextBlock Text="{Binding year}" FontSize="14" Foreground="White"></TextBlock>
                             <TextBlock Text="{Binding rating}" FontSize="14" Foreground="White"></TextBlock>
@@ -33,6 +52,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
 
     </Grid>
 </Window>

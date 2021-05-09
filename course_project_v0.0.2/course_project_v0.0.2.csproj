@@ -242,6 +242,10 @@
       <DependentUpon>AdminAddFilm.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AppViewUsers.cs" />
+    <Compile Include="ViewModel\AppViewSession.cs" />
+    <Compile Include="View\SessionWPF.xaml.cs">
+      <DependentUpon>SessionWPF.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Sing_In.xaml.cs">
       <DependentUpon>Sing_In.xaml</DependentUpon>
     </Compile>
@@ -265,6 +269,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\SessionWPF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Sing_In.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

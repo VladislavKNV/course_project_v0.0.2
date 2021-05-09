@@ -85,7 +85,7 @@ namespace course_project_v0._0._2
 				{
 					UsersBD user = new UsersBD()
 					{
-						userID = UserID,
+						userID = UserID.Trim(),
 						login = LoginTextBox.Text.Trim(),
 						password = GetHashPassword(Pass1.Password.Trim()),
 						EmailBD = EmailTextBox.Text.Trim(),

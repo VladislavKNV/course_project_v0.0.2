@@ -19,21 +19,24 @@ using System.IO;
 
 namespace course_project_v0._0._2
 {
-	/// <summary>
-	/// Логика взаимодействия для MainWindow.xaml
-	/// </summary>
+
 	public partial class MainWindow : Window
 	{
-		public MainWindow()
+		public MainWindow(bool admi)
 		{
-			InitializeComponent();
+            ADMIN = admi;
+            InitializeComponent();
             InfoForListBox();
+            ButtonForAdmin.Visibility = Visibility.Hidden;
             DataContext = new AppView();
-          //  ButtonForAdmin.Visibility = Visibility.Hidden;
-            
-
-
+			if (ADMIN == true)
+			{
+                ButtonForAdmin.Visibility = Visibility.Visible;
+            }
+           
         }
+        public bool ADMIN;
+     
 
         private ObservableCollection<AppView> infoforfilm;
    
@@ -48,39 +51,31 @@ namespace course_project_v0._0._2
                 {
                     AppView allFilms = new AppView();
 
-                    allFilms.Add(i.filmName, (int)i.year,i.genres, (float)i.rating,i.countries,i.director, (int)i.duration, i.poster);
+                    allFilms.Add(i.filmName, (int)i.year,i.genres, (float)i.rating,i.countries,i.director, (int)i.duration, i.poster,i.filmID.Trim());
                     infoforfilm.Add(allFilms);
                 }
                 ListBoxFilms.ItemsSource = infoforfilm;
+                
             }
         }
 
 		private void Button_Click_Admin(object sender, RoutedEventArgs e)
 		{
             this.Close();
-            AdminAddFilm adminAddFilm = new AdminAddFilm();
+            AdminAddFilm adminAddFilm = new AdminAddFilm(ADMIN);
             adminAddFilm.Show();
         }
 
-  
+		private void ListBoxFilms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+            var aaa = ListBoxFilms.SelectedItem as AppView;
+            if (aaa != null)
+            {
+                SessionWPF sessionWPF = new SessionWPF(aaa.filmID.Trim(), ADMIN);
+                sessionWPF.Show();
+                this.Close();
+            }
+        }
 
-        /* private void Button_Click_Admin2(object sender, RoutedEventArgs e)
-          {
-              AppView app = new AppView();
-              string login;
-              login = app.login;
-
-              using (course_work cw = new course_work())
-              {
-                  var forBD = cw.Database.SqlQuery<UsersBD>($"select * from UsersBD where UsersBD.login = '{login}'");
-                  foreach (var check in forBD)
-                  {
-                      if (check.admin == true)
-                      {
-                          ButtonForAdmin.Visibility = Visibility.Visible;
-                      }
-                  }
-              }
-          }*/
-    }
+	}
 }
