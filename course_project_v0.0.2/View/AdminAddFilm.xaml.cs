@@ -24,6 +24,7 @@ namespace course_project_v0._0._2.View
 			InfoForUsers();
 			InfoForFilms();
 			InfoForComboBoxFilms();
+			InfoForSession();
 			ADMIN = admi;
 			LOGIN = login;
 		}
@@ -91,6 +92,26 @@ namespace course_project_v0._0._2.View
 					infoforusers.Add(allUsers);
 				}
 				ListBoxUsers.ItemsSource = infoforusers;
+			}
+		}
+
+		private ObservableCollection<AppViewSession> infoforsession;
+
+		public void InfoForSession()
+		{
+			using (course_work cw = new course_work())
+			{
+
+				var info = cw.Session.ToList();
+				infoforsession = new ObservableCollection<AppViewSession>();
+				foreach (var i in info)
+				{
+					AppViewSession allSession = new AppViewSession();
+
+					allSession.AddSession(i.sessionID, i.filmID, i.date, i.time, i.hallID, i.number_of_free_seats, i.price_for_place);
+					infoforsession.Add(allSession);
+				}
+				ListBoxSession.ItemsSource = infoforsession;
 			}
 		}
 
@@ -209,7 +230,7 @@ namespace course_project_v0._0._2.View
 					Multiselect = false,
 					Title = "Выберите файл"	
 			};
-				dialog.Filter = "Image files (*.BMP, *.JPG, *.GIF, *.TIF, *.PNG, *.ICO, *.EMF, .WMF)|.bmp;.jpg;.gif; *.tif; *.png; *.ico; *.emf; *.wmf";
+				dialog.Filter = "Image files (*.BMP, *.JPG, *.GIF, *.TIF, *.PNG, *.ICO, *.EMF, .WMF)|.bmp;.jpg;.gif; *.tif; *.png; *.ico; *.emf; *.wmf";//?
 				if (dialog.ShowDialog() == true)
 				{
 					Picture = dialog.FileName;
@@ -968,16 +989,16 @@ namespace course_project_v0._0._2.View
 				emailbool = false;
 			}
 		}
-		private void TimeTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void TimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 
 		}
-		private void PriceTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void PriceTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 
 		}
 
-		private void BasketTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void BasketTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 
 		}

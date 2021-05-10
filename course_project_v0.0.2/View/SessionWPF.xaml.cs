@@ -117,7 +117,7 @@ namespace course_project_v0._0._2.View
 				{
 					AppViewSession allSession = new AppViewSession();
 
-					allSession.AddSession(i.sessionID,i.filmID,i.date,i.time,i.hallID);
+					allSession.AddSession(i.sessionID,i.filmID,i.date,i.time,i.hallID, i.number_of_free_seats, i.price_for_place);
 					infoforsession.Add(allSession);
 				}
 				ListBoxSession.ItemsSource = infoforsession;
