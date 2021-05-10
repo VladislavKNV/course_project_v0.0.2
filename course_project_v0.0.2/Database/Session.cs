@@ -22,12 +22,14 @@ namespace course_project_v0._0._2.DataBase
     
         public string sessionID { get; set; }
         public string filmID { get; set; }
+        public string hallID { get; set; }
         public System.DateTime date { get; set; }
         public System.TimeSpan time { get; set; }
-        public string hall { get; set; }
+        public int number_of_free_seats { get; set; }
+        public int price_for_place { get; set; }
     
         public virtual Film Film { get; set; }
-        public virtual Hall Hall1 { get; set; }
+        public virtual Hall Hall { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Ticket { get; set; }
     }

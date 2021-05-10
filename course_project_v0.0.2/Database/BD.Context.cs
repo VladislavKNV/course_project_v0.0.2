@@ -25,6 +25,7 @@ namespace course_project_v0._0._2.DataBase
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Feedback> Feedback { get; set; }
         public virtual DbSet<Film> Film { get; set; }
         public virtual DbSet<Hall> Hall { get; set; }
         public virtual DbSet<Session> Session { get; set; }

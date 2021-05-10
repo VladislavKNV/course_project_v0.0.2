@@ -17,7 +17,7 @@ namespace course_project_v0._0._2.View
 {
 	public partial class AdminAddFilm : Window
 	{
-		public AdminAddFilm(bool admi)
+		public AdminAddFilm(bool admi, string login)
 		{
 			InitializeComponent();
 			randFilmID();
@@ -25,9 +25,11 @@ namespace course_project_v0._0._2.View
 			InfoForFilms();
 			InfoForComboBoxFilms();
 			ADMIN = admi;
+			LOGIN = login;
 		}
 
 		public bool ADMIN;
+		public string LOGIN;
 		public bool namebool = false;
 		public bool yearbool = false;
 		public bool plotbool = false;
@@ -52,9 +54,11 @@ namespace course_project_v0._0._2.View
 		public bool loginbool = false;
 		public bool passbool = false;
 		public string FilmID;
+		public string SessionID;
 		public string Picture;
 		public byte[] Pic;
 		public byte[] PictureForByte;
+		public int nubrs_of_place;
 
 		public void InfoForComboBoxFilms()
 		{
@@ -120,7 +124,7 @@ namespace course_project_v0._0._2.View
 					byte[] imageBytes = File.ReadAllBytes(Picture);
 					Film film = new Film()
 					{
-						filmID = FilmID,
+						filmID = FilmID.Trim(),
 						filmName = TextBoxFilmName.Text.Trim(),
 						year = Convert.ToInt32(TextBoxFilmYear.Text.Trim()),
 						plotDescription = TextBoxFilmPlot.Text.Trim(),
@@ -185,7 +189,7 @@ namespace course_project_v0._0._2.View
 		private void Button_Click_Back(object sender, RoutedEventArgs e)
 		{
 			this.Close();
-			MainWindow mainWindow = new MainWindow(ADMIN);
+			MainWindow mainWindow = new MainWindow(ADMIN, LOGIN);
 			mainWindow.Show();
 
 		}
@@ -203,9 +207,9 @@ namespace course_project_v0._0._2.View
 					CheckFileExists = false,
 					CheckPathExists = true,
 					Multiselect = false,
-					Title = "Выберите файл"
-				};
-
+					Title = "Выберите файл"	
+			};
+				dialog.Filter = "Image files (*.BMP, *.JPG, *.GIF, *.TIF, *.PNG, *.ICO, *.EMF, .WMF)|.bmp;.jpg;.gif; *.tif; *.png; *.ico; *.emf; *.wmf";
 				if (dialog.ShowDialog() == true)
 				{
 					Picture = dialog.FileName;
@@ -234,7 +238,7 @@ namespace course_project_v0._0._2.View
 					var customer = context.Film
 						.Where(c => c.filmName == contentListBox.filmname)
 						.FirstOrDefault();
-					// Внести изменения
+					//Внести изменения
 					customer.filmName = TextBoxFilmName2.Text.Trim();
 					customer.year = Convert.ToInt32(TextBoxFilmYear2.Text.Trim());
 					customer.plotDescription = TextBoxFilmPlot2.Text.Trim();
@@ -378,19 +382,42 @@ namespace course_project_v0._0._2.View
 			InfoForUsers();
 		}
 		private void Button_SaveSession_Click(object sender, RoutedEventArgs e)
-			{
-			string tttime = TimePickerSession.Text;
+		{
 
 			using (course_work cw = new course_work())
 			{
+				TimeSpan duration = new TimeSpan(Convert.ToInt32(ComboBoxhour.Text), Convert.ToInt32(ComboBoxMinuts.Text), 0);
+				var forenter = cw.Database.SqlQuery<Film>($"select * from Film");
+				foreach (var check in forenter)
+				{
+					if (check.filmName == ComboBoxFilms.Text)
+					{
+						FilmID = check.filmID;
+					}
+				}
+				 var halls = cw.Database.SqlQuery<Hall>($"select * from Hall");	
+				
+				foreach (var check in halls)
+				{
+					if (check.hallID.Trim() == ComboBoxHalls.Text)//--
+					{
+
+						nubrs_of_place = check.row * check.place;
+					}
+				}
 				Session session = new Session()
 				{
-					//date = DataPickerSession.DisplayDate,
-					//time = ptttime,
-					//hall = ComboBoxHalls.Text
+					sessionID = SessionID,
+					filmID = FilmID,
+					hallID = ComboBoxHalls.Text.Trim(),
+					date = DataPickerSession.SelectedDate.Value,
+					time = duration,
+					number_of_free_seats = nubrs_of_place,
+					price_for_place = Convert.ToInt32(TextBoxPrice.Text.Trim())
+
 				};
-				//cw.Session.Add(session);
-				//cw.SaveChanges();
+				cw.Session.Add(session);
+				cw.SaveChanges();
 			}
 			MessageBox.Show("Запись прошла успешно.");
 		}
@@ -466,6 +493,8 @@ namespace course_project_v0._0._2.View
 			Random rnd = new Random();
 			int value = rnd.Next(1000000, 9999999);
 			FilmID = $"{value}";
+			value = rnd.Next(1000000, 9999999);
+			SessionID = $"{value}";
 		}
 
 
@@ -939,7 +968,14 @@ namespace course_project_v0._0._2.View
 				emailbool = false;
 			}
 		}
+		private void TimeTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		{
 
+		}
+		private void PriceTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		{
+
+		}
 
 		private void BasketTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
 		{

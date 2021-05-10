@@ -22,15 +22,15 @@ namespace course_project_v0._0._2.DataBase
     
         public string filmID { get; set; }
         public string filmName { get; set; }
-        public Nullable<int> year { get; set; }
+        public int year { get; set; }
         public byte[] poster { get; set; }
         public string plotDescription { get; set; }
         public string genres { get; set; }
-        public Nullable<float> rating { get; set; }
+        public float rating { get; set; }
         public string countries { get; set; }
         public string director { get; set; }
         public string actors { get; set; }
-        public Nullable<int> duration { get; set; }
+        public int duration { get; set; }
         public string premiereDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

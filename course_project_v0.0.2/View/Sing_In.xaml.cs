@@ -57,7 +57,7 @@ namespace course_project_v0._0._2
 							{
 
 								loginbool_for_sing_In = true;
-								MainWindow mainWindow = new MainWindow(check.admin);
+								MainWindow mainWindow = new MainWindow(check.admin, check.login);
 								mainWindow.Show();
 							}
 							else

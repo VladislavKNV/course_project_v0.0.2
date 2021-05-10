@@ -23,8 +23,6 @@ namespace course_project_v0._0._2.DataBase
         public string hallID { get; set; }
         public int row { get; set; }
         public int place { get; set; }
-        public int number_of_free_seats { get; set; }
-        public int price_for_place { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Session> Session { get; set; }

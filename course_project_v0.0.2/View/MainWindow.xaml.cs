@@ -22,20 +22,21 @@ namespace course_project_v0._0._2
 
 	public partial class MainWindow : Window
 	{
-		public MainWindow(bool admi)
+		public MainWindow(bool admi, string login)
 		{
             ADMIN = admi;
+            LOGIN = login;
             InitializeComponent();
             InfoForListBox();
-            ButtonForAdmin.Visibility = Visibility.Hidden;
             DataContext = new AppView();
-			if (ADMIN == true)
+			if (ADMIN == false)
 			{
-                ButtonForAdmin.Visibility = Visibility.Visible;
+                ButtonForAdmin.Visibility = Visibility.Hidden;
             }
            
         }
         public bool ADMIN;
+        public string LOGIN;
      
 
         private ObservableCollection<AppView> infoforfilm;
@@ -62,16 +63,22 @@ namespace course_project_v0._0._2
 		private void Button_Click_Admin(object sender, RoutedEventArgs e)
 		{
             this.Close();
-            AdminAddFilm adminAddFilm = new AdminAddFilm(ADMIN);
+            AdminAddFilm adminAddFilm = new AdminAddFilm(ADMIN, LOGIN);
             adminAddFilm.Show();
         }
+        private void Button_Click_Feedback(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            FeedbackWPF feedbackWPF = new FeedbackWPF(ADMIN, LOGIN);
+            feedbackWPF.Show();
+        }
 
-		private void ListBoxFilms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ListBoxFilms_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
             var aaa = ListBoxFilms.SelectedItem as AppView;
             if (aaa != null)
             {
-                SessionWPF sessionWPF = new SessionWPF(aaa.filmID.Trim(), ADMIN);
+                SessionWPF sessionWPF = new SessionWPF(aaa.filmID.Trim(), ADMIN, LOGIN);
                 sessionWPF.Show();
                 this.Close();
             }

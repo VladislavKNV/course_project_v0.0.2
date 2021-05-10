@@ -4,13 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="726af245187840f0a68ffec8d3957b99" Name="Diagram1">
+      <Diagram DiagramId="45098c5ce85a4e6c977b0b995b0d5bfa" Name="Diagram1">
+        <EntityTypeShape EntityType="course_workModel.Feedback" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="course_workModel.Film" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="course_workModel.Hall" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="course_workModel.Session" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="course_workModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="course_workModel.Ticket" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="course_workModel.UsersBD" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="course_workModel.Hall" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="course_workModel.Session" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="course_workModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="course_workModel.Ticket" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="course_workModel.UsersBD" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="course_workModel.FK_Feedback_UsersBD" ManuallyRouted="false" />
         <AssociationConnector Association="course_workModel.FK_Session_Film" ManuallyRouted="false" />
         <AssociationConnector Association="course_workModel.FK_Session_Hall" ManuallyRouted="false" />
         <AssociationConnector Association="course_workModel.FK_Ticket_Session" ManuallyRouted="false" />

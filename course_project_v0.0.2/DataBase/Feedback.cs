@@ -12,19 +12,14 @@ namespace course_project_v0._0._2.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class Ticket
+    public partial class Feedback
     {
-        public string ticketID { get; set; }
-        public string sessionID { get; set; }
+        public string feedbackID { get; set; }
         public string userID { get; set; }
-        public string filmName { get; set; }
-        public int price { get; set; }
-        public System.DateTime date { get; set; }
-        public System.TimeSpan time { get; set; }
-        public int row { get; set; }
-        public int place { get; set; }
+        public string login { get; set; }
+        public string feedback1 { get; set; }
+        public System.DateTime dateFeedback { get; set; }
     
-        public virtual Session Session { get; set; }
         public virtual UsersBD UsersBD { get; set; }
     }
 }

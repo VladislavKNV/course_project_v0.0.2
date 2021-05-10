@@ -220,6 +220,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BD.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DataBase\Feedback.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataBase\Film.cs">
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
@@ -243,6 +246,10 @@
     </Compile>
     <Compile Include="ViewModel\AppViewUsers.cs" />
     <Compile Include="ViewModel\AppViewSession.cs" />
+    <Compile Include="ViewModel\AppViewFeedback.cs" />
+    <Compile Include="View\FeedbackWPF.xaml.cs">
+      <DependentUpon>FeedbackWPF.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SessionWPF.xaml.cs">
       <DependentUpon>SessionWPF.xaml</DependentUpon>
     </Compile>
@@ -254,6 +261,10 @@
     </Compile>
     <Compile Include="ViewModel\AppView.cs" />
     <Page Include="View\AdminAddFilm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FeedbackWPF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

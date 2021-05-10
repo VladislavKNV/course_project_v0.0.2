@@ -178,10 +178,53 @@
                             <ComboBox x:Name="ComboBoxFilms" Margin="0 0 500 0" Background="White">
                                 <TextBlock Text="{Binding filmname}"></TextBlock>
                             </ComboBox>
-                            <DatePicker x:Name="DataPickerSession" Foreground="#cf3030" Width="200" BorderBrush="#cf3030" HorizontalAlignment="Left" ></DatePicker>
-                            <materialDesign:TimePicker x:Name="TimePickerSession" Foreground="#cf3030" Width="200" BorderBrush="#cf3030" HorizontalAlignment="Left" ></materialDesign:TimePicker>
+                            <DatePicker x:Name="DataPickerSession" Foreground="White" Width="200" BorderBrush="White" HorizontalAlignment="Left" ></DatePicker>
+                            <Grid>
+                                <ComboBox Name="ComboBoxhour" Margin="0 20 650 0"  Background="White">
+                                <TextBlock>1</TextBlock>
+                                <TextBlock>2</TextBlock>
+                                <TextBlock>3</TextBlock>
+                                <TextBlock>4</TextBlock>
+                                <TextBlock>5</TextBlock>
+                                <TextBlock>6</TextBlock>
+                                <TextBlock>7</TextBlock>
+                                <TextBlock>8</TextBlock>
+                                <TextBlock>9</TextBlock>
+                                <TextBlock>10</TextBlock>
+                                <TextBlock>11</TextBlock>
+                                <TextBlock>12</TextBlock>
+                                <TextBlock>13</TextBlock>
+                                <TextBlock>14</TextBlock>
+                                <TextBlock>15</TextBlock>
+                                <TextBlock>16</TextBlock>
+                                <TextBlock>17</TextBlock>
+                                <TextBlock>18</TextBlock>
+                                <TextBlock>19</TextBlock>
+                                <TextBlock>20</TextBlock>
+                                <TextBlock>21</TextBlock>
+                                <TextBlock>22</TextBlock>
+                                <TextBlock>23</TextBlock>
+                                    <TextBlock>24</TextBlock>
+                                </ComboBox>
 
-                            <ComboBox Name="ComboBoxHalls" Margin="0 20 500 0"  Background="White">
+                                <ComboBox Margin="200 20 400 0" Name="ComboBoxMinuts"  Background="White">
+                                    <TextBlock>0</TextBlock>
+                                    <TextBlock>5</TextBlock>
+                                    <TextBlock>10</TextBlock>
+                                    <TextBlock>15</TextBlock>
+                                    <TextBlock>20</TextBlock>
+                                    <TextBlock>25</TextBlock>
+                                    <TextBlock>30</TextBlock>
+                                    <TextBlock>35</TextBlock>
+                                    <TextBlock>40</TextBlock>
+                                    <TextBlock>45</TextBlock>
+                                    <TextBlock>50</TextBlock>
+                                    <TextBlock>55</TextBlock>
+                                </ComboBox>
+                            </Grid>
+                            <TextBox Margin="0 20 500 0" x:Name="TextBoxPrice" Foreground="White" BorderBrush="White" materialDesign:HintAssist.Hint="Введите цену" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="PriceTextBox_TextChanged" FontSize="14"/>
+
+                            <ComboBox Margin="10" Name="ComboBoxHalls" Width="200" HorizontalAlignment="Left" Background="White">
                                 <TextBlock>1</TextBlock>
                                 <TextBlock>2</TextBlock>
 
@@ -196,6 +239,54 @@
                             </Grid>
                         </StackPanel>
 
+
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <Image Source="/ImageF/films.png" Width="40" Height="40"></Image>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <Grid Margin="0 0 0 0">
+                        <Grid Margin="0,0,538,0">
+                            <ListBox HorizontalAlignment="Left" Width="250" x:Name="ListBoxSession"  Background="#FF3E3E42"  Grid.Column="0" SelectionChanged="ListBoxUsers_SelectionChanged">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="5">
+                                            <TextBlock Text="{Binding login}" Foreground="White" FontSize="12"/>
+                                            <TextBlock Text="{Binding UserID}" FontSize="10" Foreground="White"/>
+                                            <TextBlock Text="{Binding Email}" FontSize="10" Foreground="White"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                        <Grid  Margin="260 0 20 0">
+                            <ScrollViewer>
+                                <StackPanel >
+                                    <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxLogin9" materialDesign:HintAssist.Hint="Логин" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="LoginTextBox_TextChanged" FontSize="14"/>
+                                    <Label x:Name="LoginLabel9" Foreground="DarkRed"></Label>
+                                    <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxPassword9" materialDesign:HintAssist.Hint="Пароль" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="PasswordTextBox_TextChanged" FontSize="14"/>
+                                    <Label x:Name="PasswordLabel9" Foreground="DarkRed"></Label>
+                                    <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxEmail9" materialDesign:HintAssist.Hint="E-mail" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="EmailTextBox_TextChanged" FontSize="14"/>
+                                    <Label x:Name="EmailLabel9" Foreground="DarkRed"></Label>
+                                    <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxBasket9" materialDesign:HintAssist.Hint="Корзина" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="BasketTextBox_TextChanged" FontSize="14"/>
+                                    <Label x:Name="BasketLabel9" Foreground="DarkRed"></Label>
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="22*"/>
+                                            <ColumnDefinition Width="141*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Margin=" 0 20 0 0" Content="Назад" HorizontalAlignment="Left" Height="40" Width="100" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Back3" BorderThickness="0" Click="Button_Click_Back" Grid.ColumnSpan="2"></Button>
+                                        <Button Margin="118,20,185,0" Content="Del"  Height="40" Width="120" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Sing_In" BorderThickness="0" Click="Button_DelUser_Click" Grid.Column="1" ></Button>
+                                        <Button Margin=" 0 20 0 0" Content="Сохранить" HorizontalAlignment="Right" Height="40" Width="150" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Save_Users" BorderThickness="0" Click="Button_SaveUsers_Click" Grid.Column="1" ></Button>
+                                    </Grid>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
 
                     </Grid>
                 </TabItem.Content>

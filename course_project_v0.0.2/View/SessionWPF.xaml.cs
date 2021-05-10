@@ -23,11 +23,12 @@ namespace course_project_v0._0._2.View
 	public partial class SessionWPF : Window
 	{
 		public string FilmID;
-		public SessionWPF(string ID, bool admin)
+		public SessionWPF(string ID, bool admin, string login)
 		{
 			InitializeComponent();
 			FilmID = ID;
 			ADMIN = admin;
+			LOGIN = login;
 			InfoForFilms();
 			AddPost();
 			InfoForListBox();
@@ -47,10 +48,11 @@ namespace course_project_v0._0._2.View
 		public string PremiereDate;
 		public byte[] Poster;
 		public bool ADMIN;
+		public string LOGIN;
 		private void Button_Click_Back(object sender, RoutedEventArgs e)
 		{
 			this.Close();
-			MainWindow mainWindow = new MainWindow(ADMIN);
+			MainWindow mainWindow = new MainWindow(ADMIN, LOGIN);
 			mainWindow.Show();
 		}
 
@@ -115,7 +117,7 @@ namespace course_project_v0._0._2.View
 				{
 					AppViewSession allSession = new AppViewSession();
 
-					allSession.AddSession(i.sessionID,i.filmID,i.date,i.time,i.hall);
+					allSession.AddSession(i.sessionID,i.filmID,i.date,i.time,i.hallID);
 					infoforsession.Add(allSession);
 				}
 				ListBoxSession.ItemsSource = infoforsession;

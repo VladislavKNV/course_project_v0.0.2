@@ -17,6 +17,7 @@ namespace course_project_v0._0._2.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UsersBD()
         {
+            this.Feedback = new HashSet<Feedback>();
             this.Ticket = new HashSet<Ticket>();
         }
     
@@ -27,6 +28,8 @@ namespace course_project_v0._0._2.DataBase
         public bool admin { get; set; }
         public string basket { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Feedback> Feedback { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Ticket { get; set; }
     }
