@@ -113,29 +113,74 @@ namespace course_project_v0._0._2.View
 
 		private void Button_Save_Click(object sender, RoutedEventArgs e)
 		{
-
-			using (course_work cw = new course_work())
+			if (namebool == true && yearbool == true && plotbool == true && genresbool == true && ratingbool == true && countriesbool == true && directorbool == true && durationbool == true && actorsbool == true && premieredatebool == true)
 			{
-				byte[] imageBytes = File.ReadAllBytes(Picture);
-				Film film = new Film()
+				using (course_work cw = new course_work())
 				{
-					filmID = FilmID,
-					filmName = TextBoxFilmName.Text.Trim(),
-					year = Convert.ToInt32(TextBoxFilmYear.Text.Trim()),
-					plotDescription = TextBoxFilmPlot.Text.Trim(),
-					genres = TextBoxFilmGenres.Text.Trim(),
-					rating = float.Parse(TextBoxFilmRating.Text.Trim()),
-					countries = TextBoxFilmCountries.Text.Trim(),
-					director = TextBoxFilmDirector.Text.Trim(),
-					actors = TextBoxFilmActors.Text.Trim(),
-					duration = Convert.ToInt32(TextBoxFilmDuration.Text.Trim()),
-					premiereDate = TextBoxFilmPremiereDate.Text.Trim(),
-					poster = PictureForByte
-				};
-				cw.Film.Add(film);
-				cw.SaveChanges();
+					byte[] imageBytes = File.ReadAllBytes(Picture);
+					Film film = new Film()
+					{
+						filmID = FilmID,
+						filmName = TextBoxFilmName.Text.Trim(),
+						year = Convert.ToInt32(TextBoxFilmYear.Text.Trim()),
+						plotDescription = TextBoxFilmPlot.Text.Trim(),
+						genres = TextBoxFilmGenres.Text.Trim(),
+						rating = float.Parse(TextBoxFilmRating.Text.Trim()),
+						countries = TextBoxFilmCountries.Text.Trim(),
+						director = TextBoxFilmDirector.Text.Trim(),
+						actors = TextBoxFilmActors.Text.Trim(),
+						duration = Convert.ToInt32(TextBoxFilmDuration.Text.Trim()),
+						premiereDate = TextBoxFilmPremiereDate.Text.Trim(),
+						poster = PictureForByte
+					};
+					cw.Film.Add(film);
+					cw.SaveChanges();
+				}
+				MessageBox.Show("Запись прошла успешно.");
 			}
-			MessageBox.Show("Запись прошла успешно.");
+			else
+			{
+				if (namebool == false)
+				{
+					FilmNameLabel.Content = "Неверно введено название.";
+				}
+				if (yearbool == false)
+				{
+					FilmYearLabel.Content = "Неверно введён год.";
+				}
+				if (plotbool == false)
+				{
+					FilmPlotLabel.Content = "Неверно введено описание.";
+				}
+				if (genresbool == false)
+				{
+					FilmGenresLabel.Content = "Неверно введены жанры.";
+				}
+				if (ratingbool == false)
+				{
+					FilmRatingLabel.Content = "Неверно введён рейтинг.";
+				}
+				if (countriesbool == false)
+				{
+					FilmCountriesLabel.Content = "Неверно введены страны.";
+				}
+				if (directorbool == false)
+				{
+					FilmDirectorLabel.Content = "Неверно введён режисёр.";
+				}
+				if (durationbool == false)
+				{
+					FilmDurationLabel.Content = "Неверно введена продолжительность.";
+				}
+				if (actorsbool == false)
+				{
+					FilmActorsLabel.Content = "Неверно введены актёры.";
+				}
+				if (premieredatebool == false)
+				{
+					FilmPremiereDateLabel.Content = "Неверно введена дата выхода.";
+				}
+			}
 		}
 		private void Button_Click_Back(object sender, RoutedEventArgs e)
 		{
@@ -176,58 +221,125 @@ namespace course_project_v0._0._2.View
 			}
 
 		}
-		private void Button2_Save_Click(object sender, RoutedEventArgs e)
+		private void Button2_Save_Click(object sender, RoutedEventArgs e)//+
 		{
 			var contentListBox = ListBoxFilms.SelectedItem as AppView;
 			if (contentListBox != null)
 			{
+				if (namebool2 == true && yearbool2 == true && plotbool2 == true && genresbool2 == true && ratingbool2 == true && countriesbool2 == true && directorbool2 == true && durationbool2 == true && actorsbool2 == true && premieredatebool2 == true)
+				{
 
-				course_work context = new course_work();
-				var customer = context.Film
-					.Where(c => c.filmName == contentListBox.filmname)
-					.FirstOrDefault();
-				// Внести изменения
-				customer.filmName = TextBoxFilmName2.Text.Trim();
-				customer.year = Convert.ToInt32(TextBoxFilmYear2.Text.Trim());
-				customer.plotDescription = TextBoxFilmPlot2.Text.Trim();
-				customer.genres = TextBoxFilmGenres2.Text.Trim();
-				customer.rating = float.Parse(TextBoxFilmRating2.Text.Trim());
-				customer.countries = TextBoxFilmCountries2.Text.Trim();
-				customer.director = TextBoxFilmDirector2.Text.Trim();
-				customer.actors = TextBoxFilmActors2.Text.Trim();
-				customer.duration = Convert.ToInt32(TextBoxFilmDuration2.Text.Trim());
-				customer.premiereDate = TextBoxFilmPremiereDate2.Text.Trim();
-				customer.poster = Pic;
 
-				// Сохранить изменения
-				context.SaveChanges();
+					course_work context = new course_work();
+					var customer = context.Film
+						.Where(c => c.filmName == contentListBox.filmname)
+						.FirstOrDefault();
+					// Внести изменения
+					customer.filmName = TextBoxFilmName2.Text.Trim();
+					customer.year = Convert.ToInt32(TextBoxFilmYear2.Text.Trim());
+					customer.plotDescription = TextBoxFilmPlot2.Text.Trim();
+					customer.genres = TextBoxFilmGenres2.Text.Trim();
+					customer.rating = float.Parse(TextBoxFilmRating2.Text.Trim());
+					customer.countries = TextBoxFilmCountries2.Text.Trim();
+					customer.director = TextBoxFilmDirector2.Text.Trim();
+					customer.actors = TextBoxFilmActors2.Text.Trim();
+					customer.duration = Convert.ToInt32(TextBoxFilmDuration2.Text.Trim());
+					customer.premiereDate = TextBoxFilmPremiereDate2.Text.Trim();
+					customer.poster = Pic;
+
+					// Сохранить изменения
+					context.SaveChanges();
+				}
+				else
+				{
+					if (namebool2 == false)
+					{
+						FilmNameLabel2.Content = "Неверно введено название.";
+					}
+					if (yearbool2 == false)
+					{
+						FilmYearLabel2.Content = "Неверно введён год.";
+					}
+					if (plotbool2 == false)
+					{
+						FilmPlotLabel2.Content = "Неверно введено описание.";
+					}
+					if (genresbool2 == false)
+					{
+						FilmGenresLabel2.Content = "Неверно введены жанры.";
+					}
+					if (ratingbool2 == false)
+					{
+						FilmRatingLabel2.Content = "Неверно введён рейтинг.";
+					}
+					if (countriesbool2 == false)
+					{
+						FilmCountriesLabel2.Content = "Неверно введены страны.";
+					}
+					if (directorbool2 == false)
+					{
+						FilmDirectorLabel2.Content = "Неверно введён режисёр.";
+					}
+					if (durationbool2 == false)
+					{
+						FilmDurationLabel2.Content = "Неверно введена продолжительность.";
+					}
+					if (actorsbool2 == false)
+					{
+						FilmActorsLabel2.Content = "Неверно введены актёры.";
+					}
+					if (premieredatebool2 == false)
+					{
+						FilmPremiereDateLabel2.Content = "Неверно введена дата выхода.";
+					}
+				}
 			}
 			InfoForFilms();
 
 		}
-		private void Button_SaveUsers_Click(object sender, RoutedEventArgs e)
+		private void Button_SaveUsers_Click(object sender, RoutedEventArgs e)//+
 		{
 			var contentListBox = ListBoxUsers.SelectedItem as AppViewUsers;
 			if (contentListBox != null)
 			{
-
-				course_work context = new course_work();
-				var customer = context.UsersBD
-					.Where(c => c.login == contentListBox.login)
-					.FirstOrDefault();
-				// Внести изменения
-				customer.login = TextBoxLogin.Text.Trim();
-				customer.password = TextBoxPassword.Text.Trim();
-				customer.EmailBD = TextBoxEmail.Text.Trim();
-				if (ComboBoxAdmin.SelectedItem == AdminComboBox)
+				if (emailbool == true && loginbool == true && passbool == true)
 				{
-					customer.admin = true;
+
+
+					course_work context = new course_work();
+					var customer = context.UsersBD
+						.Where(c => c.login == contentListBox.login)
+						.FirstOrDefault();
+					// Внести изменения
+					customer.login = TextBoxLogin.Text.Trim();
+					customer.password = TextBoxPassword.Text.Trim();
+					customer.EmailBD = TextBoxEmail.Text.Trim();
+					if (ComboBoxAdmin.SelectedItem == AdminComboBox)
+					{
+						customer.admin = true;
+					}
+					else
+						customer.admin = false;
+
+					// Сохранить изменения
+					context.SaveChanges();
 				}
 				else
-					customer.admin = false;
-				
-				// Сохранить изменения
-				context.SaveChanges();
+				{
+					if (emailbool == false)
+					{
+						EmailLabel.Content = "Неверно введеён E-mail.";
+					}
+					if (loginbool == false)
+					{
+						LoginLabel.Content = "Логин должен содержать от 4 до 30 символов.";
+					}
+					if (passbool == false)
+					{
+						PasswordLabel.Content = "Пароль должен содержать от 4 до 30 символов.";
+					}
+					
+				}
 			}
 			InfoForUsers();
 
@@ -709,19 +821,19 @@ namespace course_project_v0._0._2.View
 					{
 						TextBoxFilmDuration.BorderBrush = Brushes.LimeGreen;
 						FilmDurationLabel.Content = null;
-						actorsbool = true;
+						durationbool = true;
 					}
 					else
 					{
 						TextBoxFilmDuration.BorderBrush = Brushes.DarkRed;
-						actorsbool = false;
+						durationbool = false;
 					}	
 				}
 			}
 			else
 			{
 				TextBoxFilmDuration.BorderBrush = Brushes.DarkRed;
-				actorsbool = false;
+				durationbool = false;
 			}
 
 			if (Regex.IsMatch(TextBoxFilmDuration2.Text, pattern, RegexOptions.IgnoreCase))
@@ -732,19 +844,19 @@ namespace course_project_v0._0._2.View
 					{
 						TextBoxFilmDuration2.BorderBrush = Brushes.LimeGreen;
 						FilmDurationLabel2.Content = null;
-						actorsbool2 = true;
+						durationbool2 = true;
 					}
 					else
 					{
 						TextBoxFilmDuration2.BorderBrush = Brushes.DarkRed;
-						actorsbool2 = false;
+						durationbool2 = false;
 					}
 				}
 			}
 			else
 			{
 				TextBoxFilmDuration2.BorderBrush = Brushes.DarkRed;
-				actorsbool2 = false;
+				durationbool2 = false;
 			}
 		}
 		private void PremiereDateTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
@@ -827,6 +939,8 @@ namespace course_project_v0._0._2.View
 				emailbool = false;
 			}
 		}
+
+
 		private void BasketTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
 		{
 
@@ -839,6 +953,18 @@ namespace course_project_v0._0._2.View
 		private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 
+		}
+
+		private void TextBoxNumbers_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+		{
+			var regex = new Regex(@"[^0-9]");
+			e.Handled = regex.IsMatch(e.Text);
+		}
+
+		private void TextBoxFilmLetters_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+		{
+			var regex = new Regex(@"[0-9]|[@#$%!?=<>:;№.^&*+/-]");
+			e.Handled = regex.IsMatch(e.Text);
 		}
 
 	}
