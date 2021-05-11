@@ -25,6 +25,7 @@ namespace course_project_v0._0._2.View
 			InfoForFilms();
 			InfoForComboBoxFilms();
 			InfoForSession();
+			InfoForFeedback();
 			ADMIN = admi;
 			LOGIN = login;
 		}
@@ -74,9 +75,7 @@ namespace course_project_v0._0._2.View
 				}
 			}
 		}
-
 		private ObservableCollection<AppViewUsers> infoforusers;
-
 		public void InfoForUsers()
 		{
 			using (course_work cw = new course_work())
@@ -94,14 +93,12 @@ namespace course_project_v0._0._2.View
 				ListBoxUsers.ItemsSource = infoforusers;
 			}
 		}
-
 		private ObservableCollection<AppViewSession> infoforsession;
 
 		public void InfoForSession()
 		{
 			using (course_work cw = new course_work())
 			{
-
 				var info = cw.Session.ToList();
 				infoforsession = new ObservableCollection<AppViewSession>();
 				foreach (var i in info)
@@ -114,15 +111,12 @@ namespace course_project_v0._0._2.View
 				ListBoxSession.ItemsSource = infoforsession;
 			}
 		}
-
-
 		private ObservableCollection<AppView> infoforfilms;
 
 		public void InfoForFilms()
 		{
 			using (course_work cw = new course_work())
 			{
-
 				var info = cw.Film.ToList();
 				infoforfilms = new ObservableCollection<AppView>();
 				foreach (var i in info)
@@ -135,7 +129,24 @@ namespace course_project_v0._0._2.View
 				ListBoxFilms.ItemsSource = infoforfilms;
 			}
 		}
+		private ObservableCollection<AppViewFeedback> infoforfeedback;
+		public void InfoForFeedback()
+		{
+			using (course_work cw = new course_work())
+			{
 
+				var info = cw.Feedback.ToList();
+				infoforfeedback = new ObservableCollection<AppViewFeedback>();
+				foreach (var i in info)
+				{
+					AppViewFeedback allFeedbacks = new AppViewFeedback();
+
+					allFeedbacks.AddFeedback(i.login, i.feedback1, i.dateFeedback);
+					infoforfeedback.Add(allFeedbacks);
+				}
+				ListBoxFeedback.ItemsSource = infoforfeedback;
+			}
+		}
 		private void Button_Save_Click(object sender, RoutedEventArgs e)
 		{
 			if (namebool == true && yearbool == true && plotbool == true && genresbool == true && ratingbool == true && countriesbool == true && directorbool == true && durationbool == true && actorsbool == true && premieredatebool == true)
@@ -212,12 +223,10 @@ namespace course_project_v0._0._2.View
 			this.Close();
 			MainWindow mainWindow = new MainWindow(ADMIN, LOGIN);
 			mainWindow.Show();
-
 		}
 		private void Button_Pict(object sender, RoutedEventArgs e)
 		{
 			LoadImg();
-
 		}
 		private void Button_Pict2(object sender, RoutedEventArgs e)
 		{
@@ -235,7 +244,6 @@ namespace course_project_v0._0._2.View
 				{
 					Picture = dialog.FileName;
 				}
-
 				string path = Picture;
 				byte[] imageBytes = File.ReadAllBytes(path);
 				Pic = imageBytes;
@@ -244,7 +252,6 @@ namespace course_project_v0._0._2.View
 			{
 
 			}
-
 		}
 		private void Button2_Save_Click(object sender, RoutedEventArgs e)//+
 		{
@@ -253,8 +260,6 @@ namespace course_project_v0._0._2.View
 			{
 				if (namebool2 == true && yearbool2 == true && plotbool2 == true && genresbool2 == true && ratingbool2 == true && countriesbool2 == true && directorbool2 == true && durationbool2 == true && actorsbool2 == true && premieredatebool2 == true)
 				{
-
-
 					course_work context = new course_work();
 					var customer = context.Film
 						.Where(c => c.filmName == contentListBox.filmname)
@@ -271,7 +276,6 @@ namespace course_project_v0._0._2.View
 					customer.duration = Convert.ToInt32(TextBoxFilmDuration2.Text.Trim());
 					customer.premiereDate = TextBoxFilmPremiereDate2.Text.Trim();
 					customer.poster = Pic;
-
 					// Сохранить изменения
 					context.SaveChanges();
 				}
@@ -320,7 +324,6 @@ namespace course_project_v0._0._2.View
 				}
 			}
 			InfoForFilms();
-
 		}
 		private void Button_SaveUsers_Click(object sender, RoutedEventArgs e)//+
 		{
@@ -329,8 +332,6 @@ namespace course_project_v0._0._2.View
 			{
 				if (emailbool == true && loginbool == true && passbool == true)
 				{
-
-
 					course_work context = new course_work();
 					var customer = context.UsersBD
 						.Where(c => c.login == contentListBox.login)
@@ -367,7 +368,6 @@ namespace course_project_v0._0._2.View
 				}
 			}
 			InfoForUsers();
-
 		}
 		private void Button_Del_Click(object sender, RoutedEventArgs e)
 		{
@@ -385,6 +385,22 @@ namespace course_project_v0._0._2.View
 			}
 			InfoForFilms();
 		}
+		private void Button_DelSession_Click(object sender, RoutedEventArgs e)
+		{
+			var contentListBox = ListBoxSession.SelectedItem as AppViewSession;
+			if (contentListBox != null)
+			{
+
+				course_work context = new course_work();
+				Session customer = context.Session
+				 .Where(c => c.sessionID == contentListBox.sessionID)
+				 .FirstOrDefault();
+
+				context.Session.Remove(customer);
+				context.SaveChanges();
+			}
+			InfoForSession();
+		}
 
 		private void Button_DelUser_Click(object sender, RoutedEventArgs e)
 		{
@@ -401,6 +417,22 @@ namespace course_project_v0._0._2.View
 				context.SaveChanges();
 			}
 			InfoForUsers();
+		}
+		private void Button_DelFeedback_Click(object sender, RoutedEventArgs e)
+		{
+			var contentListBox = ListBoxFeedback.SelectedItem as AppViewFeedback;
+			if (contentListBox != null)
+			{
+
+				course_work context = new course_work();
+				Feedback customer = context.Feedback
+				 .Where(c => c.feedback1 == contentListBox.feedback)
+				 .FirstOrDefault();
+
+				context.Feedback.Remove(customer);
+				context.SaveChanges();
+			}
+			InfoForFeedback();
 		}
 		private void Button_SaveSession_Click(object sender, RoutedEventArgs e)
 		{
@@ -420,7 +452,7 @@ namespace course_project_v0._0._2.View
 				
 				foreach (var check in halls)
 				{
-					if (check.hallID.Trim() == ComboBoxHalls.Text)//--
+					if (check.hallID.Trim() == ComboBoxHalls.Text)
 					{
 
 						nubrs_of_place = check.row * check.place;
@@ -460,7 +492,6 @@ namespace course_project_v0._0._2.View
 				Pic = PictureForByte;
 			}
 		}
-
 		private void ListBoxUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var contentListBox = ListBoxUsers.SelectedItem as AppViewUsers;
@@ -480,7 +511,6 @@ namespace course_project_v0._0._2.View
 				}
 			}
 		}
-
 		public void LoadImg()
 		{
 			try
@@ -508,7 +538,6 @@ namespace course_project_v0._0._2.View
 			}
 			
 		}
-
 		public void randFilmID()
 		{
 			Random rnd = new Random();
@@ -517,7 +546,6 @@ namespace course_project_v0._0._2.View
 			value = rnd.Next(1000000, 9999999);
 			SessionID = $"{value}";
 		}
-
 
 		private void FilmNameTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
 		{
@@ -728,7 +756,6 @@ namespace course_project_v0._0._2.View
 		private void FilmCountriesTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
 		{
 			string pattern = @"\b\w{3,60}\b";
-
 			if (Regex.IsMatch(TextBoxFilmCountries.Text, pattern, RegexOptions.IgnoreCase))
 			{
 				TextBoxFilmCountries.BorderBrush = Brushes.LimeGreen;
@@ -772,7 +799,6 @@ namespace course_project_v0._0._2.View
 		private void FilmDirectorTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
 		{
 			string pattern = @"\b\w{2,60}\b";
-
 			if (Regex.IsMatch(TextBoxFilmDirector.Text, pattern, RegexOptions.IgnoreCase))
 			{
 				TextBoxFilmDirector.BorderBrush = Brushes.LimeGreen;
@@ -812,11 +838,9 @@ namespace course_project_v0._0._2.View
 				TextBoxFilmDirector2.BorderBrush = Brushes.DarkRed;
 				directorbool2 = false;
 			}
-
 		}
 		private void FilmActorsTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
 		{
-
 			string pattern = @"\b\w{2,500}\b";
 
 			if (Regex.IsMatch(TextBoxFilmActors.Text, pattern, RegexOptions.IgnoreCase))
@@ -991,33 +1015,24 @@ namespace course_project_v0._0._2.View
 		}
 		private void TimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-
 		}
 		private void PriceTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-
 		}
-
 		private void BasketTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-
 		}
 		private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-
 		}
-
 		private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-
 		}
-
 		private void TextBoxNumbers_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
 		{
 			var regex = new Regex(@"[^0-9]");
 			e.Handled = regex.IsMatch(e.Text);
 		}
-
 		private void TextBoxFilmLetters_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
 		{
 			var regex = new Regex(@"[0-9]|[@#$%!?=<>:;№.^&*+/-]");

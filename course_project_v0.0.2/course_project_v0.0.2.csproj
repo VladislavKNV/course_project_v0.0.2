@@ -260,6 +260,9 @@
       <DependentUpon>Sing_Up.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AppView.cs" />
+    <Compile Include="View\TicketWPF.xaml.cs">
+      <DependentUpon>TicketWPF.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\AdminAddFilm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -289,6 +292,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Sing_Up.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TicketWPF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

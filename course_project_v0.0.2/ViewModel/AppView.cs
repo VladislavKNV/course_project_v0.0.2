@@ -11,12 +11,14 @@ using GalaSoft.MvvmLight;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Drawing;
+using System;
 
 namespace course_project_v0._0._2.View
 {
 	class AppView : ViewModelBase
     {
         public string filmID { get; set; }
+      //  public string FilmsID { get; set; }
         public string filmname { get; set; }
         public string year { get; set; }
         public byte[] poster { get; set; }
@@ -29,6 +31,11 @@ namespace course_project_v0._0._2.View
         public string duration { get; set; }
         public string premiereDate { get; set; }
 
+       // public void FilID(string _FilmsID)
+		//{
+          //  FilmsID = _FilmsID;
+
+        // }
         public void AddPoster(byte[] _poster)
         {
             poster = _poster;
@@ -66,29 +73,7 @@ namespace course_project_v0._0._2.View
 
 
 		}
-/*
-        private byte[] BitmapSourceToByteArray(BitmapSource image)
-        {
-            using (var stream = new MemoryStream())
-            {
-                var encoder = new PngBitmapEncoder(); // or some other encoder
-                encoder.Frames.Add(BitmapFrame.Create(image));
-                encoder.Save(stream);
-                return stream.ToArray();
-            }
-        }
 
-        public Image stringToImage(byte[] inputString)
-        {
-            //byte[] imageBytes = Encoding.Unicode.GetBytes(inputString);
-
-            MemoryStream ms = new MemoryStream(inputString);
-
-            Image image = Image.FromStream(ms, true, true);
-
-            return image;
-        }
-*/
     }
 
 }

@@ -17,25 +17,23 @@ using System.IO;
 
 namespace course_project_v0._0._2.View
 {
-	/// <summary>
-	/// Логика взаимодействия для SessionWPF.xaml
-	/// </summary>
 	public partial class SessionWPF : Window
 	{
 		public string FilmID;
-		public SessionWPF(string ID, bool admin, string login)
+		public SessionWPF(string ID, bool admin, string login, DateTime _date)
 		{
 			InitializeComponent();
 			FilmID = ID;
 			ADMIN = admin;
 			LOGIN = login;
+			DateSession = _date;
 			InfoForFilms();
 			AddPost();
 			InfoForListBox();
 
 		}
 
-
+		public DateTime DateSession;
 		public string NameF;
 		public int Year;
 		public string Plot;
@@ -74,10 +72,8 @@ namespace course_project_v0._0._2.View
 					Duration = (int)check.duration;
 					PremiereDate = check.premiereDate;
 					Poster = check.poster;
-						
-				}
 
-				
+				}
 			}
 			FilmName.Text = NameF;
 			FilmYear.Text = $"{Year}";
@@ -89,46 +85,45 @@ namespace course_project_v0._0._2.View
 			FilmActros.Text = Actors;
 			FilmDuration.Text = $"{Duration} минут";
 			FilmPremiereDate.Text = PremiereDate;
-			
-
-
 		}
-
 		private ObservableCollection<AppView> post;
 		public void AddPost()
 		{
-				post = new ObservableCollection<AppView>();
-				AppView posterfilm = new AppView();
-				posterfilm.AddPoster(Poster);
-				post.Add(posterfilm);
-				ListBoxPoster.ItemsSource = post;
+			post = new ObservableCollection<AppView>();
+			AppView posterfilm = new AppView();
+			posterfilm.AddPoster(Poster);
+			post.Add(posterfilm);
+			ListBoxPoster.ItemsSource = post;
 		}
-
 		private ObservableCollection<AppViewSession> infoforsession;
-
 		public void InfoForListBox()
 		{
 			using (course_work cw = new course_work())
 			{
-
 				var info = cw.Session.ToList();
 				infoforsession = new ObservableCollection<AppViewSession>();
 				foreach (var i in info)
 				{
-					AppViewSession allSession = new AppViewSession();
+					if (i.date == DateSession)
+					{
+						AppViewSession allSession = new AppViewSession();
 
-					allSession.AddSession(i.sessionID,i.filmID,i.date,i.time,i.hallID, i.number_of_free_seats, i.price_for_place);
-					infoforsession.Add(allSession);
+						allSession.AddSession(i.sessionID, i.filmID, i.date, i.time, i.hallID, i.number_of_free_seats, i.price_for_place);
+						infoforsession.Add(allSession);
+					}
 				}
 				ListBoxSession.ItemsSource = infoforsession;
-
 			}
 		}
-
-		private void ListBoxSession_SelectionChanged(object sender, SelectionChangedEventArgs e)//+-
+		private void ListBoxSession_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+			var aaa = ListBoxSession.SelectedItem as AppViewSession;
+			if (aaa != null)
+			{
+				TicketWPF ticketWPF = new TicketWPF(LOGIN);
+				ticketWPF.Show();
+			}
 		}
-
 
 	}
 }

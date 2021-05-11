@@ -11,7 +11,7 @@
         <StackPanel>
             <Border Height="110"  Background="#FF3E3E42">
                 <Grid>
-                    <DatePicker Foreground="#cf3030" Width="160" BorderBrush="#cf3030" Margin="20 20 800 20"></DatePicker>
+                    <DatePicker x:Name="Datepic" Foreground="#cf3030" Width="160" BorderBrush="#cf3030" Margin="20 20 800 20" ></DatePicker>
                     <Button x:Name="ButtonForAdmin" Width="120" Content="Админ" Margin="230 0 640 0" Height="50" Background="#cf3030" Click="Button_Click_Admin"></Button>
                     <Button x:Name="ButtonForFeedback" Width="120" Content="Отзывы"  Height="50" Background="Green" Click="Button_Click_Feedback"></Button>
                 </Grid>
