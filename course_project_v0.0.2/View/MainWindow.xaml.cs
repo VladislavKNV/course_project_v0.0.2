@@ -4,22 +4,14 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using course_project_v0._0._2.DataBase;
 using System.IO;
 
 namespace course_project_v0._0._2
 {
-
 	public partial class MainWindow : Window
 	{
 		public MainWindow(bool admi, string login)
@@ -33,8 +25,6 @@ namespace course_project_v0._0._2
                 ButtonForAdmin.Visibility = Visibility.Hidden;
             }
             DateForPicker();
-
-
         }
         public bool ADMIN;
         public string LOGIN;
@@ -42,7 +32,6 @@ namespace course_project_v0._0._2
         public void DateForPicker()
 		{
             Datepic.SelectedDate = DateTime.Now;
-
         }
 
         private ObservableCollection<AppView> infoforfilm;
@@ -51,7 +40,6 @@ namespace course_project_v0._0._2
         {
             using (course_work cw = new course_work())
             {
-
                 var info = cw.Film.ToList();
                 infoforfilm = new ObservableCollection<AppView>();
                 var forBD = cw.Database.SqlQuery<Session>($"select * from Session where Session.date = '{Datepic.DisplayDate.Date}'");

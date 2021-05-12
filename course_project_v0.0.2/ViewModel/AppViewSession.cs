@@ -15,9 +15,7 @@ namespace course_project_v0._0._2.View
 		public TimeSpan time { get; set; }
 		public int number_of_free_seats { get; set; }
 		public int price { get; set; }
-
 		public string hall { get; set; }
-
 
 		public void AddSession(string _sessionID, string _filmID, DateTime _date, TimeSpan _time, string _hall, int _number_of_free_seats, int _price)
 		{
@@ -29,8 +27,5 @@ namespace course_project_v0._0._2.View
 			number_of_free_seats = _number_of_free_seats;
 			price = _price;
 		}
-	
-
-
 	}
 }

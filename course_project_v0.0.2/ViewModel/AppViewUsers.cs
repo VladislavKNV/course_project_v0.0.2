@@ -27,8 +27,6 @@ namespace course_project_v0._0._2.View
             Email = _Email;
             admin = _admin;
             basket = _basket;
-
-
         }
     }
 }

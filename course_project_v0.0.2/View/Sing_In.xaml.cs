@@ -7,11 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using course_project_v0._0._2.DataBase;
 using System.Security.Cryptography;
@@ -55,7 +51,6 @@ namespace course_project_v0._0._2
 						{
 							if (check.password.Trim() == GetHashPassword(PasswordBox.Password.Trim()))
 							{
-
 								loginbool_for_sing_In = true;
 								MainWindow mainWindow = new MainWindow(check.admin, check.login);
 								mainWindow.Show();
@@ -64,8 +59,7 @@ namespace course_project_v0._0._2
 							{
 								PassLabel.Content = "Неверный логин или пароль.";
 								LoginLabel.Content = "Неверный логин или пароль.";
-							}
-								
+							}	
 						}
 					}
 					if (loginbool_for_sing_In == false)
@@ -73,12 +67,8 @@ namespace course_project_v0._0._2
 						LoginLabel.Content = "Неверный логин или пароль.";
 						PassLabel.Content = "Неверный логин или пароль.";
 					}
-
 				}
-				
-
 			}
-
 		}
 
 		public bool loginbool = false;
@@ -108,7 +98,6 @@ namespace course_project_v0._0._2
 				PasswordBox.BorderBrush = Brushes.LimeGreen;
 				PassLabel.Content = null;
 				passbool = true;
-
 			}
 			else
 			{

@@ -2,15 +2,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading;
-using System.Windows;
-using System.Windows.Input;
 using course_project_v0._0._2.DataBase;
 using GalaSoft.MvvmLight;
-
 using System.IO;
-using System.Windows.Media.Imaging;
-using System.Drawing;
 using System;
 
 namespace course_project_v0._0._2.View
@@ -41,7 +35,6 @@ namespace course_project_v0._0._2.View
             poster = _poster;
 
         }
-
         public void Add(string _filmname, int _year,string _genres, float _rating, string _countries, string _director, int _duration, byte[] _poster,string _filmID)
         {
             filmID = _filmID;
@@ -70,10 +63,7 @@ namespace course_project_v0._0._2.View
             actors = _actors;
             duration = "" + (int)_duration;
             premiereDate = _premiereDate;
-
-
 		}
-
     }
 
 }

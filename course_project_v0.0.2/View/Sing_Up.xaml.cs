@@ -7,11 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using course_project_v0._0._2.DataBase;
@@ -24,13 +20,11 @@ namespace course_project_v0._0._2
 		{
 			InitializeComponent();
 		}
-
 		private void Button_Back_Click(object sender, RoutedEventArgs e)
 		{
 			Close();
 			Sing_In sing_In = new Sing_In();
 			sing_In.Show();
-			
 		}
 
 		private void Button_Reg_Click(object sender, RoutedEventArgs e)
@@ -62,7 +56,6 @@ namespace course_project_v0._0._2
 					{
 						LoginLabel.Content = "Такой логин уже зарегестрирован";
 						loginbool = false;
-
 					}
 				}
 
@@ -73,14 +66,12 @@ namespace course_project_v0._0._2
 					{
 						EmailLabel.Content = "Такая почта уже зарегестрирована";
 						emailbool = false;
-
 					}
 				}
 			}
 
 			if (emailbool == true && loginbool == true && pass1bool == true && pass2bool == true)
 			{
-				
 				using (course_work cw = new course_work())
 				{
 					UsersBD user = new UsersBD()
@@ -100,7 +91,6 @@ namespace course_project_v0._0._2
 				Sing_In sing_In = new Sing_In();
 				sing_In.Show();
 			}
-
 		}
 
 		public bool emailbool = false;
@@ -208,7 +198,6 @@ namespace course_project_v0._0._2
 				loginbool = false;
 			}
 		}
-		
 		private string GetHashPassword(string s)
 		{
 			//переводим строку в байт-массив  

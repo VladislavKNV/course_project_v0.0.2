@@ -7,11 +7,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Text.RegularExpressions;
-using System.Security.Cryptography;
 using System.Windows.Media;
 using System.IO;
 using Microsoft.Win32;
-using System.Data.SqlClient;
 
 namespace course_project_v0._0._2.View
 {
@@ -226,7 +224,29 @@ namespace course_project_v0._0._2.View
 		}
 		private void Button_Pict(object sender, RoutedEventArgs e)
 		{
-			LoadImg();
+			try
+			{
+				OpenFileDialog dialog = new OpenFileDialog()
+				{
+					CheckFileExists = false,
+					CheckPathExists = true,
+					Multiselect = false,
+					Title = "Выберите файл"
+				};
+
+				if (dialog.ShowDialog() == true)
+				{
+					Picture = dialog.FileName;
+				}
+
+				string path = Picture;
+				byte[] imageBytes = File.ReadAllBytes(path);
+				PictureForByte = imageBytes;
+			}
+			catch (Exception)
+			{
+
+			}
 		}
 		private void Button_Pict2(object sender, RoutedEventArgs e)
 		{
@@ -239,7 +259,7 @@ namespace course_project_v0._0._2.View
 					Multiselect = false,
 					Title = "Выберите файл"	
 			};
-				dialog.Filter = "Image files (*.BMP, *.JPG, *.GIF, *.TIF, *.PNG, *.ICO, *.EMF, .WMF)|.bmp;.jpg;.gif; *.tif; *.png; *.ico; *.emf; *.wmf";//?
+				dialog.Filter = "Image files (*.BMP, *.JPG, *.GIF, *.TIF, *.PNG, *.ICO, *.EMF, .WMF)|.bmp;.jpg;.gif; *jpg; *.tif; *.png; *.ico; *.emf; *.wmf";
 				if (dialog.ShowDialog() == true)
 				{
 					Picture = dialog.FileName;
@@ -275,8 +295,13 @@ namespace course_project_v0._0._2.View
 					customer.actors = TextBoxFilmActors2.Text.Trim();
 					customer.duration = Convert.ToInt32(TextBoxFilmDuration2.Text.Trim());
 					customer.premiereDate = TextBoxFilmPremiereDate2.Text.Trim();
-					customer.poster = Pic;
-					// Сохранить изменения
+					if (Pic == null)
+					{
+						Pic = contentListBox.poster;
+					}
+					else
+						customer.poster = Pic;
+
 					context.SaveChanges();
 				}
 				else
@@ -347,7 +372,6 @@ namespace course_project_v0._0._2.View
 					else
 						customer.admin = false;
 
-					// Сохранить изменения
 					context.SaveChanges();
 				}
 				else
@@ -437,7 +461,7 @@ namespace course_project_v0._0._2.View
 		private void Button_SaveSession_Click(object sender, RoutedEventArgs e)
 		{
 
-			using (course_work cw = new course_work())
+			using (course_work cw = new course_work())//добавить валидацию
 			{
 				TimeSpan duration = new TimeSpan(Convert.ToInt32(ComboBoxhour.Text), Convert.ToInt32(ComboBoxMinuts.Text), 0);
 				var forenter = cw.Database.SqlQuery<Film>($"select * from Film");
@@ -510,33 +534,6 @@ namespace course_project_v0._0._2.View
 					ComboBoxAdmin.SelectedItem = UserComboBox;
 				}
 			}
-		}
-		public void LoadImg()
-		{
-			try
-			{
-				OpenFileDialog dialog = new OpenFileDialog()
-				{
-					CheckFileExists = false,
-					CheckPathExists = true,
-					Multiselect = false,
-					Title = "Выберите файл"
-				};
-
-				if (dialog.ShowDialog() == true)
-				{
-					Picture = dialog.FileName;
-				}
-
-				string path = Picture;
-				byte[] imageBytes = File.ReadAllBytes(path);
-				PictureForByte = imageBytes;
-			}
-			catch(Exception)
-			{
-
-			}
-			
 		}
 		public void randFilmID()
 		{
@@ -614,7 +611,7 @@ namespace course_project_v0._0._2.View
 				try
 				{
 					int year = Convert.ToInt32(TextBoxFilmYear2.Text.Trim());
-					DateTime date1 = new DateTime(year, 1, 1, 0, 0, 0); // год - месяц - день - час - минута - секунда
+					DateTime date1 = new DateTime(year, 1, 1, 0, 0, 0);
 					DateTime date2 = new DateTime(1896, 1, 1, 0, 0, 0);
 					if (date1 < date2 || date1 > DateTime.Now)
 					{
