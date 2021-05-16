@@ -6,14 +6,21 @@
         xmlns:local="clr-namespace:course_project_v0._0._2"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-       Title="Banksy" Height="650" Width="1000" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
+       Title="Banksy" Height="650" MinWidth="750" MinHeight="500" Width="1000" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid Margin="0 0 0 0 " Background="#cf3030">
         <StackPanel>
             <Border Height="110"  Background="#FF3E3E42">
                 <Grid>
-                    <DatePicker x:Name="Datepic" Foreground="#cf3030" Width="160" BorderBrush="#cf3030" Margin="20 20 800 20" ></DatePicker>
-                    <Button x:Name="ButtonForAdmin" Width="120" Content="Админ" Margin="230 0 640 0" Height="50" Background="#cf3030" Click="Button_Click_Admin"></Button>
-                    <Button x:Name="ButtonForFeedback" Width="120" Content="Отзывы"  Height="50" Background="Green" Click="Button_Click_Feedback"></Button>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MinWidth="150" MaxWidth="150"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="150" MaxWidth="150"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="150" MaxWidth="150"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker Margin="50 0 0 0" HorizontalAlignment="Left" x:Name="Datepic" Foreground="#cf3030" Width="160" BorderBrush="#cf3030" Grid.Column="0" MouseLeave="Datepic_MouseMove"></DatePicker>
+                    <Button x:Name="ButtonForAdmin" Width="120" Content="Админ" Grid.Column="1" Height="50" Background="#cf3030" Click="Button_Click_Admin"></Button>
+                    <Button x:Name="ButtonForFeedback" Width="120" Content="Отзывы" Grid.Column="2" Height="50" Background="#cf3030" Click="Button_Click_Feedback"></Button>
+                    <Button Grid.Column="3"  Width="120" Content="Корзина" Height="50" Background="#cf3030" Click="Button_Click"></Button>
                 </Grid>
             </Border>
             <Border Height="15">

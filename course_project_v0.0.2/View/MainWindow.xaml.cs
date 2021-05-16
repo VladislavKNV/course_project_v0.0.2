@@ -19,12 +19,12 @@ namespace course_project_v0._0._2
             InitializeComponent();
             ADMIN = admi;
             LOGIN = login;
-            InfoForListBox();
 			if (ADMIN == false)
 			{
                 ButtonForAdmin.Visibility = Visibility.Hidden;
             }
             DateForPicker();
+            InfoForListBox();
         }
         public bool ADMIN;
         public string LOGIN;
@@ -42,10 +42,10 @@ namespace course_project_v0._0._2
             {
                 var info = cw.Film.ToList();
                 infoforfilm = new ObservableCollection<AppView>();
-                var forBD = cw.Database.SqlQuery<Session>($"select * from Session where Session.date = '{Datepic.DisplayDate.Date}'");
+                var forBD = cw.Database.SqlQuery<Session>($"select * from Session");
                 foreach (var check in forBD)
                 {
-					if (check.date == Datepic.DisplayDate.Date)
+					if (check.date == Datepic.SelectedDate.Value)
 					{
                         foreach (var i in info)
                         {
@@ -88,5 +88,22 @@ namespace course_project_v0._0._2
             }
         }
 
+		private void Datepic_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+            InfoForListBox();
+
+        }
+
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+            Datepic.BlackoutDates.AddDatesInPast();
+        }
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+           BasketWPF basketWPF = new BasketWPF(LOGIN, ADMIN);
+           basketWPF.Show();
+            this.Close();
+		}
 	}
 }

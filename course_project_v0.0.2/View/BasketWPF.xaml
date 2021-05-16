@@ -1,0 +1,38 @@
+﻿<Window x:Class="course_project_v0._0._2.View.BasketWPF"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:course_project_v0._0._2.View"
+        mc:Ignorable="d"
+        Title="BasketWPF" Height="650" MinWidth="750" MinHeight="500" Width="1000" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
+    <Grid Background="#FF3E3E42">
+        <StackPanel>
+            <Border Height="110">
+                <Grid>
+                    <Label Margin="20 0 0 0" FontSize="24" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold">Логин:</Label>
+                    <TextBlock x:Name="LoginUser" Margin="-450 0 0 0" FontSize="24" Foreground="White" Width="300" VerticalAlignment="Center"></TextBlock>
+                    <Button Margin="0 20 160 20"  Content="Del" HorizontalAlignment="Right"  Height="40" Width="120" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Del" BorderThickness="0" Click="Button_Del_Click" ></Button>
+                    <Button Margin="0 0 20 0" Content="Назад" HorizontalAlignment="Right" Height="40" Width="120" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_Click_Back"></Button>
+                </Grid>
+            </Border>
+        </StackPanel>
+        <ListBox Margin="20 140 20 0" x:Name="ListBoxTicket"  Background="#FF3E3E42"  Grid.Column="0" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <Image HorizontalAlignment="Right" Source="{Binding poster}" Width="100" Height="120"/>
+                        <StackPanel Margin="30 0 0 0 ">
+                            <TextBlock Text="{Binding FilmName}" Foreground="White" FontSize="16"></TextBlock>
+                            <TextBlock Text="{Binding Date}" FontSize="12" Foreground="White"></TextBlock>
+                            <TextBlock Text="{Binding Time}" FontSize="12" Foreground="White"></TextBlock>
+                            <TextBlock Text="{Binding Row}" FontSize="12" Foreground="White"></TextBlock>
+                            <TextBlock Text="{Binding Place}" FontSize="12" Foreground="White"></TextBlock>
+                            <TextBlock Text="{Binding price}" FontSize="12" Foreground="White"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

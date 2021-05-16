@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:course_project_v0._0._2.View"
         mc:Ignorable="d"
           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="SessionWPF" Height="500" Width="800" MinHeight="450" MinWidth="450" WindowStartupLocation="CenterScreen">
+        Title="SessionWPF" Height="550" Width="850" MinHeight="450" MinWidth="650" WindowStartupLocation="CenterScreen">
     <Grid Background="#FF3E3E42">
         <ScrollViewer>
             <Grid>
@@ -74,10 +74,11 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0 0 0 0 ">
-                                <TextBlock Text="{Binding sesssionID}" Foreground="White" FontSize="20"></TextBlock>
-                                <TextBlock Text="{Binding filmID}" FontSize="14" Foreground="White"></TextBlock>
-                                <TextBlock Text="{Binding date}" FontSize="14" Foreground="White"></TextBlock>
-                                <TextBlock Text="{Binding time}" FontSize="14" Foreground="White"></TextBlock>
+                                <TextBlock Text="{Binding filmName}" Foreground="White" FontSize="16"></TextBlock>
+                                <TextBlock Text="{Binding DateForInfo}" FontSize="14" Foreground="White"></TextBlock>
+                                <TextBlock Text="{Binding TimeForInfo}" FontSize="14" Foreground="White"></TextBlock>
+                                <TextBlock Text="{Binding Info_price}" FontSize="14" Foreground="White"></TextBlock>
+                                <TextBlock Text="{Binding Info_number_of_free_seats}" FontSize="14" Foreground="White"></TextBlock>
                                 <TextBlock Text="{Binding hall}" FontSize="14" Foreground="White"></TextBlock>
                             </StackPanel>
                         </DataTemplate>

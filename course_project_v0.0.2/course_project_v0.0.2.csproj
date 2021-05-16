@@ -241,12 +241,17 @@
     <Compile Include="DataBase\UsersBD.cs">
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
+    <Compile Include="Singleton.cs" />
     <Compile Include="View\AdminAddFilm.xaml.cs">
       <DependentUpon>AdminAddFilm.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AppViewUsers.cs" />
     <Compile Include="ViewModel\AppViewSession.cs" />
     <Compile Include="ViewModel\AppViewFeedback.cs" />
+    <Compile Include="ViewModel\AppViewTickets.cs" />
+    <Compile Include="View\BasketWPF.xaml.cs">
+      <DependentUpon>BasketWPF.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FeedbackWPF.xaml.cs">
       <DependentUpon>FeedbackWPF.xaml</DependentUpon>
     </Compile>
@@ -264,6 +269,10 @@
       <DependentUpon>TicketWPF.xaml</DependentUpon>
     </Compile>
     <Page Include="View\AdminAddFilm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BasketWPF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -354,6 +363,7 @@
       <DependentUpon>BD.edmx</DependentUpon>
       <LastGenOutput>BD.cs</LastGenOutput>
     </Content>
+    <Resource Include="ImageF\Ticket.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

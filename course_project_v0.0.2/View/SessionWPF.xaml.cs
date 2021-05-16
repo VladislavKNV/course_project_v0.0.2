@@ -40,6 +40,7 @@ namespace course_project_v0._0._2.View
 		public byte[] Poster;
 		public bool ADMIN;
 		public string LOGIN;
+		public string IDSession;
 		private void Button_Click_Back(object sender, RoutedEventArgs e)
 		{
 			this.Close();
@@ -99,9 +100,12 @@ namespace course_project_v0._0._2.View
 					if (i.date == DateSession)
 					{
 						AppViewSession allSession = new AppViewSession();
-
-						allSession.AddSession(i.sessionID, i.filmID, i.date, i.time, i.hallID, i.number_of_free_seats, i.price_for_place);
-						infoforsession.Add(allSession);
+						var forBD = cw.Database.SqlQuery<Film>($"select * from film where Film.filmID = '{i.filmID}'");
+						foreach (var check in forBD)
+						{
+							allSession.InfoForListBox(i.sessionID, i.filmID, i.date, i.time, i.hallID, i.number_of_free_seats, i.price_for_place, check.filmName);
+							infoforsession.Add(allSession);
+						}
 					}
 				}
 				ListBoxSession.ItemsSource = infoforsession;
@@ -112,7 +116,8 @@ namespace course_project_v0._0._2.View
 			var aaa = ListBoxSession.SelectedItem as AppViewSession;
 			if (aaa != null)
 			{
-				TicketWPF ticketWPF = new TicketWPF(LOGIN);
+				IDSession = aaa.sessionID;
+				TicketWPF ticketWPF = new TicketWPF(LOGIN, IDSession);
 				ticketWPF.Show();
 			}
 		}

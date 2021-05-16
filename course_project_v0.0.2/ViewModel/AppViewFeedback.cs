@@ -9,15 +9,19 @@ namespace course_project_v0._0._2.View
 {
 	class AppViewFeedback : ViewModelBase
 	{
+		public string FeedbackID { get; set; }
 		public string login { get; set; }
 		public string feedback { get; set; }
 		public string dateFeedback { get; set; }
 
-		public void AddFeedback(string _login, string _feedback, DateTime _dateFeedback)
+		public void AddFeedback(string _login, string _feedback, DateTime _dateFeedback, string _feedbackID)
 		{
-			login = "Пользователь" +_login;
-			feedback = _feedback;
-			dateFeedback = "Дата" +(DateTime)_dateFeedback;
+			StringBuilder bild = new StringBuilder($"{_dateFeedback}");
+			bild.Remove(10, 8);
+			login = "Пользователь: " +_login;
+			feedback ="Отзыв: " + _feedback;
+			dateFeedback = "Дата: " + bild;
+			FeedbackID = _feedbackID;
 
 		}
 	}

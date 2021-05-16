@@ -10,6 +10,8 @@ using System.Text.RegularExpressions;
 using System.Windows.Media;
 using System.IO;
 using Microsoft.Win32;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace course_project_v0._0._2.View
 {
@@ -23,11 +25,29 @@ namespace course_project_v0._0._2.View
 			InfoForFilms();
 			InfoForComboBoxFilms();
 			InfoForSession();
+			InfoForListBoxTickets();
 			InfoForFeedback();
 			ADMIN = admi;
 			LOGIN = login;
+			//
+			
+			//
 		}
-
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			var view = CollectionViewSource.GetDefaultView(ListBoxFilms.ItemsSource);
+			view.Filter = FilmSearch;
+			var viewusers = CollectionViewSource.GetDefaultView(ListBoxUsers.ItemsSource);
+			viewusers.Filter = UsersSearch;
+			DataPickerSession.BlackoutDates.AddDatesInPast();
+			var viewSession = CollectionViewSource.GetDefaultView(ListBoxSession.ItemsSource);
+			viewSession.Filter = SessionSearchFilmName;
+			var viewRev = CollectionViewSource.GetDefaultView(ListBoxFeedback.ItemsSource);
+			viewRev.Filter = RevSearchLogin;
+			var viewTicket = CollectionViewSource.GetDefaultView(ListBoxTickets.ItemsSource);
+			viewTicket.Filter = FilmNameSearch;
+		}
+		
 		public bool ADMIN;
 		public string LOGIN;
 		public bool namebool = false;
@@ -50,9 +70,8 @@ namespace course_project_v0._0._2.View
 		public bool actorsbool2 = false;
 		public bool durationbool2 = false;
 		public bool premieredatebool2 = false;
-		public bool emailbool = false;
-		public bool loginbool = false;
 		public bool passbool = false;
+		public bool pricebool = false;
 		public string FilmID;
 		public string SessionID;
 		public string Picture;
@@ -102,15 +121,18 @@ namespace course_project_v0._0._2.View
 				foreach (var i in info)
 				{
 					AppViewSession allSession = new AppViewSession();
+					var forBD = cw.Database.SqlQuery<Film>($"select * from film where Film.filmID = '{i.filmID}'");
+					foreach (var check in forBD)
+					{
 
-					allSession.AddSession(i.sessionID, i.filmID, i.date, i.time, i.hallID, i.number_of_free_seats, i.price_for_place);
-					infoforsession.Add(allSession);
+						allSession.InfoForListBox(i.sessionID, i.filmID, i.date, i.time, i.hallID, i.number_of_free_seats, i.price_for_place, check.filmName);
+						infoforsession.Add(allSession);
+					}
 				}
 				ListBoxSession.ItemsSource = infoforsession;
 			}
 		}
 		private ObservableCollection<AppView> infoforfilms;
-
 		public void InfoForFilms()
 		{
 			using (course_work cw = new course_work())
@@ -127,6 +149,27 @@ namespace course_project_v0._0._2.View
 				ListBoxFilms.ItemsSource = infoforfilms;
 			}
 		}
+
+		private ObservableCollection<AppViewTickets> infoforTickets;
+		public void InfoForListBoxTickets()
+		{
+			using (course_work cw = new course_work())
+			{
+				var info = cw.Ticket.ToList();
+				infoforTickets = new ObservableCollection<AppViewTickets>();
+
+				foreach (var i in info)
+				{
+							
+					AppViewTickets allTicket = new AppViewTickets();
+					allTicket.InfoForAdminTickets(i.ticketID, i.sessionID, i.userID, i.filmName, i.price, i.date, i.time, i.row, i.place);
+					infoforTickets.Add(allTicket);
+				}
+			}
+
+			ListBoxTickets.ItemsSource = infoforTickets;
+		}
+
 		private ObservableCollection<AppViewFeedback> infoforfeedback;
 		public void InfoForFeedback()
 		{
@@ -139,7 +182,7 @@ namespace course_project_v0._0._2.View
 				{
 					AppViewFeedback allFeedbacks = new AppViewFeedback();
 
-					allFeedbacks.AddFeedback(i.login, i.feedback1, i.dateFeedback);
+					allFeedbacks.AddFeedback(i.login, i.feedback1, i.dateFeedback, i.feedbackID);
 					infoforfeedback.Add(allFeedbacks);
 				}
 				ListBoxFeedback.ItemsSource = infoforfeedback;
@@ -233,7 +276,7 @@ namespace course_project_v0._0._2.View
 					Multiselect = false,
 					Title = "Выберите файл"
 				};
-
+				dialog.Filter = "Image files (*.BMP, *.JPG, *.GIF, *.TIF, *.PNG, *.ICO, *.EMF, .WMF)|.bmp;.jpg;.gif; *jpg; *.tif; *.png; *.ico; *.emf; *.wmf";
 				if (dialog.ShowDialog() == true)
 				{
 					Picture = dialog.FileName;
@@ -355,16 +398,18 @@ namespace course_project_v0._0._2.View
 			var contentListBox = ListBoxUsers.SelectedItem as AppViewUsers;
 			if (contentListBox != null)
 			{
-				if (emailbool == true && loginbool == true && passbool == true)
+				if (passbool == true)
 				{
 					course_work context = new course_work();
 					var customer = context.UsersBD
 						.Where(c => c.login == contentListBox.login)
 						.FirstOrDefault();
 					// Внести изменения
-					customer.login = TextBoxLogin.Text.Trim();
-					customer.password = TextBoxPassword.Text.Trim();
-					customer.EmailBD = TextBoxEmail.Text.Trim();
+					if (contentListBox.password != TextBoxPassword.Text.Trim())
+					{
+						customer.password = GetHashPassword(TextBoxPassword.Text.Trim());
+					}
+					
 					if (ComboBoxAdmin.SelectedItem == AdminComboBox)
 					{
 						customer.admin = true;
@@ -376,14 +421,6 @@ namespace course_project_v0._0._2.View
 				}
 				else
 				{
-					if (emailbool == false)
-					{
-						EmailLabel.Content = "Неверно введеён E-mail.";
-					}
-					if (loginbool == false)
-					{
-						LoginLabel.Content = "Логин должен содержать от 4 до 30 символов.";
-					}
 					if (passbool == false)
 					{
 						PasswordLabel.Content = "Пароль должен содержать от 4 до 30 символов.";
@@ -414,14 +451,30 @@ namespace course_project_v0._0._2.View
 			var contentListBox = ListBoxSession.SelectedItem as AppViewSession;
 			if (contentListBox != null)
 			{
+				using (course_work cw = new course_work())
+				{
+					var forDell = cw.Database.SqlQuery<Ticket>($"select * from Ticket");
+					foreach (var check in forDell)
+					{
+						if (check.sessionID == contentListBox.sessionID)
+						{
+							course_work contextTickets = new course_work();
+							Ticket customerTickets = contextTickets.Ticket
+							 .Where(c => c.sessionID == check.sessionID)
+							 .FirstOrDefault();
 
-				course_work context = new course_work();
-				Session customer = context.Session
-				 .Where(c => c.sessionID == contentListBox.sessionID)
-				 .FirstOrDefault();
+							contextTickets.Ticket.Remove(customerTickets);
+							contextTickets.SaveChanges();
+						}
+					}
+					course_work context = new course_work();
+					Session customer = context.Session
+					 .Where(c => c.sessionID == contentListBox.sessionID)
+					 .FirstOrDefault();
 
-				context.Session.Remove(customer);
-				context.SaveChanges();
+					context.Session.Remove(customer);
+					context.SaveChanges();
+				}
 			}
 			InfoForSession();
 		}
@@ -450,7 +503,7 @@ namespace course_project_v0._0._2.View
 
 				course_work context = new course_work();
 				Feedback customer = context.Feedback
-				 .Where(c => c.feedback1 == contentListBox.feedback)
+				 .Where(c => c.feedbackID == contentListBox.FeedbackID)
 				 .FirstOrDefault();
 
 				context.Feedback.Remove(customer);
@@ -458,45 +511,75 @@ namespace course_project_v0._0._2.View
 			}
 			InfoForFeedback();
 		}
+		private void Button_DelTickets_Click(object sender, RoutedEventArgs e)
+		{
+			var contentListBox = ListBoxTickets.SelectedItem as AppViewTickets;
+			if (contentListBox != null)
+			{
+
+				course_work context = new course_work();
+				Ticket customer = context.Ticket
+				 .Where(c => c.ticketID == contentListBox.TicketID)
+				 .FirstOrDefault();
+
+				context.Ticket.Remove(customer);
+				context.SaveChanges();
+			}
+			InfoForListBoxTickets();
+		}
 		private void Button_SaveSession_Click(object sender, RoutedEventArgs e)
 		{
-
-			using (course_work cw = new course_work())//добавить валидацию
+			try
 			{
-				TimeSpan duration = new TimeSpan(Convert.ToInt32(ComboBoxhour.Text), Convert.ToInt32(ComboBoxMinuts.Text), 0);
-				var forenter = cw.Database.SqlQuery<Film>($"select * from Film");
-				foreach (var check in forenter)
+				if (pricebool == true)
 				{
-					if (check.filmName == ComboBoxFilms.Text)
+					using (course_work cw = new course_work())
 					{
-						FilmID = check.filmID;
-					}
-				}
-				 var halls = cw.Database.SqlQuery<Hall>($"select * from Hall");	
-				
-				foreach (var check in halls)
-				{
-					if (check.hallID.Trim() == ComboBoxHalls.Text)
-					{
+						TimeSpan duration = new TimeSpan(Convert.ToInt32(ComboBoxhour.Text), Convert.ToInt32(ComboBoxMinuts.Text), 0);
+						var forenter = cw.Database.SqlQuery<Film>($"select * from Film");
+						foreach (var check in forenter)
+						{
+							if (check.filmName == ComboBoxFilms.Text)
+							{
+								FilmID = check.filmID;
+							}
+						}
+						var halls = cw.Database.SqlQuery<Hall>($"select * from Hall");
 
-						nubrs_of_place = check.row * check.place;
-					}
-				}
-				Session session = new Session()
-				{
-					sessionID = SessionID,
-					filmID = FilmID,
-					hallID = ComboBoxHalls.Text.Trim(),
-					date = DataPickerSession.SelectedDate.Value,
-					time = duration,
-					number_of_free_seats = nubrs_of_place,
-					price_for_place = Convert.ToInt32(TextBoxPrice.Text.Trim())
+						foreach (var check in halls)
+						{
+							if (check.hallID.Trim() == ComboBoxHalls.Text)
+							{
 
-				};
-				cw.Session.Add(session);
-				cw.SaveChanges();
+								nubrs_of_place = check.row * check.place;
+							}
+						}
+						Session session = new Session()
+						{
+							sessionID = SessionID,
+							filmID = FilmID,
+							hallID = ComboBoxHalls.Text.Trim(),
+							date = DataPickerSession.SelectedDate.Value,
+							time = duration,
+							number_of_free_seats = nubrs_of_place,
+							price_for_place = Convert.ToInt32(TextBoxPrice.Text.Trim())
+
+						};
+						cw.Session.Add(session);
+						cw.SaveChanges();
+					}
+					MessageBox.Show("Запись прошла успешно.");
+					SessionLabel.Content = null;
+				}
+				else
+				{
+					priceLabel.Content = "Цена должна быть от 1 до 100";
+				}
 			}
-			MessageBox.Show("Запись прошла успешно.");
+			catch(Exception)
+			{
+				SessionLabel.Content = "Заполните все поля!";
+			}
 		}
 		private void ListBoxFilms_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -524,7 +607,6 @@ namespace course_project_v0._0._2.View
 				TextBoxLogin.Text = contentListBox.login;
 				TextBoxPassword.Text = contentListBox.password;
 				TextBoxEmail.Text = contentListBox.Email;
-				TextBoxBasket.Text = contentListBox.basket;
 				if (contentListBox.admin == true)
 				{
 					ComboBoxAdmin.SelectedItem = AdminComboBox;
@@ -710,14 +792,22 @@ namespace course_project_v0._0._2.View
 
 			if (Regex.IsMatch(TextBoxFilmRating.Text, pattern, RegexOptions.IgnoreCase))
 			{
-				float rating = float.Parse(TextBoxFilmRating.Text.Trim());
-				if (rating <= 10.0 && rating >= 0.1) 
+				try
 				{
-					TextBoxFilmRating.BorderBrush = Brushes.LimeGreen;
-					FilmRatingLabel.Content = null;
-					ratingbool = true;
+					float rating = float.Parse(TextBoxFilmRating.Text.Trim());
+					if (rating <= 10.0 && rating >= 0.1)
+					{
+						TextBoxFilmRating.BorderBrush = Brushes.LimeGreen;
+						FilmRatingLabel.Content = null;
+						ratingbool = true;
+					}
+					else
+					{
+						TextBoxFilmRating.BorderBrush = Brushes.DarkRed;
+						ratingbool = false;
+					}
 				}
-				else
+				catch
 				{
 					TextBoxFilmRating.BorderBrush = Brushes.DarkRed;
 					ratingbool = false;
@@ -958,22 +1048,7 @@ namespace course_project_v0._0._2.View
 				premieredatebool2 = false;
 			}
 		}
-		private void LoginTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
-		{
-			string pattern = @"\b\w{4,30}\b";
 
-			if (Regex.IsMatch(TextBoxLogin.Text, pattern, RegexOptions.IgnoreCase))
-			{
-				TextBoxLogin.BorderBrush = Brushes.LimeGreen;
-				LoginLabel.Content = null;
-				loginbool = true;
-			}
-			else
-			{
-				TextBoxLogin.BorderBrush = Brushes.DarkRed;
-				loginbool = false;
-			}
-		}
 		private void PasswordTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
 		{
 			string pattern = @"\b\w{4,60}\b";
@@ -989,38 +1064,52 @@ namespace course_project_v0._0._2.View
 				passbool = false;
 			}
 		}
-		private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
-		{
-			string pattern = @"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
-				@"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$";
-			string pattern2 = @"\b\w{4,60}\b";
 
-			if (Regex.IsMatch(TextBoxEmail.Text.Trim(), pattern, RegexOptions.IgnoreCase))
+		private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		{
+			CollectionViewSource.GetDefaultView(ListBoxFilms.ItemsSource).Refresh();
+		}
+		private void SearchUsersTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		{
+			CollectionViewSource.GetDefaultView(ListBoxUsers.ItemsSource).Refresh();
+		}
+		private void SearchRevTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		{
+			CollectionViewSource.GetDefaultView(ListBoxFeedback.ItemsSource).Refresh();
+		}
+		private void PriceTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			string pattern = @"\b\w{1,2}\b";
+
+			if (Regex.IsMatch(TextBoxPrice.Text, pattern, RegexOptions.IgnoreCase))
 			{
-				if (Regex.IsMatch(TextBoxEmail.Text.Trim(), pattern2, RegexOptions.IgnoreCase))
+				try
 				{
-					TextBoxEmail.BorderBrush = Brushes.LimeGreen;
-					EmailLabel.Content = null;
-					emailbool = true;
+					int priceTextbox = Convert.ToInt32(TextBoxPrice.Text.Trim());
+					if (priceTextbox <= 100 && priceTextbox >= 1)
+					{
+						TextBoxPrice.BorderBrush = Brushes.LimeGreen;
+						priceLabel.Content = null;
+						pricebool = true;
+					}
+					else
+					{
+						TextBoxPrice.BorderBrush = Brushes.DarkRed;
+						pricebool = false;
+					}
+				}
+				catch
+				{
+					TextBoxPrice.BorderBrush = Brushes.DarkRed;
+					pricebool = false;
 				}
 			}
 			else
 			{
-				TextBoxEmail.BorderBrush = Brushes.DarkRed;
-				emailbool = false;
+				TextBoxPrice.BorderBrush = Brushes.DarkRed;
+				pricebool = false;
 			}
-		}
-		private void TimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
-		{
-		}
-		private void PriceTextBox_TextChanged(object sender, TextChangedEventArgs e)
-		{
-		}
-		private void BasketTextBox_TextChanged(object sender, TextChangedEventArgs e)
-		{
-		}
-		private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
+
 		}
 		private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -1032,11 +1121,289 @@ namespace course_project_v0._0._2.View
 		}
 		private void TextBoxFilmLetters_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
 		{
-			var regex = new Regex(@"[0-9]|[@#$%!?=<>:;№.^&*+/-]");
+			var regex = new Regex(@"[0-9]|[@#$%!?(){}=<>:;№.^&*+/-]");
 			e.Handled = regex.IsMatch(e.Text);
 		}
+		private string GetHashPassword(string s)
+		{
+			//переводим строку в байт-массим  
+			byte[] bytes = Encoding.Unicode.GetBytes(s);
+			//создаем объект для получения средст шифрования  
+			MD5CryptoServiceProvider CSP =
+				new MD5CryptoServiceProvider();
+			//вычисляем хеш-представление в байтах  
+			byte[] byteHash = CSP.ComputeHash(bytes);
+			string hash = string.Empty;
+			//формируем одну цельную строку из массива  
+			foreach (byte b in byteHash)
+			{
+				hash += string.Format("{0:x2}", b);
+			}
+			return hash;
+		}
 
+		private bool FilmSearch(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearch.Text))
+				return true;
+			else
+			{
+				return (item as AppView).filmname.ToUpper().Contains(TextBoxSearch.Text.ToUpper());
+			}
+		}
+		private bool FilmSearchID(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearch.Text))
+				return true;
+			else
+			{
+				return (item as AppView).filmID.ToUpper().Contains(TextBoxSearch.Text.ToUpper());
+			}
+		}
+		private bool UsersSearch(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchUsers.Text))
+				return true;
+			else
+			{
+				return (item as AppViewUsers).login.ToUpper().Contains(TextBoxSearchUsers.Text.ToUpper());
+			}
+		}
+		private bool UsersSearchID(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchUsers.Text))
+				return true;
+			else
+			{
+				return (item as AppViewUsers).UserID.ToUpper().Contains(TextBoxSearchUsers.Text.ToUpper());
+			}
+		}
+		private bool UsersSearchMail(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchUsers.Text))
+				return true;
+			else
+			{
+				return (item as AppViewUsers).Email.ToUpper().Contains(TextBoxSearchUsers.Text.ToUpper());
+			}
+		}
+		private bool SessionSearchFilmName(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchSession.Text))
+				return true;
+			else
+			{
+				return (item as AppViewSession).filmName.ToUpper().Contains(TextBoxSearchSession.Text.ToUpper());
+			}
+		}
+		private bool SessionSearchFilmID(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchSession.Text))
+				return true;
+			else
+			{
+				return (item as AppViewSession).filmID.ToUpper().Contains(TextBoxSearchSession.Text.ToUpper());
+			}
+		}
+		private bool SessionSearchSessionID(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchSession.Text))
+				return true;
+			else
+			{
+				return (item as AppViewSession).sessionID.ToUpper().Contains(TextBoxSearchSession.Text.ToUpper());
+			}
+		}
+		private bool SessionSearchDate(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchSession.Text))
+				return true;
+			else
+			{
+				return (item as AppViewSession).DateForInfo.ToUpper().Contains(TextBoxSearchSession.Text.ToUpper());
+			}
+		}
+
+		private bool RevSearchLogin(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchRev.Text))
+				return true;
+			else
+			{
+				return (item as AppViewFeedback).login.ToUpper().Contains(TextBoxSearchRev.Text.ToUpper());
+			}
+		}
+		private bool RevSearchRev(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchRev.Text))
+				return true;
+			else
+			{
+				return (item as AppViewFeedback).feedback.ToUpper().Contains(TextBoxSearchRev.Text.ToUpper());
+			}
+		}
+		private bool RevSearchDate(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchRev.Text))
+				return true;
+			else
+			{
+				return (item as AppViewFeedback).dateFeedback.ToUpper().Contains(TextBoxSearchRev.Text.ToUpper());
+			}
+		}
+
+		private bool FilmNameSearch(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchTickets.Text))
+				return true;
+			else
+			{
+				return (item as AppViewTickets).FilmName.ToUpper().Contains(TextBoxSearchTickets.Text.ToUpper());
+			}
+		}
+		private bool TicketIDSearch(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchTickets.Text))
+				return true;
+			else
+			{
+				return (item as AppViewTickets).TicketID.ToUpper().Contains(TextBoxSearchTickets.Text.ToUpper());
+			}
+		}
+		private bool UserIDSearch(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchTickets.Text))
+				return true;
+			else
+			{
+				return (item as AppViewTickets).UserID.ToUpper().Contains(TextBoxSearchTickets.Text.ToUpper());
+			}
+		}
+		private bool SessionIDSearch(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchTickets.Text))
+				return true;
+			else
+			{
+				return (item as AppViewTickets).SessionID.ToUpper().Contains(TextBoxSearchTickets.Text.ToUpper());
+			}
+		}
+		private bool TicketDateSearch(object item)
+		{
+			if (String.IsNullOrEmpty(TextBoxSearchTickets.Text))
+				return true;
+			else
+			{
+				return (item as AppViewTickets).Date.ToUpper().Contains(TextBoxSearchTickets.Text.ToUpper());
+			}
+		}
+
+		private void ComboBoxFilm_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			if (ComboBoxFilm.SelectedIndex == 0)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxFilms.ItemsSource);
+				view.Filter = FilmSearch;
+			}
+			if (ComboBoxFilm.SelectedIndex == 1)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxFilms.ItemsSource);
+				view.Filter = FilmSearchID;
+			}
+		}
+
+		private void ComboBoxUser_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			if (ComboBoxUser.SelectedIndex == 0)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxUsers.ItemsSource);
+				view.Filter = UsersSearch;
+			}
+			if (ComboBoxUser.SelectedIndex == 1)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxUsers.ItemsSource);
+				view.Filter = UsersSearchID;
+			}
+			if (ComboBoxUser.SelectedIndex == 2)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxUsers.ItemsSource);
+				view.Filter = UsersSearchMail;
+			}
+		}
+
+		private void ComboBoxSession_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			if (ComboBoxSession.SelectedIndex == 0)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxSession.ItemsSource);
+				view.Filter = SessionSearchFilmName;
+			}
+			if (ComboBoxSession.SelectedIndex == 1)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxSession.ItemsSource);
+				view.Filter = SessionSearchFilmID;
+			}
+			if (ComboBoxSession.SelectedIndex == 2)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxSession.ItemsSource);
+				view.Filter = SessionSearchSessionID;
+			}
+			if (ComboBoxSession.SelectedIndex == 3)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxSession.ItemsSource);
+				view.Filter = SessionSearchDate;
+			}
+		}
+
+		private void ComboBoxRev_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			if (ComboBoxRev.SelectedIndex == 0)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxFeedback.ItemsSource);
+				view.Filter = RevSearchLogin;
+			}
+			if (ComboBoxRev.SelectedIndex == 1)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxFeedback.ItemsSource);
+				view.Filter = RevSearchRev;
+			}
+			if (ComboBoxRev.SelectedIndex == 2)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxFeedback.ItemsSource);
+				view.Filter = RevSearchDate;
+			}
+		}
+		private void ComboBoxTicket_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			if (ComboBoxTickets.SelectedIndex == 0)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxTickets.ItemsSource);
+				view.Filter = FilmNameSearch;
+			}
+			if (ComboBoxTickets.SelectedIndex == 1)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxTickets.ItemsSource);
+				view.Filter = TicketIDSearch;
+			}
+			if (ComboBoxTickets.SelectedIndex == 2)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxTickets.ItemsSource);
+				view.Filter = UserIDSearch;
+			}
+			if (ComboBoxTickets.SelectedIndex == 3)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxTickets.ItemsSource);
+				view.Filter = SessionIDSearch;
+			}
+			if (ComboBoxTickets.SelectedIndex == 4)
+			{
+				var view = CollectionViewSource.GetDefaultView(ListBoxTickets.ItemsSource);
+				view.Filter = TicketDateSearch;
+			}
+		}
 	}
+
+	
 }
 
 
