@@ -42,8 +42,478 @@ namespace course_project_v0._0._2.View
 		}
 		public void TicketsSingleton()
 		{
-			Singleton singleton = new Singleton();
-			qwerty.Background = singleton.bgColor;
+			using (course_work cw = new course_work())
+			{
+				var forBD = cw.Database.SqlQuery<Ticket>($"select * from Ticket where Ticket.sessionID = '{SESSID}'");
+				foreach (var check in forBD)
+				{
+					if (check.row == 1)
+					{
+						if (check.place == 1)
+						{
+							Singleton singleton = new Singleton();
+							r1p1.Background = singleton.bgColor;
+						}
+						if (check.place == 2)
+						{
+							Singleton singleton = new Singleton();
+							r1p2.Background = singleton.bgColor;
+						}
+						if (check.place == 3)
+						{
+							Singleton singleton = new Singleton();
+							r1p3.Background = singleton.bgColor;
+						}
+						if (check.place == 4)
+						{
+							Singleton singleton = new Singleton();
+							r1p4.Background = singleton.bgColor;
+						}
+						if (check.place == 5)
+						{
+							Singleton singleton = new Singleton();
+							r1p5.Background = singleton.bgColor;
+						}
+						if (check.place == 6)
+						{
+							Singleton singleton = new Singleton();
+							r1p6.Background = singleton.bgColor;
+						}
+						if (check.place == 7)
+						{
+							Singleton singleton = new Singleton();
+							r1p7.Background = singleton.bgColor;
+						}
+						if (check.place == 8)
+						{
+							Singleton singleton = new Singleton();
+							r1p8.Background = singleton.bgColor;
+						}
+						if (check.place == 9)
+						{
+							Singleton singleton = new Singleton();
+							r1p9.Background = singleton.bgColor;
+						}
+						if (check.place == 10)
+						{
+							Singleton singleton = new Singleton();
+							r1p10.Background = singleton.bgColor;
+						}
+						if (check.place == 11)
+						{
+							Singleton singleton = new Singleton();
+							r1p11.Background = singleton.bgColor;
+						}
+						if (check.place == 12)
+						{
+							Singleton singleton = new Singleton();
+							r1p12.Background = singleton.bgColor;
+						}
+						if (check.place == 13)
+						{
+							Singleton singleton = new Singleton();
+							r1p13.Background = singleton.bgColor;
+						}
+						if (check.place == 14)
+						{
+							Singleton singleton = new Singleton();
+							r1p14.Background = singleton.bgColor;
+						}
+						if (check.place == 15)
+						{
+							Singleton singleton = new Singleton();
+							r1p15.Background = singleton.bgColor;
+						}
+						if (check.place == 16)
+						{
+							Singleton singleton = new Singleton();
+							r1p16.Background = singleton.bgColor;
+						}
+						if (check.place == 17)
+						{
+							Singleton singleton = new Singleton();
+							r1p17.Background = singleton.bgColor;
+						}
+						if (check.place == 18)
+						{
+							Singleton singleton = new Singleton();
+							r1p18.Background = singleton.bgColor;
+						}
+					}
+					if (check.row == 2)
+					{
+						if (check.place == 1)
+						{
+							Singleton singleton = new Singleton();
+							r2p1.Background = singleton.bgColor;
+						}
+						if (check.place == 2)
+						{
+							Singleton singleton = new Singleton();
+							r2p2.Background = singleton.bgColor;
+						}
+						if (check.place == 3)
+						{
+							Singleton singleton = new Singleton();
+							r2p3.Background = singleton.bgColor;
+						}
+						if (check.place == 4)
+						{
+							Singleton singleton = new Singleton();
+							r2p4.Background = singleton.bgColor;
+						}
+						if (check.place == 5)
+						{
+							Singleton singleton = new Singleton();
+							r2p5.Background = singleton.bgColor;
+						}
+						if (check.place == 6)
+						{
+							Singleton singleton = new Singleton();
+							r2p6.Background = singleton.bgColor;
+						}
+						if (check.place == 7)
+						{
+							Singleton singleton = new Singleton();
+							r2p7.Background = singleton.bgColor;
+						}
+						if (check.place == 8)
+						{
+							Singleton singleton = new Singleton();
+							r2p8.Background = singleton.bgColor;
+						}
+						if (check.place == 9)
+						{
+							Singleton singleton = new Singleton();
+							r2p9.Background = singleton.bgColor;
+						}
+						if (check.place == 10)
+						{
+							Singleton singleton = new Singleton();
+							r2p10.Background = singleton.bgColor;
+						}
+						if (check.place == 11)
+						{
+							Singleton singleton = new Singleton();
+							r2p11.Background = singleton.bgColor;
+						}
+						if (check.place == 12)
+						{
+							Singleton singleton = new Singleton();
+							r2p12.Background = singleton.bgColor;
+						}
+						if (check.place == 13)
+						{
+							Singleton singleton = new Singleton();
+							r2p13.Background = singleton.bgColor;
+						}
+						if (check.place == 14)
+						{
+							Singleton singleton = new Singleton();
+							r2p14.Background = singleton.bgColor;
+						}
+						if (check.place == 15)
+						{
+							Singleton singleton = new Singleton();
+							r2p15.Background = singleton.bgColor;
+						}
+						if (check.place == 16)
+						{
+							Singleton singleton = new Singleton();
+							r2p16.Background = singleton.bgColor;
+						}
+						if (check.place == 17)
+						{
+							Singleton singleton = new Singleton();
+							r2p17.Background = singleton.bgColor;
+						}
+						if (check.place == 18)
+						{
+							Singleton singleton = new Singleton();
+							r2p18.Background = singleton.bgColor;
+						}
+					}
+					if (check.row == 3)
+					{
+						if (check.place == 1)
+						{
+							Singleton singleton = new Singleton();
+							r3p1.Background = singleton.bgColor;
+						}
+						if (check.place == 2)
+						{
+							Singleton singleton = new Singleton();
+							r3p2.Background = singleton.bgColor;
+						}
+						if (check.place == 3)
+						{
+							Singleton singleton = new Singleton();
+							r3p3.Background = singleton.bgColor;
+						}
+						if (check.place == 4)
+						{
+							Singleton singleton = new Singleton();
+							r3p4.Background = singleton.bgColor;
+						}
+						if (check.place == 5)
+						{
+							Singleton singleton = new Singleton();
+							r3p5.Background = singleton.bgColor;
+						}
+						if (check.place == 6)
+						{
+							Singleton singleton = new Singleton();
+							r3p6.Background = singleton.bgColor;
+						}
+						if (check.place == 7)
+						{
+							Singleton singleton = new Singleton();
+							r3p7.Background = singleton.bgColor;
+						}
+						if (check.place == 8)
+						{
+							Singleton singleton = new Singleton();
+							r3p8.Background = singleton.bgColor;
+						}
+						if (check.place == 9)
+						{
+							Singleton singleton = new Singleton();
+							r3p9.Background = singleton.bgColor;
+						}
+						if (check.place == 10)
+						{
+							Singleton singleton = new Singleton();
+							r3p10.Background = singleton.bgColor;
+						}
+						if (check.place == 11)
+						{
+							Singleton singleton = new Singleton();
+							r3p11.Background = singleton.bgColor;
+						}
+						if (check.place == 12)
+						{
+							Singleton singleton = new Singleton();
+							r3p12.Background = singleton.bgColor;
+						}
+						if (check.place == 13)
+						{
+							Singleton singleton = new Singleton();
+							r3p13.Background = singleton.bgColor;
+						}
+						if (check.place == 14)
+						{
+							Singleton singleton = new Singleton();
+							r3p14.Background = singleton.bgColor;
+						}
+						if (check.place == 15)
+						{
+							Singleton singleton = new Singleton();
+							r3p15.Background = singleton.bgColor;
+						}
+						if (check.place == 16)
+						{
+							Singleton singleton = new Singleton();
+							r3p16.Background = singleton.bgColor;
+						}
+						if (check.place == 17)
+						{
+							Singleton singleton = new Singleton();
+							r3p17.Background = singleton.bgColor;
+						}
+						if (check.place == 18)
+						{
+							Singleton singleton = new Singleton();
+							r3p18.Background = singleton.bgColor;
+						}
+					}
+					if (check.row == 4)
+					{
+						if (check.place == 1)
+						{
+							Singleton singleton = new Singleton();
+							r4p1.Background = singleton.bgColor;
+						}
+						if (check.place == 2)
+						{
+							Singleton singleton = new Singleton();
+							r4p2.Background = singleton.bgColor;
+						}
+						if (check.place == 3)
+						{
+							Singleton singleton = new Singleton();
+							r4p3.Background = singleton.bgColor;
+						}
+						if (check.place == 4)
+						{
+							Singleton singleton = new Singleton();
+							r4p4.Background = singleton.bgColor;
+						}
+						if (check.place == 5)
+						{
+							Singleton singleton = new Singleton();
+							r4p5.Background = singleton.bgColor;
+						}
+						if (check.place == 6)
+						{
+							Singleton singleton = new Singleton();
+							r4p6.Background = singleton.bgColor;
+						}
+						if (check.place == 7)
+						{
+							Singleton singleton = new Singleton();
+							r4p7.Background = singleton.bgColor;
+						}
+						if (check.place == 8)
+						{
+							Singleton singleton = new Singleton();
+							r4p8.Background = singleton.bgColor;
+						}
+						if (check.place == 9)
+						{
+							Singleton singleton = new Singleton();
+							r4p9.Background = singleton.bgColor;
+						}
+						if (check.place == 10)
+						{
+							Singleton singleton = new Singleton();
+							r4p10.Background = singleton.bgColor;
+						}
+						if (check.place == 11)
+						{
+							Singleton singleton = new Singleton();
+							r4p11.Background = singleton.bgColor;
+						}
+						if (check.place == 12)
+						{
+							Singleton singleton = new Singleton();
+							r4p12.Background = singleton.bgColor;
+						}
+						if (check.place == 13)
+						{
+							Singleton singleton = new Singleton();
+							r4p13.Background = singleton.bgColor;
+						}
+						if (check.place == 14)
+						{
+							Singleton singleton = new Singleton();
+							r4p14.Background = singleton.bgColor;
+						}
+						if (check.place == 15)
+						{
+							Singleton singleton = new Singleton();
+							r4p15.Background = singleton.bgColor;
+						}
+						if (check.place == 16)
+						{
+							Singleton singleton = new Singleton();
+							r4p16.Background = singleton.bgColor;
+						}
+						if (check.place == 17)
+						{
+							Singleton singleton = new Singleton();
+							r4p17.Background = singleton.bgColor;
+						}
+						if (check.place == 18)
+						{
+							Singleton singleton = new Singleton();
+							r4p18.Background = singleton.bgColor;
+						}
+					}
+					if (check.row == 5)
+					{
+						if (check.place == 1)
+						{
+							Singleton singleton = new Singleton();
+							r5p1.Background = singleton.bgColor;
+						}
+						if (check.place == 2)
+						{
+							Singleton singleton = new Singleton();
+							r5p2.Background = singleton.bgColor;
+						}
+						if (check.place == 3)
+						{
+							Singleton singleton = new Singleton();
+							r5p3.Background = singleton.bgColor;
+						}
+						if (check.place == 4)
+						{
+							Singleton singleton = new Singleton();
+							r5p4.Background = singleton.bgColor;
+						}
+						if (check.place == 5)
+						{
+							Singleton singleton = new Singleton();
+							r5p5.Background = singleton.bgColor;
+						}
+						if (check.place == 6)
+						{
+							Singleton singleton = new Singleton();
+							r5p6.Background = singleton.bgColor;
+						}
+						if (check.place == 7)
+						{
+							Singleton singleton = new Singleton();
+							r5p7.Background = singleton.bgColor;
+						}
+						if (check.place == 8)
+						{
+							Singleton singleton = new Singleton();
+							r5p8.Background = singleton.bgColor;
+						}
+						if (check.place == 9)
+						{
+							Singleton singleton = new Singleton();
+							r5p9.Background = singleton.bgColor;
+						}
+						if (check.place == 10)
+						{
+							Singleton singleton = new Singleton();
+							r5p10.Background = singleton.bgColor;
+						}
+						if (check.place == 11)
+						{
+							Singleton singleton = new Singleton();
+							r5p11.Background = singleton.bgColor;
+						}
+						if (check.place == 12)
+						{
+							Singleton singleton = new Singleton();
+							r5p12.Background = singleton.bgColor;
+						}
+						if (check.place == 13)
+						{
+							Singleton singleton = new Singleton();
+							r5p13.Background = singleton.bgColor;
+						}
+						if (check.place == 14)
+						{
+							Singleton singleton = new Singleton();
+							r5p14.Background = singleton.bgColor;
+						}
+						if (check.place == 15)
+						{
+							Singleton singleton = new Singleton();
+							r5p15.Background = singleton.bgColor;
+						}
+						if (check.place == 16)
+						{
+							Singleton singleton = new Singleton();
+							r5p16.Background = singleton.bgColor;
+						}
+						if (check.place == 17)
+						{
+							Singleton singleton = new Singleton();
+							r5p17.Background = singleton.bgColor;
+						}
+						if (check.place == 18)
+						{
+							Singleton singleton = new Singleton();
+							r5p18.Background = singleton.bgColor;
+						}
+					}
+				}
+			}
 		}
 		public void Info()
 		{
@@ -81,6 +551,12 @@ namespace course_project_v0._0._2.View
 				}
 			}
 		}
+		private void Button_Click_Back(object sender, RoutedEventArgs e)
+		{
+			//Close();
+			//Session session = new Session();
+			//session.Show();
+		}
 		private void Button_Buy_Click(object sender, RoutedEventArgs e)
 		{
 
@@ -114,7 +590,9 @@ namespace course_project_v0._0._2.View
 					};
 					cw.Ticket.Add(ticket);
 					cw.SaveChanges();
+					TicketsSingleton();
 					MessageBox.Show("Запись прошла успешно.");
+
 					//
 						course_work context = new course_work();
 						var customer = context.Session

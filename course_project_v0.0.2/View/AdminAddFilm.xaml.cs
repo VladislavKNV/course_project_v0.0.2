@@ -190,73 +190,80 @@ namespace course_project_v0._0._2.View
 		}
 		private void Button_Save_Click(object sender, RoutedEventArgs e)
 		{
-			if (namebool == true && yearbool == true && plotbool == true && genresbool == true && ratingbool == true && countriesbool == true && directorbool == true && durationbool == true && actorsbool == true && premieredatebool == true)
+			try
 			{
-				using (course_work cw = new course_work())
+				if (namebool == true && yearbool == true && plotbool == true && genresbool == true && ratingbool == true && countriesbool == true && directorbool == true && durationbool == true && actorsbool == true && premieredatebool == true)
 				{
-					byte[] imageBytes = File.ReadAllBytes(Picture);
-					Film film = new Film()
+					using (course_work cw = new course_work())
 					{
-						filmID = FilmID.Trim(),
-						filmName = TextBoxFilmName.Text.Trim(),
-						year = Convert.ToInt32(TextBoxFilmYear.Text.Trim()),
-						plotDescription = TextBoxFilmPlot.Text.Trim(),
-						genres = TextBoxFilmGenres.Text.Trim(),
-						rating = float.Parse(TextBoxFilmRating.Text.Trim()),
-						countries = TextBoxFilmCountries.Text.Trim(),
-						director = TextBoxFilmDirector.Text.Trim(),
-						actors = TextBoxFilmActors.Text.Trim(),
-						duration = Convert.ToInt32(TextBoxFilmDuration.Text.Trim()),
-						premiereDate = TextBoxFilmPremiereDate.Text.Trim(),
-						poster = PictureForByte
-					};
-					cw.Film.Add(film);
-					cw.SaveChanges();
+						byte[] imageBytes = File.ReadAllBytes(Picture);
+						Film film = new Film()
+						{
+							filmID = FilmID.Trim(),
+							filmName = TextBoxFilmName.Text.Trim(),
+							year = Convert.ToInt32(TextBoxFilmYear.Text.Trim()),
+							plotDescription = TextBoxFilmPlot.Text.Trim(),
+							genres = TextBoxFilmGenres.Text.Trim(),
+							rating = float.Parse(TextBoxFilmRating.Text.Trim()),
+							countries = TextBoxFilmCountries.Text.Trim(),
+							director = TextBoxFilmDirector.Text.Trim(),
+							actors = TextBoxFilmActors.Text.Trim(),
+							duration = Convert.ToInt32(TextBoxFilmDuration.Text.Trim()),
+							premiereDate = TextBoxFilmPremiereDate.Text.Trim(),
+							poster = PictureForByte
+						};
+						cw.Film.Add(film);
+						cw.SaveChanges();
+					}
+					MessageBox.Show("Запись прошла успешно.");
 				}
-				MessageBox.Show("Запись прошла успешно.");
+				else
+				{
+					if (namebool == false)
+					{
+						FilmNameLabel.Content = "Неверно введено название.";
+					}
+					if (yearbool == false)
+					{
+						FilmYearLabel.Content = "Неверно введён год.";
+					}
+					if (plotbool == false)
+					{
+						FilmPlotLabel.Content = "Неверно введено описание.";
+					}
+					if (genresbool == false)
+					{
+						FilmGenresLabel.Content = "Неверно введены жанры.";
+					}
+					if (ratingbool == false)
+					{
+						FilmRatingLabel.Content = "Неверно введён рейтинг.";
+					}
+					if (countriesbool == false)
+					{
+						FilmCountriesLabel.Content = "Неверно введены страны.";
+					}
+					if (directorbool == false)
+					{
+						FilmDirectorLabel.Content = "Неверно введён режисёр.";
+					}
+					if (durationbool == false)
+					{
+						FilmDurationLabel.Content = "Неверно введена продолжительность.";
+					}
+					if (actorsbool == false)
+					{
+						FilmActorsLabel.Content = "Неверно введены актёры.";
+					}
+					if (premieredatebool == false)
+					{
+						FilmPremiereDateLabel.Content = "Неверно введена дата выхода.";
+					}
+				}
 			}
-			else
+			catch(Exception)
 			{
-				if (namebool == false)
-				{
-					FilmNameLabel.Content = "Неверно введено название.";
-				}
-				if (yearbool == false)
-				{
-					FilmYearLabel.Content = "Неверно введён год.";
-				}
-				if (plotbool == false)
-				{
-					FilmPlotLabel.Content = "Неверно введено описание.";
-				}
-				if (genresbool == false)
-				{
-					FilmGenresLabel.Content = "Неверно введены жанры.";
-				}
-				if (ratingbool == false)
-				{
-					FilmRatingLabel.Content = "Неверно введён рейтинг.";
-				}
-				if (countriesbool == false)
-				{
-					FilmCountriesLabel.Content = "Неверно введены страны.";
-				}
-				if (directorbool == false)
-				{
-					FilmDirectorLabel.Content = "Неверно введён режисёр.";
-				}
-				if (durationbool == false)
-				{
-					FilmDurationLabel.Content = "Неверно введена продолжительность.";
-				}
-				if (actorsbool == false)
-				{
-					FilmActorsLabel.Content = "Неверно введены актёры.";
-				}
-				if (premieredatebool == false)
-				{
-					FilmPremiereDateLabel.Content = "Неверно введена дата выхода.";
-				}
+				MessageBox.Show("Произошла ошибка");
 			}
 		}
 		private void Button_Click_Back(object sender, RoutedEventArgs e)
@@ -430,13 +437,47 @@ namespace course_project_v0._0._2.View
 			}
 			InfoForUsers();
 		}
-		private void Button_Del_Click(object sender, RoutedEventArgs e)
+		private void Button_Del_Click(object sender, RoutedEventArgs e)//
 		{
 			var contentListBox = ListBoxFilms.SelectedItem as AppView;
 			if (contentListBox != null)
 			{
-				
-				course_work context = new course_work();
+				using (course_work cw = new course_work())
+				{
+
+					var forDell = cw.Database.SqlQuery<Session>($"select * from Session");
+					foreach (var check in forDell)
+					{
+						var forDellTickets = cw.Database.SqlQuery<Ticket>($"select * from Ticket where Ticket.sessionID = '{check.sessionID}'");
+						foreach (var i in forDellTickets)
+						{
+							if (contentListBox.filmname == i.filmName)
+							{
+								course_work contextTickets = new course_work();
+								Ticket customerTickets = contextTickets.Ticket
+								 .Where(c => c.ticketID == i.ticketID)
+								 .FirstOrDefault();
+
+								contextTickets.Ticket.Remove(customerTickets);
+								contextTickets.SaveChanges();
+							}
+						}
+
+						if (check.filmID == contentListBox.filmID)
+						{
+							course_work contextSession = new course_work();
+							Session customerSession = contextSession.Session
+							 .Where(c => c.sessionID == check.sessionID)
+							 .FirstOrDefault();
+
+							contextSession.Session.Remove(customerSession);
+							contextSession.SaveChanges();
+						}
+
+					}
+				}
+
+					course_work context = new course_work();
 				Film customer = context.Film
 				 .Where(c => c.filmName == contentListBox.filmname)
 				 .FirstOrDefault();
@@ -484,11 +525,27 @@ namespace course_project_v0._0._2.View
 			var contentListBox = ListBoxUsers.SelectedItem as AppViewUsers;
 			if (contentListBox != null)
 			{
+				using (course_work cw = new course_work())
+				{
+					var forDell = cw.Database.SqlQuery<Ticket>($"select * from Ticket");
+					foreach (var check in forDell)
+					{
+						if (check.userID == contentListBox.UserID)
+						{
+							course_work contextTickets = new course_work();
+							Ticket customerTickets = contextTickets.Ticket
+							 .Where(c => c.ticketID == check.ticketID)
+							 .FirstOrDefault();
 
+							contextTickets.Ticket.Remove(customerTickets);
+							contextTickets.SaveChanges();
+						}
+					}
+				}
 				course_work context = new course_work();
 				UsersBD customer = context.UsersBD
-				 .Where(c => c.login == contentListBox.login)
-				 .FirstOrDefault();
+					.Where(c => c.login == contentListBox.login)
+					.FirstOrDefault();
 
 				context.UsersBD.Remove(customer);
 				context.SaveChanges();

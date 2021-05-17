@@ -40,6 +40,8 @@ namespace course_project_v0._0._2
         {
             using (course_work cw = new course_work())
             {
+                int[] idFilms = new int[30];
+                bool coincidence = true;
                 var info = cw.Film.ToList();
                 infoforfilm = new ObservableCollection<AppView>();
                 var forBD = cw.Database.SqlQuery<Session>($"select * from Session");
@@ -49,13 +51,30 @@ namespace course_project_v0._0._2
 					{
                         foreach (var i in info)
                         {
-							if (i.filmID == check.filmID)
+                            for (int f = 0; f < idFilms.Length; f++)
                             {
-                                AppView allFilms = new AppView();
+								if (idFilms[f] == Convert.ToInt32(i.filmID))
+								{
+                                    coincidence = false;
+								}
+                               
+                            }
+                            if (i.filmID == check.filmID && coincidence == true)
+                            {
+                               
 
+                                AppView allFilms = new AppView();
                                 allFilms.Add(i.filmName, (int)i.year, i.genres, (float)i.rating, i.countries, i.director, (int)i.duration, i.poster, i.filmID.Trim());
                                 infoforfilm.Add(allFilms);
+                                for (int n = 0; n < idFilms.Length; n++)
+                                {
+									if (idFilms[n] != Convert.ToInt32(i.filmID))
+									{
+                                        idFilms[n] = Convert.ToInt32(i.filmID);
+                                    }
+                                }
                             }
+                            coincidence = true;
                         }
                     }
                 }
@@ -82,7 +101,7 @@ namespace course_project_v0._0._2
             var aaa = ListBoxFilms.SelectedItem as AppView;
             if (aaa != null)
             {
-                SessionWPF sessionWPF = new SessionWPF(aaa.filmID.Trim(), ADMIN, LOGIN, Datepic.DisplayDate.Date);
+                SessionWPF sessionWPF = new SessionWPF(aaa.filmID.Trim(), ADMIN, LOGIN, Datepic.SelectedDate.Value);
                 sessionWPF.Show();
                this.Close();
             }

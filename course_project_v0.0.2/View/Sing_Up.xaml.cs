@@ -125,7 +125,6 @@ namespace course_project_v0._0._2
 				pass1bool = false;
 			}
 		}
-
 		private void pass2_PasswordChanged(object sender, RoutedEventArgs e)
 		{
 			string pattern = @"\b\w{4,30}\b";
@@ -151,7 +150,6 @@ namespace course_project_v0._0._2
 				Pass2.BorderBrush = Brushes.DarkRed;
 				pass2bool = false;
 			}
-
 		}
 		private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
@@ -173,9 +171,7 @@ namespace course_project_v0._0._2
 				EmailTextBox.BorderBrush = Brushes.DarkRed;
 				emailbool = false;
 			}
-			
 		}
-
 		private void LoginTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string pattern = @"\b\w{4,30}\b";

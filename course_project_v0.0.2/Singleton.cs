@@ -18,7 +18,7 @@ namespace course_project_v0._0._2
 			
 		}
 		private static Singleton _instance;
-		public static Singleton GetInstance()
+		public static Singleton GetInstance()//что-нибудь придумать
 		{
 			if (_instance == null)
 			{

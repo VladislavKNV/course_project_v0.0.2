@@ -42,7 +42,7 @@
             </Border>
 
         </StackPanel>
-        <ListBox Margin="0 140 0 0" x:Name="ListBoxFilms"  Background="#FF3E3E42"  Grid.Column="0" Grid.Row="1" SelectionChanged="ListBoxFilms_SelectionChanged">
+        <ListBox Margin="0 140 0 0" x:Name="ListBoxFilms" Background="#FF3E3E42"  Grid.Column="0" Grid.Row="1" SelectionChanged="ListBoxFilms_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5" Orientation="Horizontal">

@@ -97,7 +97,7 @@ namespace course_project_v0._0._2.View
 				infoforsession = new ObservableCollection<AppViewSession>();
 				foreach (var i in info)
 				{
-					if (i.date == DateSession)
+					if (i.date == DateSession && i.filmID.Trim() == FilmID.Trim())
 					{
 						AppViewSession allSession = new AppViewSession();
 						var forBD = cw.Database.SqlQuery<Film>($"select * from film where Film.filmID = '{i.filmID}'");

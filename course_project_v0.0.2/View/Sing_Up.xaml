@@ -6,17 +6,17 @@
         xmlns:local="clr-namespace:course_project_v0._0._2"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Регистрация" Height="570" Width="850" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
+        Title="Регистрация"  Height="550" Width="750" MinHeight="500" MinWidth="600" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <LinearGradientBrush >
             <GradientStop Color="#5b4ffc" Offset="0"/>
-            <GradientStop Color="#df0253" Offset="1"/>
+            <GradientStop Color="#FF9F111B" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
     <Grid >
 
         <StackPanel Margin="70 30 100 20">
-            <TextBlock Text="Регистрация" HorizontalAlignment="Center" Foreground="#b51f3d" FontSize="36" FontWeight="Bold"  TextDecorations="{x:Null}" FontStyle="Italic"/>
+            <TextBlock Text="Регистрация" HorizontalAlignment="Center" Foreground="#FF9F111B" FontSize="36" FontWeight="Bold"  TextDecorations="{x:Null}" />
             <TextBox x:Name="LoginTextBox" materialDesign:HintAssist.Hint="Введите логин" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="LoginTextBox_TextChanged" FontSize="22"/>
             <Label x:Name="LoginLabel" Foreground="DarkRed"> </Label>
             <TextBox x:Name="EmailTextBox" materialDesign:HintAssist.Hint="Введите E-mail" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="EmailTextBox_TextChanged" FontSize="22"/>
@@ -27,7 +27,7 @@
             <Label x:Name="Pass2Label"  Foreground="DarkRed"> </Label>
             <Grid Margin="0 30 0 0">
                 <Button Content="Назад" HorizontalAlignment="Left" Height="50" Width="150"  FontSize="18" Background="#6d22ab" AutomationProperties.Name="Button_Back" Click="Button_Back_Click" BorderThickness="0" VerticalAlignment="Top"></Button>
-                <Button Content="Зарегистрироваться" HorizontalAlignment="Right" Height="50" Width="250"  FontSize="18"  Background="#b51f3d" AutomationProperties.Name="Button_Sing_In" BorderThickness="0" Click="Button_Reg_Click" ></Button>
+                <Button Content="Зарегистрироваться" HorizontalAlignment="Right" Height="50" Width="210"  FontSize="18"  Background="#b51f3d" AutomationProperties.Name="Button_Sing_In" BorderThickness="0" Click="Button_Reg_Click" ></Button>
             </Grid>
         </StackPanel>
 
