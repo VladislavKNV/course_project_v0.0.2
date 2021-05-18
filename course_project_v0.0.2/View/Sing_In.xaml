@@ -20,7 +20,7 @@
             <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Image Margin="0 50 0 0" VerticalAlignment="Top" Source="/favicon_created_by_logaster.ico" Height="120" Width="120"></Image>
+            <Image Margin="0 50 0 0" VerticalAlignment="Top" Source="/favicon_created_by_logaster.ico" Height="110" Width="110"></Image>
         </Grid>
         
         <StackPanel Margin="33 0 90 0" Grid.Row="1">
@@ -34,8 +34,8 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Регистрация" VerticalAlignment="Top" HorizontalAlignment="Left" Height="50" Width="200"  FontSize="18" Background="#6d22ab" AutomationProperties.Name="Button_Sing_Up" BorderThickness="0" Click="Button_Click_Reg"></Button>
-            <Button Grid.Column="1" Content="Войти" VerticalAlignment="Top" HorizontalAlignment="Right" Height="50" Width="150"  FontSize="18"  Background="#b51f3d" AutomationProperties.Name="Button_Sing_In" BorderThickness="0" Click="Button_Click_Sing_In"></Button>
+            <Button Grid.Column="0" Content="Регистрация" VerticalAlignment="Top" HorizontalAlignment="Left" Height="50" Width="200"  FontSize="18" Background="#6d22ab" BorderThickness="0" Click="Button_Click_Reg"></Button>
+            <Button Grid.Column="1" Content="Войти" VerticalAlignment="Top" HorizontalAlignment="Right" Height="50" Width="150"  FontSize="18"  Background="#b51f3d" BorderThickness="0" Click="Button_Click_Sing_In"></Button>
         </Grid>
 
 

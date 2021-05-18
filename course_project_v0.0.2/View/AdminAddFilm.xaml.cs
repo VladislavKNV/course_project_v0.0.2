@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using course_project_v0._0._2.DataBase;
@@ -29,9 +28,6 @@ namespace course_project_v0._0._2.View
 			InfoForFeedback();
 			ADMIN = admi;
 			LOGIN = login;
-			//
-			
-			//
 		}
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
@@ -47,38 +43,6 @@ namespace course_project_v0._0._2.View
 			var viewTicket = CollectionViewSource.GetDefaultView(ListBoxTickets.ItemsSource);
 			viewTicket.Filter = FilmNameSearch;
 		}
-		
-		public bool ADMIN;
-		public string LOGIN;
-		public bool namebool = false;
-		public bool yearbool = false;
-		public bool plotbool = false;
-		public bool genresbool = false;
-		public bool ratingbool = false;
-		public bool countriesbool = false;
-		public bool directorbool = false;
-		public bool actorsbool = false;
-		public bool durationbool = false;
-		public bool premieredatebool = false;
-		public bool namebool2 = false;
-		public bool yearbool2 = false;
-		public bool plotbool2 = false;
-		public bool genresbool2 = false;
-		public bool ratingbool2 = false;
-		public bool countriesbool2 = false;
-		public bool directorbool2 = false;
-		public bool actorsbool2 = false;
-		public bool durationbool2 = false;
-		public bool premieredatebool2 = false;
-		public bool passbool = false;
-		public bool pricebool = false;
-		public string FilmID;
-		public string SessionID;
-		public string Picture;
-		public byte[] Pic;
-		public byte[] PictureForByte;
-		public int nubrs_of_place;
-
 		public void InfoForComboBoxFilms()
 		{
 			using (course_work cw = new course_work())
@@ -111,7 +75,6 @@ namespace course_project_v0._0._2.View
 			}
 		}
 		private ObservableCollection<AppViewSession> infoforsession;
-
 		public void InfoForSession()
 		{
 			using (course_work cw = new course_work())
@@ -159,14 +122,12 @@ namespace course_project_v0._0._2.View
 				infoforTickets = new ObservableCollection<AppViewTickets>();
 
 				foreach (var i in info)
-				{
-							
+				{		
 					AppViewTickets allTicket = new AppViewTickets();
 					allTicket.InfoForAdminTickets(i.ticketID, i.sessionID, i.userID, i.filmName, i.price, i.date, i.time, i.row, i.place);
 					infoforTickets.Add(allTicket);
 				}
 			}
-
 			ListBoxTickets.ItemsSource = infoforTickets;
 		}
 
@@ -175,13 +136,11 @@ namespace course_project_v0._0._2.View
 		{
 			using (course_work cw = new course_work())
 			{
-
 				var info = cw.Feedback.ToList();
 				infoforfeedback = new ObservableCollection<AppViewFeedback>();
 				foreach (var i in info)
 				{
 					AppViewFeedback allFeedbacks = new AppViewFeedback();
-
 					allFeedbacks.AddFeedback(i.login, i.feedback1, i.dateFeedback, i.feedbackID);
 					infoforfeedback.Add(allFeedbacks);
 				}
@@ -192,6 +151,7 @@ namespace course_project_v0._0._2.View
 		{
 			try
 			{
+				randFilmID();
 				if (namebool == true && yearbool == true && plotbool == true && genresbool == true && ratingbool == true && countriesbool == true && directorbool == true && durationbool == true && actorsbool == true && premieredatebool == true)
 				{
 					using (course_work cw = new course_work())
@@ -323,7 +283,7 @@ namespace course_project_v0._0._2.View
 
 			}
 		}
-		private void Button2_Save_Click(object sender, RoutedEventArgs e)//+
+		private void Button2_Save_Click(object sender, RoutedEventArgs e)
 		{
 			var contentListBox = ListBoxFilms.SelectedItem as AppView;
 			if (contentListBox != null)
@@ -334,7 +294,6 @@ namespace course_project_v0._0._2.View
 					var customer = context.Film
 						.Where(c => c.filmName == contentListBox.filmname)
 						.FirstOrDefault();
-					//Внести изменения
 					customer.filmName = TextBoxFilmName2.Text.Trim();
 					customer.year = Convert.ToInt32(TextBoxFilmYear2.Text.Trim());
 					customer.plotDescription = TextBoxFilmPlot2.Text.Trim();
@@ -400,7 +359,7 @@ namespace course_project_v0._0._2.View
 			}
 			InfoForFilms();
 		}
-		private void Button_SaveUsers_Click(object sender, RoutedEventArgs e)//+
+		private void Button_SaveUsers_Click(object sender, RoutedEventArgs e)
 		{
 			var contentListBox = ListBoxUsers.SelectedItem as AppViewUsers;
 			if (contentListBox != null)
@@ -411,7 +370,6 @@ namespace course_project_v0._0._2.View
 					var customer = context.UsersBD
 						.Where(c => c.login == contentListBox.login)
 						.FirstOrDefault();
-					// Внести изменения
 					if (contentListBox.password != TextBoxPassword.Text.Trim())
 					{
 						customer.password = GetHashPassword(TextBoxPassword.Text.Trim());
@@ -432,12 +390,11 @@ namespace course_project_v0._0._2.View
 					{
 						PasswordLabel.Content = "Пароль должен содержать от 4 до 30 символов.";
 					}
-					
 				}
 			}
 			InfoForUsers();
 		}
-		private void Button_Del_Click(object sender, RoutedEventArgs e)//
+		private void Button_Del_Click(object sender, RoutedEventArgs e)
 		{
 			var contentListBox = ListBoxFilms.SelectedItem as AppView;
 			if (contentListBox != null)
@@ -476,7 +433,6 @@ namespace course_project_v0._0._2.View
 
 					}
 				}
-
 					course_work context = new course_work();
 				Film customer = context.Film
 				 .Where(c => c.filmName == contentListBox.filmname)
@@ -492,30 +448,21 @@ namespace course_project_v0._0._2.View
 			var contentListBox = ListBoxSession.SelectedItem as AppViewSession;
 			if (contentListBox != null)
 			{
-				using (course_work cw = new course_work())
-				{
-					var forDell = cw.Database.SqlQuery<Ticket>($"select * from Ticket");
-					foreach (var check in forDell)
-					{
-						if (check.sessionID == contentListBox.sessionID)
-						{
-							course_work contextTickets = new course_work();
-							Ticket customerTickets = contextTickets.Ticket
-							 .Where(c => c.sessionID == check.sessionID)
-							 .FirstOrDefault();
+				course_work contextTickets = new course_work();
+				Ticket customerTickets = contextTickets.Ticket
+					.Where(c => c.sessionID == contentListBox.sessionID)
+					.FirstOrDefault();
 
-							contextTickets.Ticket.Remove(customerTickets);
-							contextTickets.SaveChanges();
-						}
-					}
-					course_work context = new course_work();
-					Session customer = context.Session
-					 .Where(c => c.sessionID == contentListBox.sessionID)
-					 .FirstOrDefault();
+				contextTickets.Ticket.Remove(customerTickets);
+				contextTickets.SaveChanges();
+				course_work context = new course_work();
+				Session customer = context.Session
+					.Where(c => c.sessionID == contentListBox.sessionID)
+					.FirstOrDefault();
 
-					context.Session.Remove(customer);
-					context.SaveChanges();
-				}
+				context.Session.Remove(customer);
+				context.SaveChanges();
+				
 			}
 			InfoForSession();
 		}
@@ -525,23 +472,21 @@ namespace course_project_v0._0._2.View
 			var contentListBox = ListBoxUsers.SelectedItem as AppViewUsers;
 			if (contentListBox != null)
 			{
-				using (course_work cw = new course_work())
-				{
-					var forDell = cw.Database.SqlQuery<Ticket>($"select * from Ticket");
-					foreach (var check in forDell)
-					{
-						if (check.userID == contentListBox.UserID)
-						{
-							course_work contextTickets = new course_work();
-							Ticket customerTickets = contextTickets.Ticket
-							 .Where(c => c.ticketID == check.ticketID)
-							 .FirstOrDefault();
+				course_work contextTickets = new course_work();
+				Ticket customerTickets = contextTickets.Ticket
+					.Where(c => c.userID == contentListBox.UserID)
+					.FirstOrDefault();
 
-							contextTickets.Ticket.Remove(customerTickets);
-							contextTickets.SaveChanges();
-						}
-					}
-				}
+				contextTickets.Ticket.Remove(customerTickets);
+				contextTickets.SaveChanges();
+	
+					course_work contextFeedback = new course_work();
+					Feedback customerRew = contextFeedback.Feedback
+						.Where(c => c.userID == contentListBox.UserID)
+						.FirstOrDefault();
+
+					contextFeedback.Feedback.Remove(customerRew);
+					contextFeedback.SaveChanges();
 				course_work context = new course_work();
 				UsersBD customer = context.UsersBD
 					.Where(c => c.login == contentListBox.login)
@@ -588,6 +533,7 @@ namespace course_project_v0._0._2.View
 		{
 			try
 			{
+				randFilmID();
 				if (pricebool == true)
 				{
 					using (course_work cw = new course_work())
@@ -605,7 +551,7 @@ namespace course_project_v0._0._2.View
 
 						foreach (var check in halls)
 						{
-							if (check.hallID.Trim() == ComboBoxHalls.Text)
+							if (check.hallID.Trim() == "1")
 							{
 
 								nubrs_of_place = check.row * check.place;
@@ -615,7 +561,7 @@ namespace course_project_v0._0._2.View
 						{
 							sessionID = SessionID,
 							filmID = FilmID,
-							hallID = ComboBoxHalls.Text.Trim(),
+							hallID = "1",
 							date = DataPickerSession.SelectedDate.Value,
 							time = duration,
 							number_of_free_seats = nubrs_of_place,
@@ -682,8 +628,7 @@ namespace course_project_v0._0._2.View
 			value = rnd.Next(1000000, 9999999);
 			SessionID = $"{value}";
 		}
-
-		private void FilmNameTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void FilmNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string pattern = @"\b\w{2,50}\b";
 
@@ -711,7 +656,7 @@ namespace course_project_v0._0._2.View
 				namebool2 = false;
 			}
 		}
-		private void FilmYearTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void FilmYearTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string pattern = @"\b\w{4,4}\b";
 			if (Regex.IsMatch(TextBoxFilmYear.Text, pattern, RegexOptions.IgnoreCase))
@@ -770,7 +715,7 @@ namespace course_project_v0._0._2.View
 				yearbool2 = false;
 			}
 		}
-		private void FilmPlotTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void FilmPlotTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string pattern = @"\b\w{4,3000}\b";
 
@@ -799,7 +744,7 @@ namespace course_project_v0._0._2.View
 			}
 
 		}
-		private void FilmGenresTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void FilmGenresTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string pattern = @"\b\w{4,50}\b";
 
@@ -897,7 +842,7 @@ namespace course_project_v0._0._2.View
 				ratingbool2 = false;
 			}
 		}
-		private void FilmCountriesTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void FilmCountriesTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string pattern = @"\b\w{3,60}\b";
 			if (Regex.IsMatch(TextBoxFilmCountries.Text, pattern, RegexOptions.IgnoreCase))
@@ -940,7 +885,7 @@ namespace course_project_v0._0._2.View
 				countriesbool2 = false;
 			}
 		}
-		private void FilmDirectorTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void FilmDirectorTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string pattern = @"\b\w{2,60}\b";
 			if (Regex.IsMatch(TextBoxFilmDirector.Text, pattern, RegexOptions.IgnoreCase))
@@ -983,7 +928,7 @@ namespace course_project_v0._0._2.View
 				directorbool2 = false;
 			}
 		}
-		private void FilmActorsTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void FilmActorsTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string pattern = @"\b\w{2,500}\b";
 
@@ -1027,7 +972,7 @@ namespace course_project_v0._0._2.View
 				actorsbool2 = false;
 			}
 		}
-		private void FilmDurationTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void FilmDurationTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string pattern = @"\b\w{2,3}\b";
 
@@ -1077,7 +1022,7 @@ namespace course_project_v0._0._2.View
 				durationbool2 = false;
 			}
 		}
-		private void PremiereDateTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void PremiereDateTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string pattern = @"\b\w{2,15}\b";
 
@@ -1105,8 +1050,7 @@ namespace course_project_v0._0._2.View
 				premieredatebool2 = false;
 			}
 		}
-
-		private void PasswordTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void PasswordTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string pattern = @"\b\w{4,60}\b";
 			if (Regex.IsMatch(TextBoxPassword.Text, pattern, RegexOptions.IgnoreCase))
@@ -1121,16 +1065,15 @@ namespace course_project_v0._0._2.View
 				passbool = false;
 			}
 		}
-
-		private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			CollectionViewSource.GetDefaultView(ListBoxFilms.ItemsSource).Refresh();
 		}
-		private void SearchUsersTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void SearchUsersTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			CollectionViewSource.GetDefaultView(ListBoxUsers.ItemsSource).Refresh();
 		}
-		private void SearchRevTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void SearchRevTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			CollectionViewSource.GetDefaultView(ListBoxFeedback.ItemsSource).Refresh();
 		}
@@ -1166,10 +1109,6 @@ namespace course_project_v0._0._2.View
 				TextBoxPrice.BorderBrush = Brushes.DarkRed;
 				pricebool = false;
 			}
-
-		}
-		private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
 		}
 		private void TextBoxNumbers_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
 		{
@@ -1183,21 +1122,47 @@ namespace course_project_v0._0._2.View
 		}
 		private string GetHashPassword(string s)
 		{
-			//переводим строку в байт-массим  
 			byte[] bytes = Encoding.Unicode.GetBytes(s);
-			//создаем объект для получения средст шифрования  
 			MD5CryptoServiceProvider CSP =
-				new MD5CryptoServiceProvider();
-			//вычисляем хеш-представление в байтах  
+				new MD5CryptoServiceProvider(); 
 			byte[] byteHash = CSP.ComputeHash(bytes);
-			string hash = string.Empty;
-			//формируем одну цельную строку из массива  
+			string hash = string.Empty; 
 			foreach (byte b in byteHash)
 			{
 				hash += string.Format("{0:x2}", b);
 			}
 			return hash;
 		}
+		public bool ADMIN;
+		public string LOGIN;
+		public bool namebool = false;
+		public bool yearbool = false;
+		public bool plotbool = false;
+		public bool genresbool = false;
+		public bool ratingbool = false;
+		public bool countriesbool = false;
+		public bool directorbool = false;
+		public bool actorsbool = false;
+		public bool durationbool = false;
+		public bool premieredatebool = false;
+		public bool namebool2 = false;
+		public bool yearbool2 = false;
+		public bool plotbool2 = false;
+		public bool genresbool2 = false;
+		public bool ratingbool2 = false;
+		public bool countriesbool2 = false;
+		public bool directorbool2 = false;
+		public bool actorsbool2 = false;
+		public bool durationbool2 = false;
+		public bool premieredatebool2 = false;
+		public bool passbool = false;
+		public bool pricebool = false;
+		public string FilmID;
+		public string SessionID;
+		public string Picture;
+		public byte[] Pic;
+		public byte[] PictureForByte;
+		public int nubrs_of_place;
 
 		private bool FilmSearch(object item)
 		{
@@ -1280,7 +1245,6 @@ namespace course_project_v0._0._2.View
 				return (item as AppViewSession).DateForInfo.ToUpper().Contains(TextBoxSearchSession.Text.ToUpper());
 			}
 		}
-
 		private bool RevSearchLogin(object item)
 		{
 			if (String.IsNullOrEmpty(TextBoxSearchRev.Text))
@@ -1308,7 +1272,6 @@ namespace course_project_v0._0._2.View
 				return (item as AppViewFeedback).dateFeedback.ToUpper().Contains(TextBoxSearchRev.Text.ToUpper());
 			}
 		}
-
 		private bool FilmNameSearch(object item)
 		{
 			if (String.IsNullOrEmpty(TextBoxSearchTickets.Text))
@@ -1354,7 +1317,6 @@ namespace course_project_v0._0._2.View
 				return (item as AppViewTickets).Date.ToUpper().Contains(TextBoxSearchTickets.Text.ToUpper());
 			}
 		}
-
 		private void ComboBoxFilm_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
 		{
 			if (ComboBoxFilm.SelectedIndex == 0)
@@ -1387,7 +1349,6 @@ namespace course_project_v0._0._2.View
 				view.Filter = UsersSearchMail;
 			}
 		}
-
 		private void ComboBoxSession_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
 		{
 			if (ComboBoxSession.SelectedIndex == 0)

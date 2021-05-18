@@ -4,14 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         Loaded="Window_Loaded"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:course_project_v0._0._2.View"
-         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="AdminAddFilm" Height="740" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Banksy_Administrator" Height="740" MinHeight="740" Width="800" MinWidth="800" WindowStartupLocation="CenterScreen">
     
     <Grid x:Name="Mainf" Background="#FF3E3E42">
-        <TabControl SelectionChanged="TabControl_SelectionChanged" Background="#FF530000">
+        <TabControl Background="#FF530000">
             <TabItem>
                 <TabItem.Header>
                     <Image Source="/ImageF\edit.png" Width="40" Height="40"></Image>
@@ -20,7 +18,6 @@
                     <Grid>
                         <ScrollViewer>
                             <StackPanel Margin=" 30 0 40 0">
-
                                 <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmName" materialDesign:HintAssist.Hint="Название" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmNameTextBox_TextChanged" FontSize="14"/>
                                 <Label x:Name="FilmNameLabel" Foreground="DarkRed"></Label>
                                 <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmYear" materialDesign:HintAssist.Hint="Год" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmYearTextBox_TextChanged" FontSize="14" PreviewTextInput="TextBoxNumbers_PreviewTextInput"/>
@@ -41,10 +38,15 @@
                                 <Label x:Name="FilmDurationLabel" Foreground="DarkRed"></Label>
                                 <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmPremiereDate" materialDesign:HintAssist.Hint="Дата выхода" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="PremiereDateTextBox_TextChanged" FontSize="14"/>
                                 <Label x:Name="FilmPremiereDateLabel" Foreground="DarkRed"></Label>
-                                <Grid>
-                                    <Button Margin=" 0 20 0 0" Content="Назад" HorizontalAlignment="Left" Height="40" Width="120" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Sing_Up" BorderThickness="0" Click="Button_Click_Back"></Button>
-                                    <Button Margin=" 0 20 0 0" Content="Картинка" HorizontalAlignment="Center" Height="40" Width="150" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Pic" BorderThickness="0" Click="Button_Pict"></Button>
-                                    <Button Margin=" 0 20 0 0" Content="Сохранить" HorizontalAlignment="Right" Height="40" Width="150" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Save" BorderThickness="0" Click="Button_Save_Click" ></Button>
+                                <Grid Margin=" 0 20 0 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="180"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Content="Назад" HorizontalAlignment="Left" Height="40" Width="120" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_Click_Back"></Button>
+                                    <Button Grid.Column="1" Content="Картинка" HorizontalAlignment="Left" Height="40" Width="150" FontSize="14" Background="#FF3E3E42"  BorderThickness="0" Click="Button_Pict"></Button>
+                                    <Button Grid.Column="2" Content="Сохранить" HorizontalAlignment="Left" Height="40" Width="150" FontSize="14" Background="Green"  BorderThickness="0" Click="Button_Save_Click" ></Button>
                                 </Grid>
                             </StackPanel>
                         </ScrollViewer>
@@ -57,7 +59,11 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid Margin="0 0 0 0">
-                        <Grid Margin="5 0 5 600">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="5 0 5 0">
                             <TextBox x:Name="TextBoxSearch" Background="White" Width="245" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchTextBox_TextChanged"></TextBox>
                             <ComboBox Margin="250 0 0 0 " Name="ComboBoxFilm" Width="100" Height="30" HorizontalAlignment="Left" Background="White" MouseLeave="ComboBoxFilm_MouseLeave">
                                 <ComboBoxItem IsSelected="True">
@@ -66,8 +72,8 @@
                                 <TextBlock>ID</TextBlock>
                             </ComboBox>
                         </Grid>
-                        <Grid Margin="0,0,538,0">
-                            <ListBox Margin="0 60 0 0" HorizontalAlignment="Left" Width="250" x:Name="ListBoxFilms"  Background="#FF3E3E42"  Grid.Column="0" SelectionChanged="ListBoxFilms_SelectionChanged">
+                        <Grid Grid.Row="1">
+                            <ListBox HorizontalAlignment="Left" Width="300" x:Name="ListBoxFilms"  Background="#FF3E3E42"  Grid.Column="0" SelectionChanged="ListBoxFilms_SelectionChanged">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -81,12 +87,10 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-
                         </Grid>
-                        <Grid  Margin="260 60 20 0">
+                        <Grid Grid.Row="1" Margin="310 0 20 0">
                             <ScrollViewer>
                                 <StackPanel >
-
                                     <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmName2" materialDesign:HintAssist.Hint="Название" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmNameTextBox_TextChanged" FontSize="14"/>
                                     <Label x:Name="FilmNameLabel2" Foreground="DarkRed"></Label>
                                     <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmYear2" materialDesign:HintAssist.Hint="Год" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="FilmYearTextBox_TextChanged" FontSize="14" PreviewTextInput="TextBoxNumbers_PreviewTextInput"/>
@@ -107,17 +111,21 @@
                                     <Label x:Name="FilmDurationLabel2" Foreground="DarkRed"></Label>
                                     <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxFilmPremiereDate2" materialDesign:HintAssist.Hint="Дата выхода" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="PremiereDateTextBox_TextChanged" FontSize="14"/>
                                     <Label x:Name="FilmPremiereDateLabel2" Foreground="DarkRed"></Label>
-                                    <Grid>
-                                        <Button Margin=" 0 20 0 0" Content="Назад" HorizontalAlignment="Left" Height="40" Width="100" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Sing_Up" BorderThickness="0" Click="Button_Click_Back"></Button>
-                                        <Button Margin=" 0 20 0 0" Content="Картинка" HorizontalAlignment="Center" Height="40" Width="100" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Pic" BorderThickness="0" Click="Button_Pict2"></Button>
-                                        <Button Margin=" -190 20 0 0" Content="Del"  Height="40" Width="50" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Sing_In" BorderThickness="0" Click="Button_Del_Click" ></Button>
-                                        <Button Margin=" 0 20 0 0" Content="Сохранить" HorizontalAlignment="Right" Height="40" Width="150" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Sing_In" BorderThickness="0" Click="Button2_Save_Click" ></Button>
+                                    <Grid Margin="0 20 0 20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="120"></ColumnDefinition>
+                                            <ColumnDefinition Width="120"></ColumnDefinition>
+                                            <ColumnDefinition Width="120"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0" Content="Назад" HorizontalAlignment="Left" Height="40" Width="100" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_Click_Back"></Button>
+                                        <Button Grid.Column="2" Content="Картинка" HorizontalAlignment="Left" Height="40" Width="100" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_Pict2"></Button>
+                                        <Button Grid.Column="1" Content="Удалить" HorizontalAlignment="Left" Height="40" Width="100" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_Del_Click" ></Button>
+                                        <Button Grid.Column="3" Content="Сохранить" HorizontalAlignment="Left" Height="40" Width="110" FontSize="14" Background="Green" BorderThickness="0" Click="Button2_Save_Click" ></Button>
                                     </Grid>
                                 </StackPanel>
                             </ScrollViewer>
                         </Grid>
-
-
                     </Grid>
                 </TabItem.Content>
             </TabItem>
@@ -129,9 +137,13 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid Margin="0 0 0 0">
-                        <Grid Margin="5 0 5 600">
-                            <TextBox x:Name="TextBoxSearchUsers" Background="White" Width="245" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchUsersTextBox_TextChanged"></TextBox>
-                            <ComboBox Margin="250 0 0 0 " Name="ComboBoxUser" Width="100" Height="30" HorizontalAlignment="Left" Background="White" MouseLeave="ComboBoxUser_MouseLeave">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBox Margin="5 0 0 0" x:Name="TextBoxSearchUsers" Background="White" Width="245" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchUsersTextBox_TextChanged"></TextBox>
+                            <ComboBox Margin="255 0 0 0 " Name="ComboBoxUser" Width="100" Height="30" HorizontalAlignment="Left" Background="White" MouseLeave="ComboBoxUser_MouseLeave">
                                 <ComboBoxItem IsSelected="True">
                                     <TextBlock>Логин</TextBlock>
                                 </ComboBoxItem>
@@ -139,8 +151,8 @@
                                 <TextBlock>E-mail</TextBlock>
                             </ComboBox>
                         </Grid>
-                        <Grid Margin="0,0,538,0">
-                            <ListBox Margin="0 60 0 0" HorizontalAlignment="Left" Width="250" x:Name="ListBoxUsers"  Background="#FF3E3E42"  Grid.Column="0" SelectionChanged="ListBoxUsers_SelectionChanged">
+                        <Grid Grid.Row="1">
+                            <ListBox HorizontalAlignment="Left" Width="300" x:Name="ListBoxUsers"  Background="#FF3E3E42"  Grid.Column="0" SelectionChanged="ListBoxUsers_SelectionChanged">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="5">
@@ -152,35 +164,33 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </Grid>
-                        <Grid  Margin="260 60 20 0">
+                        <Grid Grid.Row="1" Margin="310 0 20 0">
                             <ScrollViewer>
                                 <StackPanel >
                                     <Label Foreground="White" FontSize="14">Логин:</Label>
-                                    <TextBlock Foreground="White" x:Name="TextBoxLogin" FontSize="14"/>
+                                    <TextBlock Margin="5 0 0 0" Foreground="White" x:Name="TextBoxLogin" FontSize="14"/>
                                     <Label Foreground="White" FontSize="14">Пароль:</Label>
-                                    <TextBox Foreground="White" BorderBrush="White" x:Name="TextBoxPassword" materialDesign:HintAssist.Hint="Пароль" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="PasswordTextBox_TextChanged" FontSize="14"/>
+                                    <TextBox  Margin="5 0 0 0" Foreground="White" BorderBrush="White" x:Name="TextBoxPassword" materialDesign:HintAssist.Hint="Пароль" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="PasswordTextBox_TextChanged" FontSize="14"/>
                                     <Label x:Name="PasswordLabel" Foreground="DarkRed"></Label>
                                     <Label Foreground="White" FontSize="14">E-mail:</Label>
-                                    <TextBlock Foreground="White" x:Name="TextBoxEmail" FontSize="14"/>
-
-
+                                    <TextBlock Margin="5 0 0 0" Foreground="White" x:Name="TextBoxEmail" FontSize="14"/>
                                     <ComboBox Margin="0 20 0 0" Name="ComboBoxAdmin" HorizontalAlignment="Left" Width="150" Background="White">
                                         <TextBlock x:Name="AdminComboBox">Admin</TextBlock>
                                         <TextBlock x:Name="UserComboBox">User</TextBlock>
                                     </ComboBox>
-                                    <Grid>
+                                    <Grid Margin="0 40 0 0">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="22*"/>
-                                            <ColumnDefinition Width="141*"/>
+                                            <ColumnDefinition Width="130"/>
+                                            <ColumnDefinition Width="130"/>
+                                            <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <Button Margin=" 0 20 0 0" Content="Назад" HorizontalAlignment="Left" Height="40" Width="100" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Back3" BorderThickness="0" Click="Button_Click_Back" Grid.ColumnSpan="2"></Button>
-                                        <Button Margin="118,20,185,0" Content="Del"  Height="40" Width="120" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Sing_In" BorderThickness="0" Click="Button_DelUser_Click" Grid.Column="1" ></Button>
-                                        <Button Margin=" 0 20 0 0" Content="Сохранить" HorizontalAlignment="Right" Height="40" Width="150" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Save_Users" BorderThickness="0" Click="Button_SaveUsers_Click" Grid.Column="1" ></Button>
+                                        <Button Grid.Column="0" Content="Назад" HorizontalAlignment="Left" Height="40" Width="100" FontSize="14" Background="#FF3E3E42"  BorderThickness="0" Click="Button_Click_Back" Grid.ColumnSpan="2"></Button>
+                                        <Button Grid.Column="1" Content="Удалить" HorizontalAlignment="Left" Height="40" Width="100" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_DelUser_Click"></Button>
+                                        <Button Grid.Column="2" Content="Сохранить" HorizontalAlignment="Left" Height="40" Width="130" FontSize="14" Background="Green" BorderThickness="0" Click="Button_SaveUsers_Click"></Button>
                                     </Grid>
                                 </StackPanel>
                             </ScrollViewer>
                         </Grid>
-
                     </Grid>
                 </TabItem.Content>
             </TabItem>
@@ -191,14 +201,20 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid Margin="0 0 0 0">
-                        <StackPanel Margin="20" Grid.ColumnSpan="2">
-                            <ComboBox x:Name="ComboBoxFilms" Width="250" HorizontalAlignment="Left" Background="White">
+                        <StackPanel Margin="20" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <ComboBox x:Name="ComboBoxFilms" Width="350" HorizontalAlignment="Left" Background="White">
                                 <TextBlock Text="{Binding filmname}"></TextBlock>
                             </ComboBox>
-                            <DatePicker Margin="0 10 0 0" x:Name="DataPickerSession" Foreground="White" Width="200" BorderBrush="White" HorizontalAlignment="Left" ></DatePicker>
+                            <DatePicker FontSize="18" Margin="0 10 0 0" x:Name="DataPickerSession" Foreground="White" Width="350" BorderBrush="White" HorizontalAlignment="Left" ></DatePicker>
                             <Grid Margin="0 30 0 0">
-                                <Label  FontSize="14" Foreground="White">Час</Label>
-                                <ComboBox Name="ComboBoxhour" HorizontalAlignment="Left" Margin="50 0 0 0" Width="100"  Background="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition Width="110"></ColumnDefinition>
+                                    <ColumnDefinition Width="80"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" FontSize="14" Foreground="White">Час</Label>
+                                <ComboBox Grid.Column="1" Name="ComboBoxhour" HorizontalAlignment="Left" Width="100"  Background="White">
                                 <TextBlock>1</TextBlock>
                                 <TextBlock>2</TextBlock>
                                 <TextBlock>3</TextBlock>
@@ -224,8 +240,8 @@
                                 <TextBlock>23</TextBlock>
                                     <TextBlock>24</TextBlock>
                                 </ComboBox>
-                                <Label Margin="200 0 0 0" FontSize="14" Foreground="White">Минутa</Label>
-                                <ComboBox Width="100" Margin="-100 0 0 0" Name="ComboBoxMinuts"  Background="White">
+                                <Label Grid.Column="2" Margin="10 0 0 0" FontSize="14" HorizontalContentAlignment="Left" Foreground="White">Минутa</Label>
+                                <ComboBox Grid.Column="4" Width="100" HorizontalAlignment="Left" Margin="10 0 0 0" Name="ComboBoxMinuts"  Background="White">
                                     <TextBlock>0</TextBlock>
                                     <TextBlock>5</TextBlock>
                                     <TextBlock>10</TextBlock>
@@ -240,24 +256,14 @@
                                     <TextBlock>55</TextBlock>
                                 </ComboBox>
                             </Grid>
-                            <TextBox Margin="0 20 500 0" x:Name="TextBoxPrice" Foreground="White" BorderBrush="White" materialDesign:HintAssist.Hint="Введите цену" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="PriceTextBox_TextChanged" FontSize="14"/>
+                            <TextBox Margin="0 20 0 0" Width="350" HorizontalAlignment="Left" x:Name="TextBoxPrice" Foreground="White" BorderBrush="White" materialDesign:HintAssist.Hint="Введите цену" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="PriceTextBox_TextChanged" FontSize="14"/>
                             <Label x:Name="priceLabel" Foreground="DarkRed"></Label>
-                            <ComboBox Margin="0 30 0 0 " Name="ComboBoxHalls" Width="200" HorizontalAlignment="Left" Background="White">
-                                <TextBlock>1</TextBlock>
-                                <TextBlock>2</TextBlock>
-                            </ComboBox>
                             <Label x:Name="SessionLabel" Foreground="DarkRed"></Label>
-                            <Grid Margin="20">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="99*"/>
-                                    <ColumnDefinition Width="274*"/>
-                                </Grid.ColumnDefinitions>
-                                <Button Margin=" 0 20 0 0" Content="Назад" HorizontalAlignment="Left" Height="40" Width="100" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Sing_Up" BorderThickness="0" Click="Button_Click_Back"></Button>
-                                <Button Margin=" 0 20 0 0" Content="Сохранить" HorizontalAlignment="Right" Height="40" Width="150" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Sing_In" BorderThickness="0" Click="Button_SaveSession_Click" Grid.Column="1" ></Button>
+                            <Grid Margin="0 20 0 0" Width="350" HorizontalAlignment="Left">
+                                <Button Margin=" 0 20 0 0" Content="Назад" HorizontalAlignment="Left" Height="40" Width="120" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_Click_Back"></Button>
+                                <Button Margin=" 0 20 0 0" Content="Сохранить" HorizontalAlignment="Right" Height="40" Width="150" FontSize="14" Background="Green" BorderThickness="0" Click="Button_SaveSession_Click" Grid.Column="1" ></Button>
                             </Grid>
                         </StackPanel>
-
-
                     </Grid>
                 </TabItem.Content>
             </TabItem>
@@ -288,8 +294,8 @@
                         </Grid>
                         <Grid Margin="500 0 0 0">
                             <StackPanel Margin="20">
-                                <TextBox x:Name="TextBoxSearchSession" Background="White" Width="245" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchUsersTextBox_TextChanged"></TextBox>
-                                <ComboBox Margin="0 10 0 20" HorizontalAlignment="Left" Name="ComboBoxSession" Width="245" Height="30" Background="White" MouseLeave="ComboBoxSession_MouseLeave">
+                                <TextBox x:Name="TextBoxSearchSession" Background="White" Width="240" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchUsersTextBox_TextChanged"></TextBox>
+                                <ComboBox Margin="0 10 0 20" HorizontalAlignment="Left" Name="ComboBoxSession" Width="240" Height="30" Background="White" MouseLeave="ComboBoxSession_MouseLeave">
                                     <ComboBoxItem IsSelected="True">
                                         <TextBlock>Название фильма</TextBlock>
                                     </ComboBoxItem>
@@ -297,12 +303,10 @@
                                     <TextBlock>ID сеанса</TextBlock>
                                     <TextBlock>Дата</TextBlock>
                                 </ComboBox>
-                                
-                                <Button Margin="0 20 0 20"  Content="Del" HorizontalAlignment="Left"  Height="40" Width="120" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Del_2" BorderThickness="0" Click="Button_DelSession_Click" ></Button>
-                                <Button  Content="Назад" HorizontalAlignment="Left" Height="40" Width="120" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Back_Session" BorderThickness="0" Click="Button_Click_Back"></Button>
+                                <Button Margin="0 20 0 20" Content="Удалить" HorizontalAlignment="Left"  Height="40" Width="120" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_DelSession_Click" ></Button>
+                                <Button  Content="Назад" HorizontalAlignment="Left" Height="40" Width="120" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_Click_Back"></Button>
                             </StackPanel>
                         </Grid>
-
                     </Grid>
                 </TabItem.Content>
             </TabItem>
@@ -313,7 +317,7 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid Margin="0 0 0 0">
-                        <Grid >
+                        <Grid>
                             <ListBox HorizontalAlignment="Left" Width="500" x:Name="ListBoxFeedback"  Background="#FF3E3E42"  Grid.Column="0">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
@@ -328,18 +332,17 @@
                             </ListBox>
                         </Grid>
                         <Grid Margin="500 0 0 0">
-                            
                             <StackPanel Margin="20">
-                                <TextBox x:Name="TextBoxSearchRev" Background="White" Width="245" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchRevTextBox_TextChanged"></TextBox>
-                                <ComboBox Margin="0 10 0 20" HorizontalAlignment="Left" Name="ComboBoxRev" Width="245" Height="30" Background="White" MouseLeave="ComboBoxRev_MouseLeave">
+                                <TextBox x:Name="TextBoxSearchRev" Background="White" Width="240" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchRevTextBox_TextChanged"></TextBox>
+                                <ComboBox Margin="0 10 0 20" HorizontalAlignment="Left" Name="ComboBoxRev" Width="240" Height="30" Background="White" MouseLeave="ComboBoxRev_MouseLeave">
                                     <ComboBoxItem IsSelected="True">
                                         <TextBlock>Логин</TextBlock>
                                     </ComboBoxItem>
                                     <TextBlock>Отзыв</TextBlock>
                                     <TextBlock>Дата</TextBlock>
                                 </ComboBox>
-                                <Button Margin="0 20 0 20"  Content="Del" HorizontalAlignment="Left"  Height="40" Width="120" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Del_Feedback" BorderThickness="0" Click="Button_DelFeedback_Click" ></Button>
-                                <Button  Content="Назад" HorizontalAlignment="Left" Height="40" Width="120" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Back_Feedback" BorderThickness="0" Click="Button_Click_Back"></Button>
+                                <Button Margin="0 20 0 20" Content="Удалить" HorizontalAlignment="Left"  Height="40" Width="120" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_DelFeedback_Click" ></Button>
+                                <Button  Content="Назад" HorizontalAlignment="Left" Height="40" Width="120" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_Click_Back"></Button>
                             </StackPanel>
                         </Grid>
 
@@ -375,8 +378,8 @@
                         <Grid Margin="500 0 0 0">
 
                             <StackPanel Margin="20">
-                                <TextBox x:Name="TextBoxSearchTickets" Background="White" Width="245" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchRevTextBox_TextChanged"></TextBox>
-                                <ComboBox Margin="0 10 0 20" HorizontalAlignment="Left" Name="ComboBoxTickets" Width="245" Height="30" Background="White" MouseLeave="ComboBoxTicket_MouseLeave">
+                                <TextBox x:Name="TextBoxSearchTickets" Background="White" Width="240" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchRevTextBox_TextChanged"></TextBox>
+                                <ComboBox Margin="0 10 0 20" HorizontalAlignment="Left" Name="ComboBoxTickets" Width="240" Height="30" Background="White" MouseLeave="ComboBoxTicket_MouseLeave">
                                     <ComboBoxItem IsSelected="True">
                                         <TextBlock>Название фильма</TextBlock>
                                     </ComboBoxItem>
@@ -385,11 +388,10 @@
                                     <TextBlock>Id сеанса</TextBlock>
                                     <TextBlock>Дата</TextBlock>
                                 </ComboBox>
-                                <Button Margin="0 20 0 20"  Content="Del" HorizontalAlignment="Left"  Height="40" Width="120" FontSize="14" Background="#FF3E3E42" AutomationProperties.Name="Button_Del_Feedback" BorderThickness="0" Click="Button_DelTickets_Click" ></Button>
+                                <Button Margin="0 20 0 20" Content="Удалить" HorizontalAlignment="Left"  Height="40" Width="120" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_DelTickets_Click" ></Button>
                                 <Button  Content="Назад" HorizontalAlignment="Left" Height="40" Width="120" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_Click_Back"></Button>
                             </StackPanel>
                         </Grid>
-
                     </Grid>
                 </TabItem.Content>
             </TabItem>

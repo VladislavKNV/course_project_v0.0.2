@@ -1,29 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using course_project_v0._0._2.DataBase;
 using System.Windows;
-using System.Collections.ObjectModel;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.IO;
-
 namespace course_project_v0._0._2.View
 {
 	public partial class TicketWPF : Window
 	{
-		public TicketWPF(string _login, string _sessionID)
+		public TicketWPF(string _login, string _sessionID, bool _admin, string _ID)
 		{
+			ID = _ID;
 			LOGIN = _login;
 			SESSID = _sessionID;
+			Admin = _admin;
+
 			InitializeComponent();
 			randID();
 			Info();
 			TicketsSingleton();
-
-
 		}
+		public bool Admin;
+		public string ID;
 		public string SESSID;
 		public string LOGIN;
 		public string USERID;
@@ -533,19 +529,14 @@ namespace course_project_v0._0._2.View
 				{
 					if (SESSID == check.sessionID)
 					{
-
 						var forFilm = cw.Database.SqlQuery<Film>($"select * from Film where Film.filmID = '{check.filmID}'");
 						foreach (var i in forFilm)
 						{
-							if (check.filmID == i.filmID)
-							{
-								FILMNAME = i.filmName.Trim();
-								PRICE = check.price_for_place;
-								DATE = check.date;
-								TIME = check.time;
-								NumberOfFreeSeats = check.number_of_free_seats;
-							}
-
+							FILMNAME = i.filmName.Trim();
+							PRICE = check.price_for_place;
+							DATE = check.date;
+							TIME = check.time;
+							NumberOfFreeSeats = check.number_of_free_seats;
 						}
 					}
 				}
@@ -553,9 +544,9 @@ namespace course_project_v0._0._2.View
 		}
 		private void Button_Click_Back(object sender, RoutedEventArgs e)
 		{
-			//Close();
-			//Session session = new Session();
-			//session.Show();
+			Close();
+			SessionWPF session = new SessionWPF(ID, Admin, LOGIN, DATE);
+			session.Show();
 		}
 		private void Button_Buy_Click(object sender, RoutedEventArgs e)
 		{
@@ -565,12 +556,10 @@ namespace course_project_v0._0._2.View
 				var forBD = cw.Database.SqlQuery<Ticket>($"select * from Ticket where Ticket.sessionID = '{SESSID}'");
 				foreach (var check in forBD)
 				{
-
-						if (check.row == Convert.ToInt32(ComboBoxRow.Text) && check.place == Convert.ToInt32(ComboBoxPlace.Text))
-						{
-							valid = false;
-
-						}
+					if (check.row == Convert.ToInt32(ComboBoxRow.Text) && check.place == Convert.ToInt32(ComboBoxPlace.Text))
+					{
+						valid = false;
+					}
 				}
 				if (valid == true)
 				{
@@ -592,15 +581,12 @@ namespace course_project_v0._0._2.View
 					cw.SaveChanges();
 					TicketsSingleton();
 					MessageBox.Show("Запись прошла успешно.");
-
-					//
-						course_work context = new course_work();
-						var customer = context.Session
-							.Where(c => c.sessionID == SESSID)
-							.FirstOrDefault();
-						customer.number_of_free_seats = NumberOfFreeSeats;
-						context.SaveChanges();
-					//
+					course_work context = new course_work();
+					var customer = context.Session
+						.Where(c => c.sessionID == SESSID)
+						.FirstOrDefault();
+					customer.number_of_free_seats = NumberOfFreeSeats;
+					context.SaveChanges();
 				}
 				else
 				{
@@ -608,8 +594,6 @@ namespace course_project_v0._0._2.View
 				}	
 					
 			}
-			
 		}
 	}
-	
 }

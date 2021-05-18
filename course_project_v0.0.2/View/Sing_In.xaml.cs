@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using course_project_v0._0._2.View;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Media;
 using System.Text.RegularExpressions;
 using course_project_v0._0._2.DataBase;
 using System.Security.Cryptography;
-using System.Collections.ObjectModel;
 
 namespace course_project_v0._0._2
 {
@@ -21,13 +14,11 @@ namespace course_project_v0._0._2
 		{
 			InitializeComponent();
 		}
-
 		private void Button_Click_Reg(object sender, RoutedEventArgs e)
 		{
 			Sing_Up sing_Up = new Sing_Up();
 			sing_Up.Show();
 		}
-		//private ObservableCollection<AppView> infoforuser;
 		private void Button_Click_Sing_In(object sender, RoutedEventArgs e)
 		{
 			//Hide();
@@ -106,18 +97,13 @@ namespace course_project_v0._0._2
 			}
 
 		}
-
 		private string GetHashPassword(string s)
 		{
-			//переводим строку в байт-массим  
 			byte[] bytes = Encoding.Unicode.GetBytes(s);
-			//создаем объект для получения средст шифрования  
 			MD5CryptoServiceProvider CSP =
-				new MD5CryptoServiceProvider();
-			//вычисляем хеш-представление в байтах  
+				new MD5CryptoServiceProvider(); 
 			byte[] byteHash = CSP.ComputeHash(bytes);
 			string hash = string.Empty;
-			//формируем одну цельную строку из массива  
 			foreach (byte b in byteHash)
 			{
 				hash += string.Format("{0:x2}", b);

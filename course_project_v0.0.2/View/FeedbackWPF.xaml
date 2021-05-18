@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:course_project_v0._0._2.View"
         mc:Ignorable="d"
-        Title="FeedbackWPF" Height="650" MinWidth="750" MinHeight="500" Width="1000" WindowStartupLocation="CenterScreen">
+        Title="Banksy" Height="650" MinWidth="750" MinHeight="500" Width="1000" WindowStartupLocation="CenterScreen">
     <Grid Background="#FF3E3E42">
         
             <Grid>
@@ -29,11 +29,11 @@
                     <TextBox x:Name="Feedback_TextBox" Margin="60 10 60 0" Background='White' TextWrapping="Wrap"  TextChanged="RevTextBox_TextChanged"></TextBox>
                 </Grid>
 
-            <Grid Grid.Column="0" Grid.Row="2" Margin=" 60 0 60 0">
-                <Button Content="Назад" HorizontalAlignment="Left" Height="60" Width="140" FontSize="14" Background="#b51f3d" BorderThickness="0" Click="Button_Click_Back"></Button>
+                <Grid Grid.Column="0" Grid.Row="2" Margin=" 60 0 60 0">
+                    <Button Content="Назад" HorizontalAlignment="Left" Height="60" Width="140" FontSize="14" Background="#b51f3d" BorderThickness="0" Click="Button_Click_Back"></Button>
                     <Button x:Name="ButtonSave" Width="160" Content="Отправить" Height="60" Background="Green" HorizontalAlignment="Right" Click="Button_Click_Save"></Button>
                 </Grid>
-            </Grid>
+        </Grid>
         
     </Grid>
 </Window>

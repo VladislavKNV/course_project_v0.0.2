@@ -1,12 +1,7 @@
 ﻿using System;
-using course_project_v0._0._2.View;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Media;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
@@ -26,7 +21,6 @@ namespace course_project_v0._0._2
 			Sing_In sing_In = new Sing_In();
 			sing_In.Show();
 		}
-
 		private void Button_Reg_Click(object sender, RoutedEventArgs e)
 		{
 			if (emailbool == false)
@@ -45,10 +39,8 @@ namespace course_project_v0._0._2
 			{
 				Pass2Label.Content = "Пароль должен содержать от 4 до 30 символов и совпадать с другим паролем.";
 			}
-
 			using (course_work cw = new course_work())
 			{
-
 				var forBD = cw.Database.SqlQuery<UsersBD>($"select * from UsersBD where UsersBD.login = '{LoginTextBox.Text.Trim()}'");
 				foreach (var check in forBD)
 				{
@@ -195,16 +187,12 @@ namespace course_project_v0._0._2
 			}
 		}
 		private string GetHashPassword(string s)
-		{
-			//переводим строку в байт-массив  
+		{  
 			byte[] bytes = Encoding.Unicode.GetBytes(s);
-			//создаем объект для получения средст шифрования  
 			MD5CryptoServiceProvider CSP =
 				new MD5CryptoServiceProvider();
-			//вычисляем хеш-представление в байтах  
 			byte[] byteHash = CSP.ComputeHash(bytes);
-			string hash = string.Empty;
-			//формируем одну цельную строку из массива  
+			string hash = string.Empty; 
 			foreach (byte b in byteHash)
 			{
 				hash += string.Format("{0:x2}", b);

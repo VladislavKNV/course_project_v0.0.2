@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:course_project_v0._0._2.View"
         mc:Ignorable="d"
           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="SessionWPF" Height="550" Width="850" MinHeight="450" MinWidth="650" WindowStartupLocation="CenterScreen">
+        Title="Banksy" Height="550" Width="850" MinHeight="450" MinWidth="650" WindowStartupLocation="CenterScreen">
     <Grid Background="#FF3E3E42">
         <ScrollViewer>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition MinHeight="200" MaxHeight="950" ></RowDefinition>
-                    <RowDefinition MinHeight="40" MaxHeight="240" ></RowDefinition>
-                    <RowDefinition Height="200"></RowDefinition>
+                    <RowDefinition MinHeight="200" MaxHeight="950"></RowDefinition>
+                    <RowDefinition MinHeight="40" MaxHeight="240"></RowDefinition>
+                    <RowDefinition Height="140"></RowDefinition>
                     <RowDefinition MinHeight="60" MaxHeight="240"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -68,9 +68,9 @@
                     <TextBlock Margin="20 0 20 0" x:Name="FilmPlot" FontSize="12" Foreground="White" TextWrapping="Wrap"/>
                 </StackPanel>
                 <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" >
-                    <Button Margin=" 20 20 0 20" Content="Назад" HorizontalAlignment="Left" Height="40" Width="100" FontSize="14" Background="#b51f3d" AutomationProperties.Name="Button_Sing_Up" BorderThickness="0" Click="Button_Click_Back"></Button>
+                    <Button Margin=" 20 20 0 20" Content="Назад" HorizontalAlignment="Left" Height="40" Width="100" FontSize="14" Background="#b51f3d" BorderThickness="0" Click="Button_Click_Back"></Button>
                 </StackPanel>
-                <ListBox Margin="40 10 40 0" x:Name="ListBoxSession"  Background="#FF3E3E42"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" SelectionChanged="ListBoxSession_SelectionChanged">
+                <ListBox Margin="40 10 40 0" x:Name="ListBoxSession"  Background="#FF38373C"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" SelectionChanged="ListBoxSession_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0 0 0 0 ">

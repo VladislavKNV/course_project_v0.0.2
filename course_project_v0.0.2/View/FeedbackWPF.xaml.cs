@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using course_project_v0._0._2.DataBase;
 using System.Windows.Controls;
-using System.Windows.Data;
-
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
@@ -45,17 +41,11 @@ namespace course_project_v0._0._2.View
 					cw.Feedback.Add(feedback);
 					cw.SaveChanges();
 				}
-				else
-				{
-
-				}
 			}
 			MessageBox.Show("Спасибо за отзыв.");
 			InfoForFeedback();
 		}
-
 		private ObservableCollection<AppViewFeedback> infoforfeedback;
-
 		public void InfoForFeedback()
 		{
 			using (course_work cw = new course_work())
@@ -98,7 +88,7 @@ namespace course_project_v0._0._2.View
 			int value = rnd.Next(1000000, 9999999);
 			FeedbackID = $"{value}";
 		}
-		private void RevTextBox_TextChanged(object sender, TextChangedEventArgs e)//+
+		private void RevTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string pattern = @"\b\w{1,3000}\b";
 			if (Regex.IsMatch(Feedback_TextBox.Text, pattern, RegexOptions.IgnoreCase))

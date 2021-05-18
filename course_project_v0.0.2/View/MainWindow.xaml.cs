@@ -1,14 +1,10 @@
 ﻿using course_project_v0._0._2.View;
 using System;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using course_project_v0._0._2.DataBase;
-using System.IO;
 
 namespace course_project_v0._0._2
 {
@@ -28,14 +24,11 @@ namespace course_project_v0._0._2
         }
         public bool ADMIN;
         public string LOGIN;
-
         public void DateForPicker()
 		{
             Datepic.SelectedDate = DateTime.Now;
         }
-
         private ObservableCollection<AppView> infoforfilm;
-   
         public void InfoForListBox()
         {
             using (course_work cw = new course_work())
@@ -57,12 +50,9 @@ namespace course_project_v0._0._2
 								{
                                     coincidence = false;
 								}
-                               
                             }
                             if (i.filmID == check.filmID && coincidence == true)
                             {
-                               
-
                                 AppView allFilms = new AppView();
                                 allFilms.Add(i.filmName, (int)i.year, i.genres, (float)i.rating, i.countries, i.director, (int)i.duration, i.poster, i.filmID.Trim());
                                 infoforfilm.Add(allFilms);
@@ -106,18 +96,14 @@ namespace course_project_v0._0._2
                this.Close();
             }
         }
-
 		private void Datepic_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
 		{
             InfoForListBox();
-
         }
-
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
             Datepic.BlackoutDates.AddDatesInPast();
         }
-
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
            BasketWPF basketWPF = new BasketWPF(LOGIN, ADMIN);

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using course_project_v0._0._2.DataBase;
 using System.Windows;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.IO;
 
 namespace course_project_v0._0._2.View
 {
@@ -47,7 +43,6 @@ namespace course_project_v0._0._2.View
 			MainWindow mainWindow = new MainWindow(ADMIN, LOGIN);
 			mainWindow.Show();
 		}
-
 		public void InfoForFilms()
 		{
 			using (course_work cw = new course_work())
@@ -117,8 +112,9 @@ namespace course_project_v0._0._2.View
 			if (aaa != null)
 			{
 				IDSession = aaa.sessionID;
-				TicketWPF ticketWPF = new TicketWPF(LOGIN, IDSession);
+				TicketWPF ticketWPF = new TicketWPF(LOGIN, IDSession, ADMIN, FilmID);
 				ticketWPF.Show();
+				this.Close();
 			}
 		}
 

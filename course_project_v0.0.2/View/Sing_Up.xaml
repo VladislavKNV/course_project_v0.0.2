@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:course_project_v0._0._2"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Регистрация"  Height="550" Width="750" MinHeight="500" MinWidth="600" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
+        Title="Banksy"  Height="550" Width="750" MinHeight="500" MinWidth="600" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <LinearGradientBrush >
             <GradientStop Color="#5b4ffc" Offset="0"/>
@@ -26,8 +26,8 @@
             <PasswordBox x:Name="Pass2" materialDesign:HintAssist.Hint="Повторите пароль" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" PasswordChanged="pass2_PasswordChanged" FontSize="22"></PasswordBox>
             <Label x:Name="Pass2Label"  Foreground="DarkRed"> </Label>
             <Grid Margin="0 30 0 0">
-                <Button Content="Назад" HorizontalAlignment="Left" Height="50" Width="150"  FontSize="18" Background="#6d22ab" AutomationProperties.Name="Button_Back" Click="Button_Back_Click" BorderThickness="0" VerticalAlignment="Top"></Button>
-                <Button Content="Зарегистрироваться" HorizontalAlignment="Right" Height="50" Width="210"  FontSize="18"  Background="#b51f3d" AutomationProperties.Name="Button_Sing_In" BorderThickness="0" Click="Button_Reg_Click" ></Button>
+                <Button Content="Назад" HorizontalAlignment="Left" Height="50" Width="150"  FontSize="18" Background="#6d22ab" Click="Button_Back_Click" BorderThickness="0" VerticalAlignment="Top"></Button>
+                <Button Content="Зарегистрироваться" HorizontalAlignment="Right" Height="50" Width="210"  FontSize="18"  Background="#b51f3d" BorderThickness="0" Click="Button_Reg_Click" ></Button>
             </Grid>
         </StackPanel>
 

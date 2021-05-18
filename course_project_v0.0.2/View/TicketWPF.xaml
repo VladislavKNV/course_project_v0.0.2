@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:course_project_v0._0._2.View"
         mc:Ignorable="d"
-        Title="TicketWPF" Height="500" Width="800" MinHeight="500" MinWidth="750" WindowStartupLocation="CenterScreen">
+        Title="Banksy" Height="500" Width="800" MinHeight="500" MinWidth="770" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -365,7 +365,7 @@
                 <Button Content="Назад"  Height="40" FontSize="14" Background="#b51f3d" BorderThickness="0" Click="Button_Click_Back"></Button>
             </Grid>
             <Grid Grid.Row="7" Grid.Column="15" Grid.ColumnSpan="4" Margin="10 0 10 0">
-                <Button Content="Забронировать"  Height="40" FontSize="14" Background="#FF2B2B5D" AutomationProperties.Name="Button_Buy" BorderThickness="0" Click="Button_Buy_Click" ></Button>
+                <Button Content="Забронировать"  Height="40" FontSize="14" Background="#FF2B2B5D" BorderThickness="0" Click="Button_Buy_Click" ></Button>
             </Grid>
         </Grid>
 
