@@ -17,9 +17,16 @@ namespace course_project_v0._0._2
 		}
 		private void Button_Back_Click(object sender, RoutedEventArgs e)
 		{
-			Close();
-			Sing_In sing_In = new Sing_In();
-			sing_In.Show();
+			try
+			{
+				Close();
+				Sing_In sing_In = new Sing_In();
+				sing_In.Show();
+			}
+			catch(Exception)
+			{
+				MessageBox.Show("Ошибка ");
+			}
 		}
 		private void Button_Reg_Click(object sender, RoutedEventArgs e)
 		{
@@ -64,24 +71,31 @@ namespace course_project_v0._0._2
 
 			if (emailbool == true && loginbool == true && pass1bool == true && pass2bool == true)
 			{
-				using (course_work cw = new course_work())
+				try
 				{
-					UsersBD user = new UsersBD()
+					using (course_work cw = new course_work())
 					{
-						userID = UserID.Trim(),
-						login = LoginTextBox.Text.Trim(),
-						password = GetHashPassword(Pass1.Password.Trim()),
-						EmailBD = EmailTextBox.Text.Trim(),
-						admin = false,
-					};
-					cw.UsersBD.Add(user);
-					cw.SaveChanges();
-				}
-				MessageBox.Show("Регистрация прошла успешно.");
+						UsersBD user = new UsersBD()
+						{
+							userID = UserID.Trim(),
+							login = LoginTextBox.Text.Trim(),
+							password = GetHashPassword(Pass1.Password.Trim()),
+							EmailBD = EmailTextBox.Text.Trim(),
+							admin = false,
+						};
+						cw.UsersBD.Add(user);
+						cw.SaveChanges();
+					}
+					MessageBox.Show("Регистрация прошла успешно.");
 
-				Close();
-				Sing_In sing_In = new Sing_In();
-				sing_In.Show();
+					Close();
+					Sing_In sing_In = new Sing_In();
+					sing_In.Show();
+				}
+				catch(Exception)
+				{
+					MessageBox.Show("Ошибка");
+				}
 			}
 		}
 

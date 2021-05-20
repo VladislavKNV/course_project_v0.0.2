@@ -5,6 +5,7 @@ using System.Windows.Media;
 using System.Text.RegularExpressions;
 using course_project_v0._0._2.DataBase;
 using System.Security.Cryptography;
+using System;
 
 namespace course_project_v0._0._2
 {
@@ -16,8 +17,15 @@ namespace course_project_v0._0._2
 		}
 		private void Button_Click_Reg(object sender, RoutedEventArgs e)
 		{
-			Sing_Up sing_Up = new Sing_Up();
-			sing_Up.Show();
+			try
+			{
+				Sing_Up sing_Up = new Sing_Up();
+				sing_Up.Show();
+			}
+			catch(Exception)
+			{
+				MessageBox.Show("Ошибка");
+			}
 		}
 		private void Button_Click_Sing_In(object sender, RoutedEventArgs e)
 		{
@@ -42,9 +50,16 @@ namespace course_project_v0._0._2
 						{
 							if (check.password.Trim() == GetHashPassword(PasswordBox.Password.Trim()))
 							{
-								loginbool_for_sing_In = true;
-								MainWindow mainWindow = new MainWindow(check.admin, check.login);
-								mainWindow.Show();
+								try
+								{
+									loginbool_for_sing_In = true;
+									MainWindow mainWindow = new MainWindow(check.admin, check.login);
+									mainWindow.Show();
+								}
+								catch(Exception)
+								{
+									MessageBox.Show("Нет подключения к интернету");
+								}
 							}
 							else
 							{

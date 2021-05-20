@@ -5,6 +5,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using course_project_v0._0._2.DataBase;
+using System.Net.Sockets;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace course_project_v0._0._2
 {
@@ -26,7 +29,7 @@ namespace course_project_v0._0._2
         public string LOGIN;
         public void DateForPicker()
 		{
-            Datepic.SelectedDate = DateTime.Now;
+             Datepic.SelectedDate = GetNetworkDateTime();
         }
         private ObservableCollection<AppView> infoforfilm;
         public void InfoForListBox()
@@ -74,27 +77,51 @@ namespace course_project_v0._0._2
 
 		private void Button_Click_Admin(object sender, RoutedEventArgs e)
 		{
-            this.Close();
-            AdminAddFilm adminAddFilm = new AdminAddFilm(ADMIN, LOGIN);
-            adminAddFilm.Show();
+			try
+			{
+                this.Close();
+                AdminAddFilm adminAddFilm = new AdminAddFilm(ADMIN, LOGIN);
+                adminAddFilm.Show();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Нет подключения к интернету");
+            }
         }
           
         private void Button_Click_Feedback(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            FeedbackWPF feedbackWPF = new FeedbackWPF(ADMIN, LOGIN);
-            feedbackWPF.Show();
+			try
+			{
+                this.Close();
+                FeedbackWPF feedbackWPF = new FeedbackWPF(ADMIN, LOGIN);
+                feedbackWPF.Show();
+
+            }
+            catch(Exception)
+			{
+                MessageBox.Show("Нет подключения к интернету");
+			}
+            
         }
 
         private void ListBoxFilms_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-            var aaa = ListBoxFilms.SelectedItem as AppView;
-            if (aaa != null)
-            {
-                SessionWPF sessionWPF = new SessionWPF(aaa.filmID.Trim(), ADMIN, LOGIN, Datepic.SelectedDate.Value);
-                sessionWPF.Show();
-               this.Close();
+			try
+			{
+                var contentForListBox = ListBoxFilms.SelectedItem as AppView;
+                if (contentForListBox != null)
+                {
+                    SessionWPF sessionWPF = new SessionWPF(contentForListBox.filmID.Trim(), ADMIN, LOGIN, Datepic.SelectedDate.Value);
+                    sessionWPF.Show();
+                    this.Close();
+                }
             }
+            catch(Exception)
+			{
+                MessageBox.Show("Нет подключения к интернету ");
+			}
+           
         }
 		private void Datepic_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
 		{
@@ -102,13 +129,37 @@ namespace course_project_v0._0._2
         }
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-            Datepic.BlackoutDates.AddDatesInPast();
+             Datepic.BlackoutDates.AddDatesInPast();
         }
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-           BasketWPF basketWPF = new BasketWPF(LOGIN, ADMIN);
-           basketWPF.Show();
-            this.Close();
+			try
+			{
+                BasketWPF basketWPF = new BasketWPF(LOGIN, ADMIN);
+                basketWPF.Show();
+                this.Close();
+            }
+			catch
+			{
+                MessageBox.Show("Нет подключения к интернету");
+			}
+          
 		}
-	}
+        public static DateTime GetNetworkDateTime()
+        {
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+            {
+
+                socket.Connect("time.nist.gov", 13);
+                using (StreamReader rstream = new StreamReader(new NetworkStream(socket)))
+                {
+                    string value = rstream.ReadToEnd().Trim();
+                    MatchCollection matches = Regex.Matches(value, @"((\d*)-(\d*)-(\d*))|((\d*):(\d*):(\d*))");
+                    string[] dd = matches[0].Value.Split('-');
+                    return DateTime.Parse($"{matches[1].Value} {dd[2]}.{dd[1]}.{dd[0]}");
+                }
+
+            }
+        }
+    }
 }

@@ -39,9 +39,16 @@ namespace course_project_v0._0._2.View
 		public string IDSession;
 		private void Button_Click_Back(object sender, RoutedEventArgs e)
 		{
-			this.Close();
-			MainWindow mainWindow = new MainWindow(ADMIN, LOGIN);
-			mainWindow.Show();
+			try
+			{
+				this.Close();
+				MainWindow mainWindow = new MainWindow(ADMIN, LOGIN);
+				mainWindow.Show();
+			}
+			catch(Exception)
+			{
+				MessageBox.Show("Нет подключения к интернету");
+			}
 		}
 		public void InfoForFilms()
 		{
@@ -108,14 +115,22 @@ namespace course_project_v0._0._2.View
 		}
 		private void ListBoxSession_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var aaa = ListBoxSession.SelectedItem as AppViewSession;
-			if (aaa != null)
+			try
 			{
-				IDSession = aaa.sessionID;
-				TicketWPF ticketWPF = new TicketWPF(LOGIN, IDSession, ADMIN, FilmID);
-				ticketWPF.Show();
-				this.Close();
+				var contentForListBox = ListBoxSession.SelectedItem as AppViewSession;
+				if (contentForListBox != null)
+				{
+					IDSession = contentForListBox.sessionID;
+					TicketWPF ticketWPF = new TicketWPF(LOGIN, IDSession, ADMIN, FilmID);
+					ticketWPF.Show();
+					this.Close();
+				}
 			}
+			catch(Exception)
+			{
+				MessageBox.Show("Нет подключения к интернету ");
+			}
+			
 		}
 
 	}

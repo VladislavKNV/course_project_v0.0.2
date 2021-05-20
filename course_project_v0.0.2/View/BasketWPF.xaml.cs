@@ -1,5 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using course_project_v0._0._2.DataBase;
 
@@ -17,9 +22,16 @@ namespace course_project_v0._0._2.View
 		}
 		private void Button_Click_Back(object sender, RoutedEventArgs e)
 		{
-			this.Close();
-			MainWindow mainWindow = new MainWindow(ADMIN, LOGIN);
-			mainWindow.Show();
+			try
+			{
+				this.Close();
+				MainWindow mainWindow = new MainWindow(ADMIN, LOGIN);
+				mainWindow.Show();
+			}
+			catch(Exception)
+			{
+				MessageBox.Show("Нет подключения к интернету");
+			}
 		}
 
 		public string LOGIN;
@@ -55,21 +67,44 @@ namespace course_project_v0._0._2.View
 				ListBoxTicket.ItemsSource = infoforTickets;
 			}
 		}
-		private void Button_Del_Click(object sender, RoutedEventArgs e)
+		public static DateTime GetNetworkDateTime()
 		{
-			var contentListBox = ListBoxTicket.SelectedItem as AppViewTickets;
-			if (contentListBox != null)
+			using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
 			{
 
-				course_work context = new course_work();
-				Ticket customer = context.Ticket
-				 .Where(c => c.ticketID == contentListBox.TicketID)
-				 .FirstOrDefault();
+				socket.Connect("time.nist.gov", 13);
+				using (StreamReader rstream = new StreamReader(new NetworkStream(socket)))
+				{
+					string value = rstream.ReadToEnd().Trim();
+					MatchCollection matches = Regex.Matches(value, @"((\d*)-(\d*)-(\d*))|((\d*):(\d*):(\d*))");
+					string[] dd = matches[0].Value.Split('-');
+					return DateTime.Parse($"{matches[1].Value} {dd[2]}.{dd[1]}.{dd[0]}");
+				}
 
-				context.Ticket.Remove(customer);
-				context.SaveChanges();
 			}
-			InfoForListBox();
+		}
+		private void Button_Del_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				var contentListBox = ListBoxTicket.SelectedItem as AppViewTickets;
+				if (contentListBox != null)
+				{
+
+					course_work context = new course_work();
+					Ticket customer = context.Ticket
+					 .Where(c => c.ticketID == contentListBox.TicketID)
+					 .FirstOrDefault();
+
+					context.Ticket.Remove(customer);
+					context.SaveChanges();
+				}
+				InfoForListBox();
+			}
+			catch(Exception)
+			{
+
+			}
 		}
 	}
 }

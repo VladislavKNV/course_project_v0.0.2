@@ -5,6 +5,8 @@ using course_project_v0._0._2.DataBase;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using System.Net.Sockets;
+using System.IO;
 
 namespace course_project_v0._0._2.View
 {
@@ -26,24 +28,31 @@ namespace course_project_v0._0._2.View
 		private string FeedbackID;
 		private void Button_Click_Save(object sender, RoutedEventArgs e)
 		{
-			using (course_work cw = new course_work())
+			try
 			{
-				if (rev == true)
+				using (course_work cw = new course_work())
 				{
-					Feedback feedback = new Feedback()
+					if (rev == true)
 					{
-						feedbackID = FeedbackID.Trim(),
-						userID = USERid.Trim(),
-						feedback1 = Feedback_TextBox.Text.Trim(),
-						login = LOGIN.Trim(),
-						dateFeedback = DateTime.Now
-					};
-					cw.Feedback.Add(feedback);
-					cw.SaveChanges();
+						Feedback feedback = new Feedback()
+						{
+							feedbackID = FeedbackID.Trim(),
+							userID = USERid.Trim(),
+							feedback1 = Feedback_TextBox.Text.Trim(),
+							login = LOGIN.Trim(),
+							dateFeedback = GetNetworkDateTime(),
+						};
+						cw.Feedback.Add(feedback);
+						cw.SaveChanges();
+					}
 				}
+				MessageBox.Show("Спасибо за отзыв.");
+				InfoForFeedback();
 			}
-			MessageBox.Show("Спасибо за отзыв.");
-			InfoForFeedback();
+			catch(Exception)
+			{
+				MessageBox.Show("Нет подключения к интернету");
+			}
 		}
 		private ObservableCollection<AppViewFeedback> infoforfeedback;
 		public void InfoForFeedback()
@@ -78,9 +87,16 @@ namespace course_project_v0._0._2.View
 		}
 		private void Button_Click_Back(object sender, RoutedEventArgs e)
 		{
-			this.Close();
-			MainWindow mainWindow = new MainWindow(ADMIN, LOGIN);
-			mainWindow.Show();
+			try
+			{
+				this.Close();
+				MainWindow mainWindow = new MainWindow(ADMIN, LOGIN);
+				mainWindow.Show();
+			}
+			catch(Exception)
+			{
+				MessageBox.Show("Нет подключения к интернету");
+			}
 		}
 		private void IDRand()
 		{
@@ -98,6 +114,22 @@ namespace course_project_v0._0._2.View
 			else
 			{
 				rev = false;
+			}
+		}
+		public static DateTime GetNetworkDateTime()
+		{
+			using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+			{
+
+				socket.Connect("time.nist.gov", 13);
+				using (StreamReader rstream = new StreamReader(new NetworkStream(socket)))
+				{
+					string value = rstream.ReadToEnd().Trim();
+					MatchCollection matches = Regex.Matches(value, @"((\d*)-(\d*)-(\d*))|((\d*):(\d*):(\d*))");
+					string[] dd = matches[0].Value.Split('-');
+					return DateTime.Parse($"{matches[1].Value} {dd[2]}.{dd[1]}.{dd[0]}");
+				}
+
 			}
 		}
 	}

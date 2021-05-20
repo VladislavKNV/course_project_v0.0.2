@@ -544,55 +544,68 @@ namespace course_project_v0._0._2.View
 		}
 		private void Button_Click_Back(object sender, RoutedEventArgs e)
 		{
-			Close();
-			SessionWPF session = new SessionWPF(ID, Admin, LOGIN, DATE);
-			session.Show();
+			try
+			{
+				Close();
+				SessionWPF session = new SessionWPF(ID, Admin, LOGIN, DATE);
+				session.Show();
+			}
+			catch(Exception)
+			{
+				MessageBox.Show("Нет подключения к интернету ");
+			}
 		}
 		private void Button_Buy_Click(object sender, RoutedEventArgs e)
 		{
-
-			using (course_work cw = new course_work())
+			try
 			{
-				var forBD = cw.Database.SqlQuery<Ticket>($"select * from Ticket where Ticket.sessionID = '{SESSID}'");
-				foreach (var check in forBD)
+				using (course_work cw = new course_work())
 				{
-					if (check.row == Convert.ToInt32(ComboBoxRow.Text) && check.place == Convert.ToInt32(ComboBoxPlace.Text))
+					var forBD = cw.Database.SqlQuery<Ticket>($"select * from Ticket where Ticket.sessionID = '{SESSID}'");
+					foreach (var check in forBD)
 					{
-						valid = false;
+						if (check.row == Convert.ToInt32(ComboBoxRow.Text) && check.place == Convert.ToInt32(ComboBoxPlace.Text))
+						{
+							valid = false;
+						}
 					}
-				}
-				if (valid == true)
-				{
-					NumberOfFreeSeats--;
-					Ticket ticket = new Ticket()
+					if (valid == true)
 					{
-						ticketID = TICKETID.Trim(),
-						sessionID = SESSID.Trim(),
-						userID = USERID.Trim(),
-						filmName = FILMNAME.Trim(),
-						price = PRICE,
-						date = DATE,
-						time = TIME,
-						row = Convert.ToInt32(ComboBoxRow.Text),
-						place = Convert.ToInt32(ComboBoxPlace.Text)
+						NumberOfFreeSeats--;
+						Ticket ticket = new Ticket()
+						{
+							ticketID = TICKETID.Trim(),
+							sessionID = SESSID.Trim(),
+							userID = USERID.Trim(),
+							filmName = FILMNAME.Trim(),
+							price = PRICE,
+							date = DATE,
+							time = TIME,
+							row = Convert.ToInt32(ComboBoxRow.Text),
+							place = Convert.ToInt32(ComboBoxPlace.Text)
 
-					};
-					cw.Ticket.Add(ticket);
-					cw.SaveChanges();
-					TicketsSingleton();
-					MessageBox.Show("Запись прошла успешно.");
-					course_work context = new course_work();
-					var customer = context.Session
-						.Where(c => c.sessionID == SESSID)
-						.FirstOrDefault();
-					customer.number_of_free_seats = NumberOfFreeSeats;
-					context.SaveChanges();
+						};
+						cw.Ticket.Add(ticket);
+						cw.SaveChanges();
+						TicketsSingleton();
+						MessageBox.Show("Запись прошла успешно.");
+						course_work context = new course_work();
+						var customer = context.Session
+							.Where(c => c.sessionID == SESSID)
+							.FirstOrDefault();
+						customer.number_of_free_seats = NumberOfFreeSeats;
+						context.SaveChanges();
+					}
+					else
+					{
+						MessageBox.Show("Место занято.");
+					}
+
 				}
-				else
-				{
-					MessageBox.Show("Место занято.");
-				}	
-					
+			}
+			catch(Exception)
+			{
+				MessageBox.Show("Ошибка");
 			}
 		}
 	}

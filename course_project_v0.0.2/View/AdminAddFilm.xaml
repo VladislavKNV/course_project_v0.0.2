@@ -64,8 +64,8 @@
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0" Margin="5 0 5 0">
-                            <TextBox x:Name="TextBoxSearch" Background="White" Width="245" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchTextBox_TextChanged"></TextBox>
-                            <ComboBox Margin="250 0 0 0 " Name="ComboBoxFilm" Width="100" Height="30" HorizontalAlignment="Left" Background="White" MouseLeave="ComboBoxFilm_MouseLeave">
+                            <TextBox x:Name="TextBoxSearch" Background="White" Width="295" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchTextBox_TextChanged"></TextBox>
+                            <ComboBox Margin="300 0 0 0 " Name="ComboBoxFilm" Width="100" Height="30" HorizontalAlignment="Left" Background="White" MouseLeave="ComboBoxFilm_MouseLeave">
                                 <ComboBoxItem IsSelected="True">
                                     <TextBlock>Название</TextBlock>
                                 </ComboBoxItem>
@@ -142,8 +142,8 @@
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
-                            <TextBox Margin="5 0 0 0" x:Name="TextBoxSearchUsers" Background="White" Width="245" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchUsersTextBox_TextChanged"></TextBox>
-                            <ComboBox Margin="255 0 0 0 " Name="ComboBoxUser" Width="100" Height="30" HorizontalAlignment="Left" Background="White" MouseLeave="ComboBoxUser_MouseLeave">
+                            <TextBox Margin="5 0 0 0" x:Name="TextBoxSearchUsers" Background="White" Width="295" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"  TextChanged="SearchUsersTextBox_TextChanged"></TextBox>
+                            <ComboBox Margin="305 0 0 0 " Name="ComboBoxUser" Width="100" Height="30" HorizontalAlignment="Left" Background="White" MouseLeave="ComboBoxUser_MouseLeave">
                                 <ComboBoxItem IsSelected="True">
                                     <TextBlock>Логин</TextBlock>
                                 </ComboBoxItem>
@@ -305,6 +305,13 @@
                                 </ComboBox>
                                 <Button Margin="0 20 0 20" Content="Удалить" HorizontalAlignment="Left"  Height="40" Width="120" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_DelSession_Click" ></Button>
                                 <Button  Content="Назад" HorizontalAlignment="Left" Height="40" Width="120" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_Click_Back"></Button>
+                                <ComboBox Margin="0 20 0 0" HorizontalAlignment="Left" Name="ComboBoxSortSession" Width="240" Height="30" Background="White" MouseLeave="ComboBoxSession_MouseLeave">
+                                    <ComboBoxItem IsSelected="True">
+                                        <TextBlock>Сортировать по дате</TextBlock>
+                                    </ComboBoxItem>
+                                    <TextBlock>Сортировать по цене</TextBlock>
+                                </ComboBox>
+                                <Button Margin="0 20 0 0" Content="Сортировать" HorizontalAlignment="Left" Height="40" Width="120" FontSize="14" Background="#FF3E3E42" BorderThickness="0" Click="Button_Click_Sort"></Button>
                             </StackPanel>
                         </Grid>
                     </Grid>
